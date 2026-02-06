@@ -73,18 +73,41 @@ render_header($pageTitle);
             </div>
 
             <div class="tl-field">
-              <div class="tl-tabbar">
-                <div class="tl-tab is-active">PHP/HTML</div>
-                <div class="tl-tab">CSS</div>
-                <div class="tl-tab">JavaScript</div>
-              </div>
-              <pre class="tl-code-panel"><code>&lt;div class="testimonial-section"&gt;
+              <div class="tl-tab-group" data-tab-group="template-edit-code">
+                <div class="tl-tabbar">
+                  <div class="tl-tab is-active" data-tab="php">PHP/HTML</div>
+                  <div class="tl-tab" data-tab="css">CSS</div>
+                  <div class="tl-tab" data-tab="js">JavaScript</div>
+                </div>
+                <pre class="tl-code-panel" data-tab-panel="php"><code>&lt;div class="testimonial-section"&gt;
   &lt;h2&gt;What our customers say&lt;/h2&gt;
   &lt;div class="testimonial"&gt;
     &lt;p&gt;“The team was incredible to work with.”&lt;/p&gt;
     &lt;span&gt;Alex Morgan, Director&lt;/span&gt;
   &lt;/div&gt;
 &lt;/div&gt;</code></pre>
+                <pre class="tl-code-panel" data-tab-panel="css" hidden><code>.testimonial-section {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+}
+
+.testimonial-section h2 {
+  margin-bottom: 16px;
+  font-size: 1.5rem;
+}</code></pre>
+                <pre class="tl-code-panel" data-tab-panel="js" hidden><code>const quotes = document.querySelectorAll(".testimonial");
+
+quotes.forEach((quote) => {
+  quote.addEventListener("mouseenter", () => {
+    quote.classList.add("is-highlighted");
+  });
+  quote.addEventListener("mouseleave", () => {
+    quote.classList.remove("is-highlighted");
+  });
+});</code></pre>
+              </div>
             </div>
 
             <div class="tl-footer-actions">
