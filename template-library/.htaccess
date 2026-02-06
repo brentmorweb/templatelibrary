@@ -1,12 +1,9 @@
-# Deny direct access to the data directory
+# Block direct access to the data directory
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteRule ^data(/|$) - [F,L]
-</IfModule>
 
-# Optional clean URL support
-<IfModule mod_rewrite.c>
-  RewriteEngine On
+  # Optional: enable clean URLs by routing requests through index.php
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule ^ index.php [L]
