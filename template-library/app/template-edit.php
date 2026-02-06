@@ -13,7 +13,7 @@ $pageTitle = $templateId ? 'MW Template Library · Edit Template' : 'MW Template
 
 render_header($pageTitle);
 ?>
-<div class="tl-app" data-page="template-edit" data-template-id="<?php echo e($templateId); ?>" data-save-endpoint="/app/api/template-save.php" data-upload-endpoint="/app/api/upload-thumbnail.php">
+<div class="tl-app" data-page="template-edit" data-template-id="<?php echo e($templateId); ?>" data-save-endpoint="<?php echo e(api_url('template-save.php')); ?>" data-upload-endpoint="<?php echo e(api_url('upload-thumbnail.php')); ?>">
   <header class="tl-topbar">
     <div class="tl-topbar__inner">
       <div class="tl-brand">MW Template Library</div>
@@ -44,7 +44,7 @@ render_header($pageTitle);
     <div class="tl-split">
       <section class="tl-card">
         <div class="tl-card__body">
-          <form id="template-form" class="tl-form-grid" method="post" action="/app/api/template-save.php" enctype="multipart/form-data" data-template-form>
+          <form id="template-form" class="tl-form-grid" method="post" action="<?php echo e(api_url('template-save.php')); ?>" enctype="multipart/form-data" data-template-form>
             <input type="hidden" name="id" value="<?php echo e($templateId); ?>">
             <div class="tl-field">
               <label class="tl-label" for="title">Template Title</label>

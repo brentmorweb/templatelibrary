@@ -8,7 +8,7 @@ require_once __DIR__ . '/includes/footer.php';
 
 render_header('MW Template Library');
 ?>
-<div class="tl-app" data-page="library" data-api-endpoint="/app/api/templates.php">
+<div class="tl-app" data-page="library" data-api-endpoint="<?php echo e(api_url('templates.php')); ?>">
   <header class="tl-topbar">
     <div class="tl-topbar__inner">
       <div class="tl-brand">MW Template Library</div>
@@ -27,7 +27,7 @@ render_header('MW Template Library');
   </header>
 
   <main class="tl-container">
-    <form class="tl-filter-bar" method="get" action="/app/api/templates.php" data-library-filters>
+    <form class="tl-filter-bar" method="get" action="<?php echo e(api_url('templates.php')); ?>" data-library-filters>
       <input class="tl-input" type="search" name="q" placeholder="Search templates..." data-library-search />
       <select class="tl-select" name="author" aria-label="Filter by author">
         <option value="">Author</option>

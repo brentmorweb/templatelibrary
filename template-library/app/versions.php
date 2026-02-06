@@ -12,7 +12,7 @@ $templateId = $_GET['id'] ?? 'promo-221';
 
 render_header('Template Versions');
 ?>
-<div class="tl-app" data-page="versions" data-template-id="<?php echo e($templateId); ?>" data-template-endpoint="/app/api/template-get.php" data-download-endpoint="/app/api/template-download.php" data-restore-endpoint="/app/api/template-save.php">
+<div class="tl-app" data-page="versions" data-template-id="<?php echo e($templateId); ?>" data-template-endpoint="<?php echo e(api_url('template-get.php')); ?>" data-download-endpoint="<?php echo e(api_url('template-download.php')); ?>" data-restore-endpoint="<?php echo e(api_url('template-save.php')); ?>">
   <header class="tl-topbar">
     <div class="tl-topbar__inner">
       <div class="tl-brand">MW Template Library</div>
@@ -51,7 +51,7 @@ render_header('Template Versions');
           <p class="tl-muted" style="margin: 8px 0 0;" data-version-details>Select a version to view details.</p>
         </div>
         <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-          <a class="tl-btn tl-btn--ghost" href="/app/api/template-download.php?id=<?php echo e($templateId); ?>" data-version-export>Export Version</a>
+          <a class="tl-btn tl-btn--ghost" href="<?php echo e(api_url('template-download.php')); ?>?id=<?php echo e($templateId); ?>" data-version-export>Export Version</a>
           <button class="tl-btn" type="button" data-version-restore>Restore Selected</button>
         </div>
       </div>
