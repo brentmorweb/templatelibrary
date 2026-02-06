@@ -59,93 +59,109 @@
       </div>
 
       <section class="tl-template-grid">
-        <article class="tl-template-card">
-          <div class="tl-template-thumb">Modern Hero Section</div>
-          <div class="tl-template-card__body">
-            <strong>Modern Hero Section</strong>
-            <div class="tl-template-meta">
-              <span>By Jane Doe</span>
-              <span>• Updated 2 days ago</span>
+        <a class="tl-template-card-link" href="template.php" aria-label="View Modern Hero Section template details">
+          <article class="tl-template-card">
+            <div class="tl-template-thumb">Modern Hero Section</div>
+            <div class="tl-template-card__body">
+              <strong>Modern Hero Section</strong>
+              <div class="tl-template-meta">
+                <span>By Jane Doe</span>
+                <span>• Updated 2 days ago</span>
+              </div>
             </div>
-          </div>
-        </article>
+          </article>
+        </a>
 
-        <article class="tl-template-card">
-          <div class="tl-template-thumb">Nonprofit Events List</div>
-          <div class="tl-template-card__body">
-            <strong>Nonprofit Events List</strong>
-            <div class="tl-template-meta">
-              <span>By John Smith</span>
-              <span>• Updated 5 days ago</span>
+        <a class="tl-template-card-link" href="template.php" aria-label="View Nonprofit Events List template details">
+          <article class="tl-template-card">
+            <div class="tl-template-thumb">Nonprofit Events List</div>
+            <div class="tl-template-card__body">
+              <strong>Nonprofit Events List</strong>
+              <div class="tl-template-meta">
+                <span>By John Smith</span>
+                <span>• Updated 5 days ago</span>
+              </div>
             </div>
-          </div>
-        </article>
+          </article>
+        </a>
 
-        <article class="tl-template-card">
-          <div class="tl-template-thumb">Photo Gallery Grid</div>
-          <div class="tl-template-card__body">
-            <strong>Photo Gallery Grid</strong>
-            <div class="tl-template-meta">
-              <span>By Admin</span>
-              <span>• Updated 1 week ago</span>
+        <a class="tl-template-card-link" href="template.php" aria-label="View Photo Gallery Grid template details">
+          <article class="tl-template-card">
+            <div class="tl-template-thumb">Photo Gallery Grid</div>
+            <div class="tl-template-card__body">
+              <strong>Photo Gallery Grid</strong>
+              <div class="tl-template-meta">
+                <span>By Admin</span>
+                <span>• Updated 1 week ago</span>
+              </div>
             </div>
-          </div>
-        </article>
+          </article>
+        </a>
 
-        <article class="tl-template-card">
-          <div class="tl-template-thumb">Newsletter Signup Form</div>
-          <div class="tl-template-card__body">
-            <strong>Newsletter Signup Form</strong>
-            <div class="tl-template-meta">
-              <span>By Alice Lee</span>
-              <span>• Updated 3 days ago</span>
+        <a class="tl-template-card-link" href="template.php" aria-label="View Newsletter Signup Form template details">
+          <article class="tl-template-card">
+            <div class="tl-template-thumb">Newsletter Signup Form</div>
+            <div class="tl-template-card__body">
+              <strong>Newsletter Signup Form</strong>
+              <div class="tl-template-meta">
+                <span>By Alice Lee</span>
+                <span>• Updated 3 days ago</span>
+              </div>
             </div>
-          </div>
-        </article>
+          </article>
+        </a>
 
-        <article class="tl-template-card">
-          <div class="tl-template-thumb">Team Members Block</div>
-          <div class="tl-template-card__body">
-            <strong>Team Members Block</strong>
-            <div class="tl-template-meta">
-              <span>By Michael B.</span>
-              <span>• Updated 1 day ago</span>
+        <a class="tl-template-card-link" href="template.php" aria-label="View Team Members Block template details">
+          <article class="tl-template-card">
+            <div class="tl-template-thumb">Team Members Block</div>
+            <div class="tl-template-card__body">
+              <strong>Team Members Block</strong>
+              <div class="tl-template-meta">
+                <span>By Michael B.</span>
+                <span>• Updated 1 day ago</span>
+              </div>
             </div>
-          </div>
-        </article>
+          </article>
+        </a>
 
-        <article class="tl-template-card">
-          <div class="tl-template-thumb">Call to Action Banner</div>
-          <div class="tl-template-card__body">
-            <strong>Call to Action Banner</strong>
-            <div class="tl-template-meta">
-              <span>By Sarah K.</span>
-              <span>• Updated 4 days ago</span>
+        <a class="tl-template-card-link" href="template.php" aria-label="View Call to Action Banner template details">
+          <article class="tl-template-card">
+            <div class="tl-template-thumb">Call to Action Banner</div>
+            <div class="tl-template-card__body">
+              <strong>Call to Action Banner</strong>
+              <div class="tl-template-meta">
+                <span>By Sarah K.</span>
+                <span>• Updated 4 days ago</span>
+              </div>
             </div>
-          </div>
-        </article>
+          </article>
+        </a>
 
-        <article class="tl-template-card">
-          <div class="tl-template-thumb">FAQ Accordion</div>
-          <div class="tl-template-card__body">
-            <strong>FAQ Accordion</strong>
-            <div class="tl-template-meta">
-              <span>By David W.</span>
-              <span>• Updated 1 week ago</span>
+        <a class="tl-template-card-link" href="template.php" aria-label="View FAQ Accordion template details">
+          <article class="tl-template-card">
+            <div class="tl-template-thumb">FAQ Accordion</div>
+            <div class="tl-template-card__body">
+              <strong>FAQ Accordion</strong>
+              <div class="tl-template-meta">
+                <span>By David W.</span>
+                <span>• Updated 1 week ago</span>
+              </div>
             </div>
-          </div>
-        </article>
+          </article>
+        </a>
 
-        <article class="tl-template-card">
-          <div class="tl-template-thumb">Blog Post Layout</div>
-          <div class="tl-template-card__body">
-            <strong>Blog Post Layout</strong>
-            <div class="tl-template-meta">
-              <span>By Emily T.</span>
-              <span>• Updated 2 weeks ago</span>
+        <a class="tl-template-card-link" href="template.php" aria-label="View Blog Post Layout template details">
+          <article class="tl-template-card">
+            <div class="tl-template-thumb">Blog Post Layout</div>
+            <div class="tl-template-card__body">
+              <strong>Blog Post Layout</strong>
+              <div class="tl-template-meta">
+                <span>By Emily T.</span>
+                <span>• Updated 2 weeks ago</span>
+              </div>
             </div>
-          </div>
-        </article>
+          </article>
+        </a>
       </section>
 
       <div class="tl-pagination">
