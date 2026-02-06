@@ -13,7 +13,7 @@ $pageTitle = 'Template Details';
 
 render_header($pageTitle);
 ?>
-<div class="tl-app" data-page="template-details" data-template-id="<?php echo e($templateId); ?>" data-template-endpoint="/app/api/template-get.php">
+<div class="tl-app" data-page="template-details" data-template-id="<?php echo e($templateId); ?>" data-template-endpoint="<?php echo e(api_url('template-get.php')); ?>">
   <header class="tl-topbar">
     <div class="tl-topbar__inner">
       <div class="tl-brand">MW Template Library</div>
@@ -79,8 +79,8 @@ render_header($pageTitle);
             </div>
 
             <div style="display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap;">
-              <a class="tl-btn tl-btn--ghost" href="/app/api/template-download.php?id=<?php echo e($templateId); ?>" data-download-template>Download as Zip</a>
-              <form method="post" action="/app/api/template-delete.php" data-delete-template>
+              <a class="tl-btn tl-btn--ghost" href="<?php echo e(api_url('template-download.php')); ?>?id=<?php echo e($templateId); ?>" data-download-template>Download as Zip</a>
+              <form method="post" action="<?php echo e(api_url('template-delete.php')); ?>" data-delete-template>
                 <input type="hidden" name="id" value="<?php echo e($templateId); ?>">
                 <button class="tl-btn tl-btn--danger" type="submit">Delete Template</button>
               </form>
@@ -111,10 +111,10 @@ render_header($pageTitle);
             <span>Last Edited</span>
             <strong>2 days ago by Jane Doe</strong>
           </div>
-          <a class="tl-btn" href="/app/api/template-download.php?id=<?php echo e($templateId); ?>">Download All Files</a>
+          <a class="tl-btn" href="<?php echo e(api_url('template-download.php')); ?>?id=<?php echo e($templateId); ?>">Download All Files</a>
           <a class="tl-btn tl-btn--ghost" href="template-edit.php?id=<?php echo e($templateId); ?>">Edit Template</a>
           <a class="tl-btn tl-btn--ghost" href="versions.php?id=<?php echo e($templateId); ?>">View Version History</a>
-          <form method="post" action="/app/api/template-delete.php">
+          <form method="post" action="<?php echo e(api_url('template-delete.php')); ?>">
             <input type="hidden" name="id" value="<?php echo e($templateId); ?>">
             <button class="tl-btn tl-btn--ghost" style="width: 100%; color: #dc2626; border-color: #fecaca;" type="submit">Delete Template</button>
           </form>

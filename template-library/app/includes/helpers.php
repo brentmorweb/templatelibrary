@@ -38,10 +38,24 @@ function ensure_dir(string $path): void
     }
 }
 
-function asset_url(string $path): string
+function app_base_url(): string
 {
     $scriptDir = dirname($_SERVER['SCRIPT_NAME'] ?? '');
     $basePath = rtrim($scriptDir, '/');
 
-    return $basePath . '/assets/' . ltrim($path, '/');
+    if (str_ends_with($basePath, '/api') || str_ends_with($basePath, '/auth')) {
+        $basePath = dirname($basePath);
+    }
+
+    return $basePath;
+}
+
+function asset_url(string $path): string
+{
+    return app_base_url() . '/assets/' . ltrim($path, '/');
+}
+
+function api_url(string $path): string
+{
+    return app_base_url() . '/api/' . ltrim($path, '/');
 }
