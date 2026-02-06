@@ -29,15 +29,20 @@
 
     <main class="tl-container">
       <section class="tl-filter-bar">
-        <input class="tl-input" type="search" placeholder="Search templates..." />
-        <select class="tl-select">
-          <option>Author</option>
+        <input class="tl-input" type="search" placeholder="Search templates..." data-library-search />
+        <select class="tl-select" data-library-filter="author">
+          <option data-filter-value="all">Author</option>
           <option>Jane Doe</option>
           <option>John Smith</option>
           <option>Admin</option>
+          <option>Alice Lee</option>
+          <option>Michael B.</option>
+          <option>Sarah K.</option>
+          <option>David W.</option>
+          <option>Emily T.</option>
         </select>
-        <select class="tl-select">
-          <option>Status</option>
+        <select class="tl-select" data-library-filter="status">
+          <option data-filter-value="all">Status</option>
           <option>Approved</option>
           <option>Draft</option>
         </select>
@@ -59,7 +64,7 @@
       </div>
 
       <section class="tl-template-grid">
-        <article class="tl-template-card">
+        <article class="tl-template-card" data-library-card data-author="Jane Doe" data-status="Approved" data-search="Modern Hero Section Jane Doe Approved">
           <div class="tl-template-thumb">Modern Hero Section</div>
           <div class="tl-template-card__body">
             <strong>Modern Hero Section</strong>
@@ -70,7 +75,7 @@
           </div>
         </article>
 
-        <article class="tl-template-card">
+        <article class="tl-template-card" data-library-card data-author="John Smith" data-status="Approved" data-search="Nonprofit Events List John Smith Approved">
           <div class="tl-template-thumb">Nonprofit Events List</div>
           <div class="tl-template-card__body">
             <strong>Nonprofit Events List</strong>
@@ -81,7 +86,7 @@
           </div>
         </article>
 
-        <article class="tl-template-card">
+        <article class="tl-template-card" data-library-card data-author="Admin" data-status="Draft" data-search="Photo Gallery Grid Admin Draft">
           <div class="tl-template-thumb">Photo Gallery Grid</div>
           <div class="tl-template-card__body">
             <strong>Photo Gallery Grid</strong>
@@ -92,7 +97,7 @@
           </div>
         </article>
 
-        <article class="tl-template-card">
+        <article class="tl-template-card" data-library-card data-author="Alice Lee" data-status="Approved" data-search="Newsletter Signup Form Alice Lee Approved">
           <div class="tl-template-thumb">Newsletter Signup Form</div>
           <div class="tl-template-card__body">
             <strong>Newsletter Signup Form</strong>
@@ -103,7 +108,7 @@
           </div>
         </article>
 
-        <article class="tl-template-card">
+        <article class="tl-template-card" data-library-card data-author="Michael B." data-status="Draft" data-search="Team Members Block Michael B. Draft">
           <div class="tl-template-thumb">Team Members Block</div>
           <div class="tl-template-card__body">
             <strong>Team Members Block</strong>
@@ -114,7 +119,7 @@
           </div>
         </article>
 
-        <article class="tl-template-card">
+        <article class="tl-template-card" data-library-card data-author="Sarah K." data-status="Approved" data-search="Call to Action Banner Sarah K. Approved">
           <div class="tl-template-thumb">Call to Action Banner</div>
           <div class="tl-template-card__body">
             <strong>Call to Action Banner</strong>
@@ -125,7 +130,7 @@
           </div>
         </article>
 
-        <article class="tl-template-card">
+        <article class="tl-template-card" data-library-card data-author="David W." data-status="Draft" data-search="FAQ Accordion David W. Draft">
           <div class="tl-template-thumb">FAQ Accordion</div>
           <div class="tl-template-card__body">
             <strong>FAQ Accordion</strong>
@@ -136,7 +141,7 @@
           </div>
         </article>
 
-        <article class="tl-template-card">
+        <article class="tl-template-card" data-library-card data-author="Emily T." data-status="Approved" data-search="Blog Post Layout Emily T. Approved">
           <div class="tl-template-thumb">Blog Post Layout</div>
           <div class="tl-template-card__body">
             <strong>Blog Post Layout</strong>
@@ -158,5 +163,6 @@
       </div>
     </main>
   </div>
+  <script src="assets/js/library.js"></script>
 </body>
 </html>
