@@ -45,3 +45,11 @@ function asset_url(string $path): string
 
     return $basePath . '/assets/' . ltrim($path, '/');
 }
+
+function api_url(string $path): string
+{
+    $scriptDir = dirname($_SERVER['SCRIPT_NAME'] ?? '');
+    $basePath = rtrim($scriptDir, '/');
+
+    return $basePath . '/api/' . ltrim($path, '/');
+}
