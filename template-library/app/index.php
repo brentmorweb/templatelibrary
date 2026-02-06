@@ -8,12 +8,12 @@ require_once __DIR__ . '/includes/footer.php';
 
 require_auth();
 
-render_header('Template Library');
+render_header('MW Template Library');
 ?>
 <div class="tl-app" data-page="library" data-api-endpoint="/app/api/templates.php">
   <header class="tl-topbar">
     <div class="tl-topbar__inner">
-      <div class="tl-brand">Template Library</div>
+      <div class="tl-brand">MW Template Library</div>
       <div class="tl-topbar__actions">
         <a class="tl-btn" href="template-edit.php">New Template</a>
         <div class="tl-user">
@@ -51,7 +51,7 @@ render_header('Template Library');
     </form>
 
     <div class="tl-page-header">
-      <h1 class="tl-title">Template Library</h1>
+      <h1 class="tl-title">MW Template Library</h1>
       <p class="tl-subtitle">Browse and manage reusable templates.</p>
     </div>
 

@@ -1,4 +1,4 @@
-# Template Library
+# MW Template Library
 
 A lightweight PHP-based template library UI for browsing, reviewing, and managing reusable content blocks.
 
