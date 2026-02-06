@@ -2,5 +2,5 @@
 
 declare(strict_types=1);
 
-header('Location: /app/index.php', true, 302);
+header('Location: app/index.php', true, 302);
 exit;

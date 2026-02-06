@@ -15,5 +15,5 @@ if (ini_get('session.use_cookies')) {
 
 session_destroy();
 
-header('Location: /app/auth/login.php', true, 302);
+header('Location: login.php', true, 302);
 exit;

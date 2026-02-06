@@ -40,7 +40,7 @@ function find_user(array $users, string $username): ?array
 }
 
 if (!empty($_SESSION['auth_user'])) {
-    header('Location: /app/index.php', true, 302);
+    header('Location: ../index.php', true, 302);
     exit;
 }
 
@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ];
 
             session_regenerate_id(true);
-            header('Location: /app/index.php', true, 302);
+            header('Location: ../index.php', true, 302);
             exit;
         }
 
