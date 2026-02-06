@@ -13,7 +13,7 @@ function current_user(): ?array
 {
     start_session();
 
-    return $_SESSION['user'] ?? null;
+    return $_SESSION['auth_user'] ?? null;
 }
 
 function is_authenticated(): bool
@@ -32,13 +32,13 @@ function require_authentication(): void
 function login_user(array $user): void
 {
     start_session();
-    $_SESSION['user'] = $user;
+    $_SESSION['auth_user'] = $user;
 }
 
 function logout_user(): void
 {
     start_session();
-    unset($_SESSION['user']);
+    unset($_SESSION['auth_user']);
 }
 
 function user_has_role(string $role): bool
