@@ -37,3 +37,11 @@ function ensure_dir(string $path): void
         mkdir($path, 0755, true);
     }
 }
+
+function asset_url(string $path): string
+{
+    $scriptDir = dirname($_SERVER['SCRIPT_NAME'] ?? '');
+    $basePath = rtrim($scriptDir, '/');
+
+    return $basePath . '/assets/' . ltrim($path, '/');
+}

@@ -129,8 +129,8 @@ render_header($pageTitle);
     </div>
   </main>
 </div>
-<script src="/app/assets/js/app.js"></script>
-<script src="/app/assets/js/edit.js"></script>
+<script src="<?php echo e(asset_url('js/app.js')); ?>"></script>
+<script src="<?php echo e(asset_url('js/edit.js')); ?>"></script>
 <?php
 render_footer();
 ?>

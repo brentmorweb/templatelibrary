@@ -145,8 +145,8 @@ render_header('Template Versions');
     <p class="tl-muted" style="margin-top: 16px;">Tip: Use the version selector to compare HTML, CSS, and JS side by side.</p>
   </main>
 </div>
-<script src="/app/assets/js/app.js"></script>
-<script src="/app/assets/js/versions.js"></script>
+<script src="<?php echo e(asset_url('js/app.js')); ?>"></script>
+<script src="<?php echo e(asset_url('js/versions.js')); ?>"></script>
 <?php
 render_footer();
 ?>

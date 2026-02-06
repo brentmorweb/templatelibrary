@@ -171,8 +171,8 @@ render_header('Template Library');
     </div>
   </main>
 </div>
-<script src="/app/assets/js/app.js"></script>
-<script src="/app/assets/js/library.js"></script>
+<script src="<?php echo e(asset_url('js/app.js')); ?>"></script>
+<script src="<?php echo e(asset_url('js/library.js')); ?>"></script>
 <?php
 render_footer();
 ?>
