@@ -38,6 +38,29 @@ function ensure_empty_or_forced(string $path, bool $force, string $label): void
     }
 }
 
+function ensure_versions_dir(string $path, bool $force): void
+{
+    if (!is_dir($path)) {
+        return;
+    }
+
+    $files = glob($path . '/*.json') ?: [];
+    if ($files === []) {
+        return;
+    }
+
+    if (!$force) {
+        fwrite(STDOUT, "versions directory already contains data. Re-run with --force to overwrite.\n");
+        exit(0);
+    }
+
+    foreach ($files as $file) {
+        if (is_file($file)) {
+            unlink($file);
+        }
+    }
+}
+
 ensure_dir($dataDir);
 ensure_dir($dataDir . '/logs');
 ensure_dir($versionsDir);
@@ -45,6 +68,7 @@ ensure_dir($versionsDir);
 ensure_empty_or_forced($usersFile, $force, 'users.json');
 ensure_empty_or_forced($templatesFile, $force, 'templates.json');
 ensure_empty_or_forced($auditFile, $force, 'audit.json');
+ensure_versions_dir($versionsDir, $force);
 
 $now = date(DATE_ATOM);
 
