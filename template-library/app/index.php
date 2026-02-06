@@ -163,6 +163,12 @@
       margin-bottom: 28px;
     }
 
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
     .topbar h1 {
       font-size: 1.8rem;
       margin-bottom: 4px;
@@ -182,6 +188,22 @@
       border: 1px solid var(--border);
       background: var(--panel);
       font-size: 0.85rem;
+    }
+
+    .login-link {
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-decoration: none;
+      background: #fff;
+    }
+
+    .login-link:hover,
+    .login-link:focus {
+      background: #eff6ff;
     }
 
     .user-avatar {
@@ -448,9 +470,12 @@
           <h1>Library Overview</h1>
           <p>Browse, search, and manage reusable Morweb templates.</p>
         </div>
-        <div class="user-card">
-          <div class="user-avatar">AB</div>
-          Alyssa Brown · Admin
+        <div class="topbar-actions">
+          <a class="login-link" href="auth/login.php">Log in</a>
+          <div class="user-card">
+            <div class="user-avatar">AB</div>
+            Alyssa Brown · Admin
+          </div>
         </div>
       </div>
 
