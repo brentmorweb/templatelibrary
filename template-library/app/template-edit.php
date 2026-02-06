@@ -9,7 +9,41 @@ require_once __DIR__ . '/includes/footer.php';
 require_auth();
 
 $templateId = $_GET['id'] ?? '';
+$isNewTemplate = $templateId === '';
 $pageTitle = $templateId ? 'MW Template Library · Edit Template' : 'MW Template Library · Create Template';
+$templateTitle = $isNewTemplate ? '' : 'Testimonial Section';
+$templateDescription = $isNewTemplate ? '' : 'A testimonial section with customer quotes and photos.';
+$templateTags = $isNewTemplate ? '' : 'testimonial, landing page';
+$templateCodeHtml = $isNewTemplate ? '' : '<div class="testimonial-section">
+  <h2>What our customers say</h2>
+  <div class="testimonial">
+    <p>“The team was incredible to work with.”</p>
+    <span>Alex Morgan, Director</span>
+  </div>
+</div>';
+$templateCodeCss = $isNewTemplate ? '' : '.testimonial-section {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+}
+
+.testimonial-section h2 {
+  margin-bottom: 16px;
+  font-size: 1.5rem;
+}';
+$templateCodeJs = $isNewTemplate ? '' : 'const quotes = document.querySelectorAll(".testimonial");
+
+quotes.forEach((quote) => {
+  quote.addEventListener("mouseenter", () => {
+    quote.classList.add("is-highlighted");
+  });
+  quote.addEventListener("mouseleave", () => {
+    quote.classList.remove("is-highlighted");
+  });
+});';
+$templateTagList = $isNewTemplate ? [] : ['testimonial', 'landing page'];
+$templateAuthor = $isNewTemplate ? '' : 'Admin User';
 
 render_header($pageTitle);
 ?>
@@ -47,16 +81,16 @@ render_header($pageTitle);
             <input type="hidden" name="id" value="<?php echo e($templateId); ?>">
             <div class="tl-field">
               <label class="tl-label" for="title">Template Title</label>
-              <input class="tl-input" id="title" name="title" type="text" value="Testimonial Section" />
+              <input class="tl-input" id="title" name="title" type="text" value="<?php echo e($templateTitle); ?>" />
             </div>
             <div class="tl-form-row">
               <div class="tl-field">
                 <label class="tl-label" for="description">Description</label>
-                <input class="tl-input" id="description" name="description" type="text" value="A testimonial section with customer quotes and photos." />
+                <input class="tl-input" id="description" name="description" type="text" value="<?php echo e($templateDescription); ?>" />
               </div>
               <div class="tl-field">
                 <label class="tl-label" for="tags">Tags</label>
-                <input class="tl-input" id="tags" name="tags" type="text" value="testimonial, landing page" />
+                <input class="tl-input" id="tags" name="tags" type="text" value="<?php echo e($templateTags); ?>" />
               </div>
             </div>
 
@@ -82,34 +116,9 @@ render_header($pageTitle);
                   <div class="tl-tab" data-tab="css">CSS</div>
                   <div class="tl-tab" data-tab="js">JavaScript</div>
                 </div>
-                <pre class="tl-code-panel" data-tab-panel="php"><code>&lt;div class="testimonial-section"&gt;
-  &lt;h2&gt;What our customers say&lt;/h2&gt;
-  &lt;div class="testimonial"&gt;
-    &lt;p&gt;“The team was incredible to work with.”&lt;/p&gt;
-    &lt;span&gt;Alex Morgan, Director&lt;/span&gt;
-  &lt;/div&gt;
-&lt;/div&gt;</code></pre>
-                <pre class="tl-code-panel" data-tab-panel="css" hidden><code>.testimonial-section {
-  background: #fff;
-  border-radius: 16px;
-  padding: 24px;
-  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
-}
-
-.testimonial-section h2 {
-  margin-bottom: 16px;
-  font-size: 1.5rem;
-}</code></pre>
-                <pre class="tl-code-panel" data-tab-panel="js" hidden><code>const quotes = document.querySelectorAll(".testimonial");
-
-quotes.forEach((quote) => {
-  quote.addEventListener("mouseenter", () => {
-    quote.classList.add("is-highlighted");
-  });
-  quote.addEventListener("mouseleave", () => {
-    quote.classList.remove("is-highlighted");
-  });
-});</code></pre>
+                <pre class="tl-code-panel" data-tab-panel="php"><code><?php echo e($templateCodeHtml); ?></code></pre>
+                <pre class="tl-code-panel" data-tab-panel="css" hidden><code><?php echo e($templateCodeCss); ?></code></pre>
+                <pre class="tl-code-panel" data-tab-panel="js" hidden><code><?php echo e($templateCodeJs); ?></code></pre>
               </div>
             </div>
 
@@ -127,17 +136,21 @@ quotes.forEach((quote) => {
           <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
             <div>
               <div class="tl-muted" style="font-size: 0.8rem;">Author</div>
-              <strong>Admin User</strong>
+              <strong><?php echo $templateAuthor !== '' ? e($templateAuthor) : '—'; ?></strong>
             </div>
           </div>
-          <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;">
-            <span class="tl-tag">testimonial</span>
-            <span class="tl-tag">landing page</span>
-          </div>
+          <?php if (!empty($templateTagList)) : ?>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;">
+              <?php foreach ($templateTagList as $tag) : ?>
+                <span class="tl-tag"><?php echo e($tag); ?></span>
+              <?php endforeach; ?>
+            </div>
+          <?php endif; ?>
           <div class="tl-field">
             <label class="tl-label" for="status">Status</label>
             <select class="tl-select" id="status" name="status">
-              <option value="draft">Draft</option>
+              <option value="" <?php echo $isNewTemplate ? 'selected' : ''; ?>>Select status</option>
+              <option value="draft" <?php echo $isNewTemplate ? '' : 'selected'; ?>>Draft</option>
               <option value="approved">Approved</option>
             </select>
           </div>
