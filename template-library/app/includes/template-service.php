@@ -35,7 +35,7 @@ function get_template(string $templateId): ?array
     return null;
 }
 
-function save_template(array $template): void
+function save_template(array $template): array
 {
     $paths = template_store_paths();
     $templates = list_templates();
@@ -63,6 +63,8 @@ function save_template(array $template): void
     }
 
     write_json_store($paths['templates'], $templates);
+
+    return $template;
 }
 
 function record_template_version(string $templateId, array $payload): void

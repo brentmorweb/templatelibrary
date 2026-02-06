@@ -75,7 +75,7 @@ if ($existing !== null) {
     $template = array_merge($existing, $template);
 }
 
-save_template($template);
+$template = save_template($template);
 record_template_version($template['id'], [
     'payload' => $payload,
     'user' => $defaultUser,
