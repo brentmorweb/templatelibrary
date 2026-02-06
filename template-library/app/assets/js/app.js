@@ -16,6 +16,7 @@
       const isHidden = target.getAttribute("data-hidden") === "true";
       target.setAttribute("data-hidden", String(!isHidden));
       target.hidden = !target.hidden;
+      trigger.setAttribute("aria-expanded", String(isHidden));
     });
   };
 
