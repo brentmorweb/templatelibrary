@@ -1,383 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Template Library · Edit Template</title>
-    <style>
-        :root {
-            color-scheme: light;
-            font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
-            background: #f4f6fb;
-            color: #1f2430;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-        }
-
-        .page {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        .sidebar {
-            width: 240px;
-            background: #111827;
-            color: #f8fafc;
-            padding: 24px;
-        }
-
-        .sidebar h1 {
-            font-size: 18px;
-            margin: 0 0 24px;
-            letter-spacing: 0.5px;
-        }
-
-        .sidebar nav a {
-            display: block;
-            color: inherit;
-            text-decoration: none;
-            padding: 10px 12px;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-
-        .sidebar nav a.active {
-            background: rgba(255, 255, 255, 0.12);
-        }
-
-        .content {
-            flex: 1;
-            padding: 32px 40px 48px;
-        }
-
-        .topbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 24px;
-        }
-
-        .breadcrumbs {
-            font-size: 13px;
-            color: #6b7280;
-        }
-
-        .breadcrumbs span {
-            color: #1f2937;
-            font-weight: 600;
-        }
-
-        .actions {
-            display: flex;
-            gap: 12px;
-        }
-
-        .btn {
-            border: 1px solid transparent;
-            padding: 10px 16px;
-            border-radius: 10px;
-            font-size: 14px;
-            cursor: pointer;
-            font-weight: 600;
-        }
-
-        .btn.secondary {
-            background: #ffffff;
-            border-color: #d0d5dd;
-            color: #1f2937;
-        }
-
-        .btn.primary {
-            background: #1d4ed8;
-            color: #ffffff;
-        }
-
-        .header {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            margin-bottom: 24px;
-        }
-
-        .header h2 {
-            margin: 0 0 8px;
-            font-size: 26px;
-        }
-
-        .header p {
-            margin: 0;
-            color: #6b7280;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: minmax(0, 2.2fr) minmax(260px, 1fr);
-            gap: 24px;
-        }
-
-        .card {
-            background: #ffffff;
-            border-radius: 16px;
-            box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
-            padding: 24px;
-        }
-
-        .card h3 {
-            margin-top: 0;
-            margin-bottom: 16px;
-            font-size: 18px;
-        }
-
-        .field {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-bottom: 16px;
-        }
-
-        label {
-            font-size: 13px;
-            font-weight: 600;
-            color: #374151;
-        }
-
-        input,
-        select,
-        textarea {
-            border: 1px solid #d0d5dd;
-            border-radius: 10px;
-            padding: 10px 12px;
-            font-size: 14px;
-            font-family: inherit;
-        }
-
-        textarea {
-            min-height: 110px;
-            resize: vertical;
-        }
-
-        .inline {
-            display: grid;
-            gap: 16px;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-        }
-
-        .tag-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .tag {
-            background: #eef2ff;
-            color: #4338ca;
-            padding: 4px 10px;
-            border-radius: 999px;
-            font-size: 12px;
-        }
-
-        .upload {
-            border: 2px dashed #cbd5f5;
-            border-radius: 14px;
-            padding: 20px;
-            text-align: center;
-            background: #f8f9ff;
-        }
-
-        .tabs {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 16px;
-        }
-
-        .tab {
-            padding: 6px 12px;
-            border-radius: 999px;
-            background: #f3f4f6;
-            font-size: 13px;
-        }
-
-        .tab.active {
-            background: #1d4ed8;
-            color: #ffffff;
-        }
-
-        .editor {
-            border-radius: 12px;
-            border: 1px solid #e5e7eb;
-            background: #0f172a;
-            color: #e2e8f0;
-            padding: 16px;
-            font-family: "Fira Code", "JetBrains Mono", monospace;
-            min-height: 180px;
-        }
-
-        .meta-list {
-            display: grid;
-            gap: 12px;
-            font-size: 14px;
-        }
-
-        .meta-item {
-            display: flex;
-            justify-content: space-between;
-            color: #4b5563;
-        }
-
-        .meta-item strong {
-            color: #111827;
-        }
-
-        .status {
-            background: #ecfdf3;
-            color: #027a48;
-            padding: 4px 8px;
-            border-radius: 999px;
-            font-size: 12px;
-        }
-
-        .helper {
-            font-size: 12px;
-            color: #6b7280;
-            margin-top: 6px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Template Library · Create Template</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/app.css" />
 </head>
 <body>
-    <div class="page">
-        <aside class="sidebar">
-            <h1>Template Library</h1>
-            <nav>
-                <a href="#">Library</a>
-                <a href="#" class="active">Create / Edit</a>
-                <a href="#">Versions</a>
-                <a href="#">Settings</a>
-            </nav>
-        </aside>
+  <div class="tl-app">
+    <header class="tl-topbar">
+      <div class="tl-topbar__inner">
+        <div class="tl-brand">Template Library</div>
+        <div class="tl-topbar__actions">
+          <button class="tl-btn">New Template</button>
+          <div class="tl-user">
+            <div class="tl-user__avatar">AU</div>
+            Admin User ▾
+          </div>
+        </div>
+      </div>
+    </header>
 
-        <main class="content">
-            <div class="topbar">
-                <div class="breadcrumbs">Templates / <span>Homepage Hero Layout</span></div>
-                <div class="actions">
-                    <button class="btn secondary">Save Draft</button>
-                    <button class="btn primary">Publish Template</button>
+    <main class="tl-container">
+      <div class="tl-page-header">
+        <div class="tl-breadcrumbs">
+          <span>‹</span>
+          <a href="index.php">Create Template</a>
+        </div>
+        <h1 class="tl-title">Create Template</h1>
+      </div>
+
+      <div class="tl-split">
+        <section class="tl-card">
+          <div class="tl-card__body">
+            <div class="tl-form-grid">
+              <div class="tl-field">
+                <label class="tl-label" for="title">Template Title</label>
+                <input class="tl-input" id="title" type="text" value="Testimonial Section" />
+              </div>
+              <div class="tl-form-row">
+                <div class="tl-field">
+                  <label class="tl-label" for="description">Description</label>
+                  <input class="tl-input" id="description" type="text" value="A testimonial section with customer quotes and photos." />
                 </div>
-            </div>
-
-            <div class="header">
-                <div>
-                    <h2>Edit Template</h2>
-                    <p>Update metadata, assets, and code snippets for this template.</p>
+                <div class="tl-field">
+                  <label class="tl-label" for="tags">Tags</label>
+                  <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <span class="tl-tag tl-tag--filled">testimonial</span>
+                    <span class="tl-tag">landing page</span>
+                    <span class="tl-tag">+</span>
+                  </div>
                 </div>
-                <div class="status">Draft</div>
-            </div>
+              </div>
 
-            <div class="grid">
-                <section class="card">
-                    <h3>Template Details</h3>
-                    <div class="field">
-                        <label for="title">Template title</label>
-                        <input id="title" type="text" value="Homepage Hero Layout" />
-                    </div>
-                    <div class="inline">
-                        <div class="field">
-                            <label for="author">Author</label>
-                            <select id="author">
-                                <option>Jasmine Patel</option>
-                                <option selected>Marco Rivera</option>
-                                <option>Sam Greene</option>
-                            </select>
-                        </div>
-                        <div class="field">
-                            <label for="status">Status</label>
-                            <select id="status">
-                                <option selected>Draft</option>
-                                <option>Approved</option>
-                                <option>Deprecated</option>
-                            </select>
-                        </div>
-                        <div class="field">
-                            <label for="visibility">Visibility</label>
-                            <select id="visibility">
-                                <option selected>Internal</option>
-                                <option>Team</option>
-                                <option>Public</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label for="description">Description</label>
-                        <textarea id="description">Full-width hero with headline, supporting copy, and CTA buttons. Includes layered background art and spacing tokens.</textarea>
-                        <div class="helper">Keep to 1-2 sentences so it fits in search results.</div>
-                    </div>
-                    <div class="field">
-                        <label>Tags</label>
-                        <div class="tag-list">
-                            <span class="tag">homepage</span>
-                            <span class="tag">hero</span>
-                            <span class="tag">marketing</span>
-                            <span class="tag">responsive</span>
-                        </div>
-                        <div class="helper">Click a tag to remove, or type to add new tags.</div>
-                    </div>
+              <div class="tl-field">
+                <label class="tl-label">Upload Thumbnail</label>
+                <div class="tl-upload">
+                  <div class="tl-upload__icon">⬆</div>
+                  <div>
+                    <strong>Upload Thumbnail</strong>
+                    <div class="tl-helper">Select an image to represent this template (800×500px recommended)</div>
+                  </div>
+                  <button class="tl-btn tl-btn--ghost" style="margin-left: auto;">Browse...</button>
+                </div>
+              </div>
 
-                    <h3>Thumbnail</h3>
-                    <div class="upload">
-                        <strong>Drop a new thumbnail here</strong>
-                        <p class="helper">Recommended size: 800 × 600 · PNG or JPG.</p>
-                        <button class="btn secondary">Browse files</button>
-                    </div>
-
-                    <h3 style="margin-top: 28px;">Template Code</h3>
-                    <div class="tabs">
-                        <div class="tab active">PHP / HTML</div>
-                        <div class="tab">CSS</div>
-                        <div class="tab">JavaScript</div>
-                    </div>
-                    <div class="editor">
-&lt;section class="hero">
-  &lt;div class="hero__content">
-    &lt;h1&gt;Launch your next campaign&lt;/h1&gt;
-    &lt;p&gt;Use this layout to highlight core value propositions and CTA buttons.&lt;/p&gt;
+              <div class="tl-field">
+                <div class="tl-tabbar">
+                  <div class="tl-tab is-active">PHP/HTML</div>
+                  <div class="tl-tab">CSS</div>
+                  <div class="tl-tab">JavaScript</div>
+                </div>
+                <pre class="tl-code-panel"><code>&lt;div class="testimonial-section"&gt;
+  &lt;h2&gt;What our customers say&lt;/h2&gt;
+  &lt;div class="testimonial"&gt;
+    &lt;p&gt;“The team was incredible to work with.”&lt;/p&gt;
+    &lt;span&gt;Alex Morgan, Director&lt;/span&gt;
   &lt;/div&gt;
-&lt;/section&gt;
-                    </div>
-                    <div class="helper">Use variables for theme tokens when possible.</div>
-                </section>
-
-                <aside class="card">
-                    <h3>Template Metadata</h3>
-                    <div class="meta-list">
-                        <div class="meta-item"><span>Template ID</span><strong>TPL-0042</strong></div>
-                        <div class="meta-item"><span>Created</span><strong>Mar 14, 2024</strong></div>
-                        <div class="meta-item"><span>Last edited</span><strong>Jun 22, 2024</strong></div>
-                        <div class="meta-item"><span>Edited by</span><strong>Marco Rivera</strong></div>
-                    </div>
-
-                    <h3 style="margin-top: 28px;">Versioning</h3>
-                    <div class="field">
-                        <label for="summary">Change summary</label>
-                        <textarea id="summary" placeholder="Summarize what changed in this revision..."></textarea>
-                    </div>
-                    <button class="btn secondary" style="width: 100%;">Save to Version History</button>
-
-                    <h3 style="margin-top: 28px;">Quick Actions</h3>
-                    <div class="meta-list">
-                        <button class="btn secondary">Preview Template</button>
-                        <button class="btn secondary">Duplicate</button>
-                        <button class="btn secondary">Archive</button>
-                    </div>
-                </aside>
+&lt;/div&gt;</code></pre>
+              </div>
             </div>
-        </main>
-    </div>
+          </div>
+        </section>
+
+        <aside class="tl-card" style="align-self: start;">
+          <div class="tl-card__body">
+            <h3 style="margin-top: 0;">Template Info</h3>
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+              <div class="tl-user__avatar">AU</div>
+              <div>
+                <div class="tl-muted" style="font-size: 0.8rem;">Author</div>
+                <strong>Admin User</strong>
+              </div>
+            </div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;">
+              <span class="tl-tag">testimonial</span>
+              <span class="tl-tag">landing page</span>
+            </div>
+            <div class="tl-field">
+              <label class="tl-label" for="status">Status</label>
+              <select class="tl-select" id="status">
+                <option>Draft</option>
+                <option>Approved</option>
+              </select>
+            </div>
+            <div class="tl-info-row">
+              <span>Created On:</span>
+              <strong>Today</strong>
+            </div>
+            <div class="tl-footer-actions">
+              <button class="tl-btn">Save</button>
+              <button class="tl-btn tl-btn--ghost">Cancel</button>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <div class="tl-footer-actions">
+        <button class="tl-btn tl-btn--ghost">Cancel</button>
+        <button class="tl-btn">Save</button>
+      </div>
+    </main>
+  </div>
 </body>
 </html>
