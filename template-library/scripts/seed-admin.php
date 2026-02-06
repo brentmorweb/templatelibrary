@@ -9,7 +9,7 @@ $rootDir = dirname(__DIR__);
 $dataDir = $rootDir . '/data';
 $usersFile = $dataDir . '/users.json';
 $templatesFile = $dataDir . '/templates.json';
-$versionsFile = $dataDir . '/template-versions.json';
+$versionsDir = $dataDir . '/versions';
 $auditFile = $dataDir . '/logs/audit.json';
 
 $force = in_array('--force', $argv, true);
@@ -40,10 +40,10 @@ function ensure_empty_or_forced(string $path, bool $force, string $label): void
 
 ensure_dir($dataDir);
 ensure_dir($dataDir . '/logs');
+ensure_dir($versionsDir);
 
 ensure_empty_or_forced($usersFile, $force, 'users.json');
 ensure_empty_or_forced($templatesFile, $force, 'templates.json');
-ensure_empty_or_forced($versionsFile, $force, 'template-versions.json');
 ensure_empty_or_forced($auditFile, $force, 'audit.json');
 
 $now = date(DATE_ATOM);
@@ -116,9 +116,9 @@ $templates = [
     ],
 ];
 
-$versions = [];
+$versionsByTemplate = [];
 foreach ($templates as $template) {
-    $versions[] = [
+    $versionsByTemplate[$template['id']][] = [
         'template_id' => $template['id'],
         'recorded_at' => $now,
         'data' => [
@@ -141,7 +141,10 @@ $audit = [
 
 write_json_store($usersFile, $users);
 write_json_store($templatesFile, $templates);
-write_json_store($versionsFile, $versions);
+foreach ($versionsByTemplate as $templateId => $versions) {
+    $versionsFile = sprintf('%s/%s.json', $versionsDir, $templateId);
+    write_json_store($versionsFile, $versions);
+}
 write_json_store($auditFile, $audit);
 
 fwrite(STDOUT, "Seed complete. Admin login: admin / ChangeMe123!\n");
