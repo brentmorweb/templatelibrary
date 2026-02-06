@@ -60,3 +60,122 @@ template-library/                 # <— this whole folder gets deployed anywher
 │
 └─ scripts/
    └─ seed-admin.php
+
+
+
+
+
+
+
+
+
+
+
+
+
+1) Goal
+
+Create an internal Template Library (mini CMS) where admin users can:
+
+Log in securely
+
+Create / edit / version Morweb templates
+
+Store template assets: thumbnail + PHP/HTML + CSS + JS
+
+Search and filter templates by title, author, date created, last edited
+
+Quickly copy/use templates (and ideally export as a package)
+
+Primary outcomes:
+
+Reduce duplicated work
+
+Standardize components and patterns across projects
+
+Make templates discoverable and maintainable
+
+2) Users & Roles
+Roles
+
+Admin: Manage users, permissions, template settings, delete/restore templates
+
+Editor: Create/edit templates, upload thumbnails, manage versions
+
+Viewer: Read-only access, copy code/export
+
+(You can start with Admin + Editor only for MVP.)
+
+3) Core Features (MVP)
+Authentication / Access
+
+Admin login (session-based)
+
+Role-based permissions
+
+Audit trail for edits (who/when)
+
+Template Management
+
+Each template includes:
+
+Title
+
+Author (user reference)
+
+Description (optional but helpful)
+
+Tags (for filtering)
+
+Thumbnail image
+
+Code fields:
+
+PHP/HTML
+
+CSS
+
+JS
+
+Metadata:
+
+Created date
+
+Last edited date
+
+Last edited by
+
+Status (Draft / Approved / Deprecated)
+
+Search + Filters
+
+Full text search (title + description + tags)
+
+Filter / sort:
+
+Author
+
+Created date range
+
+Last edited date range
+
+Sort by: title / created / last edited
+
+Results show thumbnail + quick meta summary
+
+Template Detail View
+
+Preview thumbnail
+
+Tabs: PHP/HTML | CSS | JS
+
+Copy-to-clipboard per tab
+
+Version history (even if simple in MVP)
+
+
+
+
+
+
+
