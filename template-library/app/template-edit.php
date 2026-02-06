@@ -20,7 +20,6 @@ render_header($pageTitle);
       <div class="tl-topbar__actions">
         <a class="tl-btn" href="template-edit.php">New Template</a>
         <a class="tl-user" href="account.php#account" aria-label="View account details">
-          <div class="tl-user__avatar">AU</div>
           Admin User ▾
         </a>
       </div>
@@ -99,7 +98,6 @@ render_header($pageTitle);
         <div class="tl-card__body">
           <h3 style="margin-top: 0;">Template Info</h3>
           <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
-            <div class="tl-user__avatar">AU</div>
             <div>
               <div class="tl-muted" style="font-size: 0.8rem;">Author</div>
               <strong>Admin User</strong>

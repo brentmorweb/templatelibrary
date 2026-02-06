@@ -20,7 +20,6 @@ render_header($pageTitle);
       <div class="tl-topbar__actions">
         <a class="tl-btn" href="template-edit.php?id=<?php echo e($templateId); ?>">New Template</a>
         <a class="tl-user" href="account.php#account" aria-label="View account details">
-          <div class="tl-user__avatar">AU</div>
           Admin User ▾
         </a>
       </div>
@@ -92,7 +91,6 @@ render_header($pageTitle);
       <aside class="tl-card" style="align-self: start;">
         <div class="tl-card__body tl-side-card">
           <div style="display: flex; align-items: center; gap: 12px;">
-            <div class="tl-user__avatar">JD</div>
             <div>
               <div class="tl-muted" style="font-size: 0.8rem;">Author</div>
               <strong>Jane Doe</strong>
