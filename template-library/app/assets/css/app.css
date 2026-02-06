@@ -117,17 +117,6 @@ main {
   color: var(--gray-7);
 }
 
-.tl-user__avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: var(--gray-2);
-  display: grid;
-  place-items: center;
-  font-weight: 600;
-  color: var(--gray-6);
-}
-
 .tl-container {
   max-width: 1200px;
   margin: 0 auto;
