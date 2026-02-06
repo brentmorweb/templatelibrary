@@ -2,8 +2,6 @@
   const filterCards = (filters, cards, onUpdate) => {
     const normalizedQuery = filters.query.trim().toLowerCase();
     const hasQuery = normalizedQuery.length > 0;
-    const rangeValue = Number(filters.range);
-    const hasRange = Number.isFinite(rangeValue) && rangeValue > 0;
 
     cards.forEach((card) => {
       const searchable = card.getAttribute("data-search") || "";
@@ -14,18 +12,9 @@
         return;
       }
 
-      const author = cardLink.dataset.author || "";
-      const status = cardLink.dataset.status || "";
-      const updatedDays = Number(cardLink.dataset.updatedDays || "0");
-
       const matchesQuery = !hasQuery || isMatch;
-      const matchesAuthor = !filters.author || filters.author === author;
-      const matchesStatus = !filters.status || filters.status === status;
-      const matchesRange = !hasRange || updatedDays <= rangeValue;
 
-      cardLink.dataset.filterHidden = String(
-        !(matchesQuery && matchesAuthor && matchesStatus && matchesRange)
-      );
+      cardLink.dataset.filterHidden = String(!matchesQuery);
     });
 
     onUpdate();
@@ -152,6 +141,12 @@
     };
   };
 
+  const getCardName = (cardLink) => {
+    const name =
+      cardLink.querySelector(".tl-template-card strong")?.textContent || "";
+    return name.trim().toLowerCase();
+  };
+
   const sortCards = (cards, sort) => {
     if (!sort || sort === "recent") {
       return cards.sort((a, b) => {
@@ -169,6 +164,38 @@
       });
     }
 
+    if (sort === "updated") {
+      return cards.sort((a, b) => {
+        const updatedA = Number(a.dataset.updatedDays || "0");
+        const updatedB = Number(b.dataset.updatedDays || "0");
+        return updatedA - updatedB;
+      });
+    }
+
+    if (sort === "name_asc") {
+      return cards.sort((a, b) => getCardName(a).localeCompare(getCardName(b)));
+    }
+
+    if (sort === "name_desc") {
+      return cards.sort((a, b) => getCardName(b).localeCompare(getCardName(a)));
+    }
+
+    if (sort === "created_desc") {
+      return cards.sort((a, b) => {
+        const createdA = Number(a.dataset.createdDays || "0");
+        const createdB = Number(b.dataset.createdDays || "0");
+        return createdA - createdB;
+      });
+    }
+
+    if (sort === "created_asc") {
+      return cards.sort((a, b) => {
+        const createdA = Number(a.dataset.createdDays || "0");
+        const createdB = Number(b.dataset.createdDays || "0");
+        return createdB - createdA;
+      });
+    }
+
     return cards;
   };
 
@@ -176,10 +203,7 @@
     const formData = new FormData(form);
     return {
       query: String(formData.get("q") || ""),
-      author: String(formData.get("author") || ""),
-      status: String(formData.get("status") || ""),
       sort: String(formData.get("sort") || "recent"),
-      range: String(formData.get("range") || "all"),
     };
   };
 
