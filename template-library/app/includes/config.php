@@ -10,5 +10,5 @@ return [
     'data_path' => $baseDir . '/../data',
     'uploads_path' => $baseDir . '/uploads',
     'templates_store' => $baseDir . '/../data/templates.json',
-    'versions_store' => $baseDir . '/../data/template-versions.json',
+    'versions_path' => $baseDir . '/../data/versions',
 ];

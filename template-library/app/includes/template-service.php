@@ -12,7 +12,7 @@ function template_store_paths(): array
 
     return [
         'templates' => $config['templates_store'],
-        'versions' => $config['versions_store'],
+        'versions' => $config['versions_path'],
     ];
 }
 
@@ -68,7 +68,9 @@ function save_template(array $template): void
 function record_template_version(string $templateId, array $payload): void
 {
     $paths = template_store_paths();
-    $versions = read_json_store($paths['versions']);
+    $versionsPath = rtrim($paths['versions'], '/');
+    $versionsFile = sprintf('%s/%s.json', $versionsPath, $templateId);
+    $versions = read_json_store($versionsFile);
 
     $versions[] = [
         'template_id' => $templateId,
@@ -76,13 +78,15 @@ function record_template_version(string $templateId, array $payload): void
         'data' => $payload,
     ];
 
-    write_json_store($paths['versions'], $versions);
+    write_json_store($versionsFile, $versions);
 }
 
 function list_template_versions(string $templateId): array
 {
     $paths = template_store_paths();
-    $versions = read_json_store($paths['versions']);
+    $versionsPath = rtrim($paths['versions'], '/');
+    $versionsFile = sprintf('%s/%s.json', $versionsPath, $templateId);
+    $versions = read_json_store($versionsFile);
 
     return array_values(array_filter($versions, function (array $version) use ($templateId): bool {
         return ($version['template_id'] ?? '') === $templateId;
