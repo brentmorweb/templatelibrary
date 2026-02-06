@@ -29,7 +29,7 @@
 
     <main class="tl-container">
       <section class="tl-filter-bar">
-        <input class="tl-input" type="search" placeholder="Search templates..." />
+        <input class="tl-input" type="search" placeholder="Search templates..." data-library-search />
         <select class="tl-select">
           <option>Author</option>
           <option>Jane Doe</option>
@@ -60,7 +60,7 @@
 
       <section class="tl-template-grid">
         <a class="tl-template-card-link" href="template.php" aria-label="View Modern Hero Section template details">
-          <article class="tl-template-card">
+          <article class="tl-template-card" data-library-card data-search="Modern Hero Section Jane Doe Updated 2 days ago">
             <div class="tl-template-thumb">Modern Hero Section</div>
             <div class="tl-template-card__body">
               <strong>Modern Hero Section</strong>
@@ -73,7 +73,7 @@
         </a>
 
         <a class="tl-template-card-link" href="template.php" aria-label="View Nonprofit Events List template details">
-          <article class="tl-template-card">
+          <article class="tl-template-card" data-library-card data-search="Nonprofit Events List John Smith Updated 5 days ago">
             <div class="tl-template-thumb">Nonprofit Events List</div>
             <div class="tl-template-card__body">
               <strong>Nonprofit Events List</strong>
@@ -86,7 +86,7 @@
         </a>
 
         <a class="tl-template-card-link" href="template.php" aria-label="View Photo Gallery Grid template details">
-          <article class="tl-template-card">
+          <article class="tl-template-card" data-library-card data-search="Photo Gallery Grid Admin Updated 1 week ago">
             <div class="tl-template-thumb">Photo Gallery Grid</div>
             <div class="tl-template-card__body">
               <strong>Photo Gallery Grid</strong>
@@ -99,7 +99,7 @@
         </a>
 
         <a class="tl-template-card-link" href="template.php" aria-label="View Newsletter Signup Form template details">
-          <article class="tl-template-card">
+          <article class="tl-template-card" data-library-card data-search="Newsletter Signup Form Alice Lee Updated 3 days ago">
             <div class="tl-template-thumb">Newsletter Signup Form</div>
             <div class="tl-template-card__body">
               <strong>Newsletter Signup Form</strong>
@@ -112,7 +112,7 @@
         </a>
 
         <a class="tl-template-card-link" href="template.php" aria-label="View Team Members Block template details">
-          <article class="tl-template-card">
+          <article class="tl-template-card" data-library-card data-search="Team Members Block Michael B. Updated 1 day ago">
             <div class="tl-template-thumb">Team Members Block</div>
             <div class="tl-template-card__body">
               <strong>Team Members Block</strong>
@@ -125,7 +125,7 @@
         </a>
 
         <a class="tl-template-card-link" href="template.php" aria-label="View Call to Action Banner template details">
-          <article class="tl-template-card">
+          <article class="tl-template-card" data-library-card data-search="Call to Action Banner Sarah K. Updated 4 days ago">
             <div class="tl-template-thumb">Call to Action Banner</div>
             <div class="tl-template-card__body">
               <strong>Call to Action Banner</strong>
@@ -138,7 +138,7 @@
         </a>
 
         <a class="tl-template-card-link" href="template.php" aria-label="View FAQ Accordion template details">
-          <article class="tl-template-card">
+          <article class="tl-template-card" data-library-card data-search="FAQ Accordion David W. Updated 1 week ago">
             <div class="tl-template-thumb">FAQ Accordion</div>
             <div class="tl-template-card__body">
               <strong>FAQ Accordion</strong>
@@ -151,7 +151,7 @@
         </a>
 
         <a class="tl-template-card-link" href="template.php" aria-label="View Blog Post Layout template details">
-          <article class="tl-template-card">
+          <article class="tl-template-card" data-library-card data-search="Blog Post Layout Emily T. Updated 2 weeks ago">
             <div class="tl-template-thumb">Blog Post Layout</div>
             <div class="tl-template-card__body">
               <strong>Blog Post Layout</strong>
@@ -174,5 +174,6 @@
       </div>
     </main>
   </div>
+  <script src="assets/js/library.js"></script>
 </body>
 </html>
