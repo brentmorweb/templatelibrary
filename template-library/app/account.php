@@ -15,11 +15,15 @@ render_header('Template Library · Account');
     <div class="tl-topbar__inner">
       <div class="tl-brand">Template Library</div>
       <div class="tl-topbar__actions">
-        <a class="tl-btn" href="template-edit.php">New Template</a>
-        <a class="tl-user" href="account.php#account" aria-label="View account details">
-          <div class="tl-user__avatar">AU</div>
-          Admin User ▾
-        </a>
+        <?php if (is_authenticated()) : ?>
+          <a class="tl-btn" href="template-edit.php">New Template</a>
+          <a class="tl-user" href="account.php#account" aria-label="View account details">
+            <div class="tl-user__avatar">AU</div>
+            Admin User ▾
+          </a>
+        <?php else : ?>
+          <a class="tl-btn" href="auth/login.php">Login</a>
+        <?php endif; ?>
       </div>
     </div>
   </header>

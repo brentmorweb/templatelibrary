@@ -6,8 +6,6 @@ require_once __DIR__ . '/auth/guard.php';
 require_once __DIR__ . '/includes/header.php';
 require_once __DIR__ . '/includes/footer.php';
 
-require_auth();
-
 render_header('MW Template Library');
 ?>
 <div class="tl-app" data-page="library" data-api-endpoint="/app/api/templates.php">
@@ -15,11 +13,15 @@ render_header('MW Template Library');
     <div class="tl-topbar__inner">
       <div class="tl-brand">MW Template Library</div>
       <div class="tl-topbar__actions">
-        <a class="tl-btn" href="template-edit.php">New Template</a>
-        <a class="tl-user" href="account.php#account" aria-label="View account details">
-          <div class="tl-user__avatar">AU</div>
-          Admin User ▾
-        </a>
+        <?php if (is_authenticated()) : ?>
+          <a class="tl-btn" href="template-edit.php">New Template</a>
+          <a class="tl-user" href="account.php#account" aria-label="View account details">
+            <div class="tl-user__avatar">AU</div>
+            Admin User ▾
+          </a>
+        <?php else : ?>
+          <a class="tl-btn" href="auth/login.php">Login</a>
+        <?php endif; ?>
       </div>
     </div>
   </header>
