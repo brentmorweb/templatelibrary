@@ -1,1 +1,7 @@
-[]
+[
+  {
+    "username": "morwebadmin",
+    "password_hash": "$2y$12$eH3.m4qrdrGGq3hPyh8hA.v.rK2WLTAYHvtFyy..vX0mcV5sgxhpm",
+    "role": "admin"
+  }
+]
