@@ -53,3 +53,17 @@ function api_url(string $path): string
 
     return $basePath . '/api/' . ltrim($path, '/');
 }
+
+function app_base_url(): string
+{
+    $scriptDir = rtrim(dirname($_SERVER['SCRIPT_NAME'] ?? ''), '/');
+    if ($scriptDir === '.') {
+        $scriptDir = '';
+    }
+
+    if (str_ends_with($scriptDir, '/api')) {
+        $scriptDir = dirname($scriptDir);
+    }
+
+    return rtrim($scriptDir, '/');
+}

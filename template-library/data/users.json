@@ -1,7 +1,10 @@
 [
   {
-    "username": "morwebadmin",
-    "password_hash": "$2y$12$eH3.m4qrdrGGq3hPyh8hA.v.rK2WLTAYHvtFyy..vX0mcV5sgxhpm",
-    "role": "admin"
+    "id": "user_admin",
+    "username": "admin",
+    "name": "Template Admin",
+    "role": "admin",
+    "password_hash": "$2y$12$CmBAG4/CVP1nQ8hbdiIbPu.7seHvaGWHFomC4G67Euk0BCVYMOcr.",
+    "created_at": "2024-04-01T08:00:00+00:00"
   }
 ]
