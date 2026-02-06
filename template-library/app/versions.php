@@ -1,320 +1,149 @@
 <?php
-?><!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Template Versions</title>
-  <style>
-    :root {
-      color-scheme: light;
-      font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
-      background-color: #f5f6fb;
-      color: #1a1b1f;
-    }
-    * {
-      box-sizing: border-box;
-    }
-    body {
-      margin: 0;
-      padding: 32px;
-      background: #f5f6fb;
-    }
-    .page {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: grid;
-      gap: 24px;
-    }
-    .card {
-      background: #ffffff;
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 18px 40px rgba(31, 40, 75, 0.08);
-    }
-    .breadcrumb {
-      font-size: 14px;
-      color: #6b7280;
-    }
-    .breadcrumb span {
-      margin: 0 6px;
-      color: #9aa2b1;
-    }
-    .header {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-    .header h1 {
-      margin: 0;
-      font-size: 26px;
-    }
-    .meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      font-size: 14px;
-      color: #4b5563;
-    }
-    .meta strong {
-      color: #111827;
-    }
-    .actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .button {
-      border: 0;
-      border-radius: 10px;
-      padding: 10px 16px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-    .button.secondary {
-      background: #eef2ff;
-      color: #3b5bcc;
-    }
-    .button.primary {
-      background: #1f4aff;
-      color: #fff;
-    }
-    .summary {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-    }
-    .summary-card {
-      padding: 16px;
-      border-radius: 12px;
-      background: #f7f8ff;
-    }
-    .summary-card h3 {
-      margin: 0 0 6px;
-      font-size: 14px;
-      color: #6b7280;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-    .summary-card p {
-      margin: 0;
-      font-size: 18px;
-      font-weight: 600;
-    }
-    .version-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 20px;
-    }
-    .version-list {
-      display: grid;
-      gap: 12px;
-    }
-    .version-item {
-      display: grid;
-      grid-template-columns: 32px 1fr auto;
-      gap: 12px;
-      align-items: center;
-      padding: 14px;
-      border-radius: 12px;
-      border: 1px solid #edf0f6;
-      background: #fff;
-    }
-    .version-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 999px;
-      background: #1f4aff;
-      margin: 0 auto;
-    }
-    .version-meta h4 {
-      margin: 0 0 4px;
-      font-size: 16px;
-    }
-    .version-meta p {
-      margin: 0;
-      font-size: 13px;
-      color: #6b7280;
-    }
-    .version-actions {
-      display: grid;
-      gap: 8px;
-      justify-items: end;
-    }
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: #e6f4ff;
-      color: #0b5cab;
-      font-size: 12px;
-      font-weight: 600;
-    }
-    .compare {
-      display: grid;
-      gap: 16px;
-    }
-    .compare .panel {
-      border-radius: 12px;
-      background: #f9fafc;
-      padding: 16px;
-      border: 1px solid #edf0f6;
-    }
-    .panel h3 {
-      margin: 0 0 12px;
-      font-size: 15px;
-    }
-    .diff-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: grid;
-      gap: 10px;
-      font-size: 13px;
-    }
-    .diff-list li {
-      display: flex;
-      justify-content: space-between;
-      color: #4b5563;
-    }
-    .diff-list span {
-      font-weight: 600;
-      color: #111827;
-    }
-    .footnote {
-      font-size: 12px;
-      color: #9aa2b1;
-    }
-    @media (max-width: 900px) {
-      .version-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
-</head>
-<body>
-  <main class="page">
-    <section class="card">
-      <div class="breadcrumb">
-        Library <span>/</span> Email Templates <span>/</span> Promo Banner
-      </div>
-      <div class="header">
-        <div>
-          <h1>Version History</h1>
-          <div class="meta">
-            <div><strong>Template:</strong> Promo Banner</div>
-            <div><strong>Owner:</strong> Morgan Lee</div>
-            <div><strong>Status:</strong> Approved</div>
-          </div>
-        </div>
-        <div class="actions">
-          <button class="button secondary" type="button">Export Version</button>
-          <button class="button primary" type="button">Restore Selected</button>
-        </div>
-      </div>
-    </section>
 
-    <section class="summary">
-      <div class="summary-card">
-        <h3>Latest Version</h3>
-        <p>v2.4.1 (Sep 18, 2024)</p>
-      </div>
-      <div class="summary-card">
-        <h3>Total Versions</h3>
-        <p>18 revisions</p>
-      </div>
-      <div class="summary-card">
-        <h3>Last Edited By</h3>
-        <p>Kayla Nguyen</p>
-      </div>
-      <div class="summary-card">
-        <h3>Pending Approval</h3>
-        <p>v2.4.2 Draft</p>
-      </div>
-    </section>
+declare(strict_types=1);
 
-    <section class="card version-grid">
-      <div class="version-list">
-        <div class="version-item">
-          <div class="version-dot"></div>
-          <div class="version-meta">
-            <h4>v2.4.2 Draft</h4>
-            <p>Edited by Kayla Nguyen · Sep 21, 2024 at 9:12 AM</p>
-          </div>
-          <div class="version-actions">
-            <span class="tag">Draft</span>
-            <button class="button secondary" type="button">Preview</button>
-          </div>
-        </div>
-        <div class="version-item">
-          <div class="version-dot" style="background:#34d399"></div>
-          <div class="version-meta">
-            <h4>v2.4.1 Approved</h4>
-            <p>Edited by Morgan Lee · Sep 18, 2024 at 4:40 PM</p>
-          </div>
-          <div class="version-actions">
-            <span class="tag" style="background:#ecfdf3;color:#047857">Approved</span>
-            <button class="button secondary" type="button">Preview</button>
-          </div>
-        </div>
-        <div class="version-item">
-          <div class="version-dot" style="background:#f97316"></div>
-          <div class="version-meta">
-            <h4>v2.3.0 Deprecated</h4>
-            <p>Edited by Ayesha Khan · Aug 30, 2024 at 1:05 PM</p>
-          </div>
-          <div class="version-actions">
-            <span class="tag" style="background:#fff7ed;color:#c2410c">Deprecated</span>
-            <button class="button secondary" type="button">Preview</button>
-          </div>
-        </div>
-        <div class="version-item">
-          <div class="version-dot" style="background:#9ca3af"></div>
-          <div class="version-meta">
-            <h4>v2.2.4</h4>
-            <p>Edited by Sofia Patel · Aug 12, 2024 at 11:32 AM</p>
-          </div>
-          <div class="version-actions">
-            <span class="tag" style="background:#f3f4f6;color:#4b5563">Archived</span>
-            <button class="button secondary" type="button">Preview</button>
-          </div>
+require_once __DIR__ . '/includes/header.php';
+require_once __DIR__ . '/includes/footer.php';
+
+$templateId = $_GET['id'] ?? 'promo-221';
+
+render_header('Template Versions');
+?>
+<div class="tl-app" data-page="versions" data-template-id="<?php echo e($templateId); ?>" data-template-endpoint="/app/api/template-get.php" data-download-endpoint="/app/api/template-download.php" data-restore-endpoint="/app/api/template-save.php">
+  <header class="tl-topbar">
+    <div class="tl-topbar__inner">
+      <div class="tl-brand">Template Library</div>
+      <div class="tl-topbar__actions">
+        <a class="tl-btn" href="template-edit.php">New Template</a>
+        <div class="tl-user">
+          <div class="tl-user__avatar">AU</div>
+          Admin User ▾
         </div>
       </div>
-
-      <div class="compare">
-        <div class="panel">
-          <h3>Compare versions</h3>
-          <div class="meta" style="margin-bottom:12px">
-            <div><strong>From:</strong> v2.3.0</div>
-            <div><strong>To:</strong> v2.4.1</div>
-          </div>
-          <ul class="diff-list">
-            <li>HTML blocks changed <span>+3 / -1</span></li>
-            <li>CSS tokens updated <span>12 edits</span></li>
-            <li>JS behavior changes <span>2</span></li>
-            <li>Assets replaced <span>1 image</span></li>
-          </ul>
-        </div>
-        <div class="panel">
-          <h3>Restore notes</h3>
-          <p style="margin:0 0 10px;font-size:13px;color:#4b5563;">
-            Restoring a version will create a new draft. You can review the code
-            before publishing back to Approved status.
-          </p>
-          <div class="meta">
-            <div><strong>Audit log:</strong> 5 actions recorded</div>
-            <div><strong>Last restore:</strong> v2.1.0 on Jul 18</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="footnote">
-      Tip: Use the version selector to compare HTML, CSS, and JS side by side.
     </div>
+  </header>
+
+  <main class="tl-container">
+    <div class="tl-page-header">
+      <div class="tl-breadcrumbs">
+        <span>‹</span>
+        <a href="template.php?id=<?php echo e($templateId); ?>">Template Details</a>
+      </div>
+      <h1 class="tl-title">Version History</h1>
+      <p class="tl-subtitle">Track edits, approvals, and restore points for this template.</p>
+    </div>
+
+    <div class="tl-card" style="margin-bottom: 20px;">
+      <div class="tl-card__body" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; align-items: center;">
+        <div>
+          <div class="tl-detail-meta">
+            <span><strong>Template:</strong> Promo Banner</span>
+            <span>• Owner: Morgan Lee</span>
+            <span>• Status: Approved</span>
+          </div>
+          <p class="tl-muted" style="margin: 8px 0 0;" data-version-details>Select a version to view details.</p>
+        </div>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+          <a class="tl-btn tl-btn--ghost" href="/app/api/template-download.php?id=<?php echo e($templateId); ?>" data-version-export>Export Version</a>
+          <button class="tl-btn" type="button" data-version-restore>Restore Selected</button>
+        </div>
+      </div>
+    </div>
+
+    <section class="tl-template-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-bottom: 20px;">
+      <div class="tl-card">
+        <div class="tl-card__body">
+          <div class="tl-muted" style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em;">Latest Version</div>
+          <strong>v2.4.1 (Sep 18, 2024)</strong>
+        </div>
+      </div>
+      <div class="tl-card">
+        <div class="tl-card__body">
+          <div class="tl-muted" style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em;">Total Versions</div>
+          <strong>18 revisions</strong>
+        </div>
+      </div>
+      <div class="tl-card">
+        <div class="tl-card__body">
+          <div class="tl-muted" style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em;">Last Edited By</div>
+          <strong>Kayla Nguyen</strong>
+        </div>
+      </div>
+      <div class="tl-card">
+        <div class="tl-card__body">
+          <div class="tl-muted" style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em;">Pending Approval</div>
+          <strong>v2.4.2 Draft</strong>
+        </div>
+      </div>
+    </section>
+
+    <div class="tl-split">
+      <section class="tl-card">
+        <div class="tl-card__body" style="display: grid; gap: 12px;">
+          <div class="tl-info-row" data-version-row data-version="v2.4.2 Draft" data-version-note="Edited by Kayla Nguyen · Sep 21, 2024 at 9:12 AM">
+            <div>
+              <strong>v2.4.2 Draft</strong>
+              <div class="tl-muted" style="font-size: 0.85rem;">Edited by Kayla Nguyen · Sep 21, 2024 at 9:12 AM</div>
+            </div>
+            <span class="tl-pill">Draft</span>
+          </div>
+          <div class="tl-info-row" data-version-row data-version="v2.4.1 Approved" data-version-note="Edited by Morgan Lee · Sep 18, 2024 at 4:40 PM">
+            <div>
+              <strong>v2.4.1 Approved</strong>
+              <div class="tl-muted" style="font-size: 0.85rem;">Edited by Morgan Lee · Sep 18, 2024 at 4:40 PM</div>
+            </div>
+            <span class="tl-pill" style="background: #e8f8ee; color: #15803d; border-color: #bbf7d0;">Approved</span>
+          </div>
+          <div class="tl-info-row" data-version-row data-version="v2.3.0 Deprecated" data-version-note="Edited by Ayesha Khan · Aug 30, 2024 at 1:05 PM">
+            <div>
+              <strong>v2.3.0 Deprecated</strong>
+              <div class="tl-muted" style="font-size: 0.85rem;">Edited by Ayesha Khan · Aug 30, 2024 at 1:05 PM</div>
+            </div>
+            <span class="tl-pill" style="background: #fff7ed; color: #c2410c; border-color: #fed7aa;">Deprecated</span>
+          </div>
+          <div class="tl-info-row" data-version-row data-version="v2.2.4" data-version-note="Edited by Sofia Patel · Aug 12, 2024 at 11:32 AM">
+            <div>
+              <strong>v2.2.4 Archived</strong>
+              <div class="tl-muted" style="font-size: 0.85rem;">Edited by Sofia Patel · Aug 12, 2024 at 11:32 AM</div>
+            </div>
+            <span class="tl-pill" style="background: #f3f4f6; color: #4b5563; border-color: #d1d5db;">Archived</span>
+          </div>
+        </div>
+      </section>
+
+      <aside class="tl-card" style="align-self: start;">
+        <div class="tl-card__body" style="display: grid; gap: 16px;">
+          <div>
+            <h3 style="margin-top: 0;">Compare Versions</h3>
+            <div class="tl-detail-meta">
+              <span><strong>From:</strong> v2.3.0</span>
+              <span>•</span>
+              <span><strong>To:</strong> v2.4.1</span>
+            </div>
+            <ul style="list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 10px; font-size: 0.9rem;">
+              <li class="tl-info-row"><span>HTML blocks changed</span><strong>+3 / -1</strong></li>
+              <li class="tl-info-row"><span>CSS tokens updated</span><strong>12 edits</strong></li>
+              <li class="tl-info-row"><span>JS behavior changes</span><strong>2</strong></li>
+              <li class="tl-info-row"><span>Assets replaced</span><strong>1 image</strong></li>
+            </ul>
+          </div>
+          <div>
+            <h3 style="margin-top: 0;">Restore Notes</h3>
+            <p class="tl-muted" style="margin: 0 0 10px;">
+              Restoring a version will create a new draft. You can review the code before publishing back to Approved status.
+            </p>
+            <div class="tl-info-row"><span>Audit log</span><strong>5 actions recorded</strong></div>
+            <div class="tl-info-row"><span>Last restore</span><strong>v2.1.0 on Jul 18</strong></div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <p class="tl-muted" style="margin-top: 16px;">Tip: Use the version selector to compare HTML, CSS, and JS side by side.</p>
   </main>
-</body>
-</html>
+</div>
+<script src="/app/assets/js/app.js"></script>
+<script src="/app/assets/js/versions.js"></script>
+<?php
+render_footer();
+?>
