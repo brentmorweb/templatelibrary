@@ -64,12 +64,13 @@ render_header($pageTitle);
                 <div class="tl-template-thumb" style="height: 120px;">Preview</div>
               </div>
               <div>
-                <div class="tl-tabbar">
-                  <div class="tl-tab is-active">PHP/HTML</div>
-                  <div class="tl-tab">CSS</div>
-                  <div class="tl-tab">JavaScript</div>
-                </div>
-                <pre class="tl-code-panel" data-template-output><code>&lt;?php if ($hero_title) { ?&gt;
+                <div class="tl-tab-group" data-tab-group="template-details-code">
+                  <div class="tl-tabbar">
+                    <div class="tl-tab is-active" data-tab="php">PHP/HTML</div>
+                    <div class="tl-tab" data-tab="css">CSS</div>
+                    <div class="tl-tab" data-tab="js">JavaScript</div>
+                  </div>
+                  <pre class="tl-code-panel" data-tab-panel="php" data-template-output><code>&lt;?php if ($hero_title) { ?&gt;
   &lt;h1&gt;&lt;?php echo $hero_title; ?&gt;&lt;/h1&gt;
 &lt;?php } ?&gt;
 
@@ -77,6 +78,29 @@ render_header($pageTitle);
   &lt;p&gt;&lt;?php echo $hero_description; ?&gt;&lt;/p&gt;
   &lt;a class="btn btn-primary" href="#"&gt;Learn More&lt;/a&gt;
 &lt;/div&gt;</code></pre>
+                  <pre class="tl-code-panel" data-tab-panel="css" hidden><code>.hero-section {
+  display: grid;
+  gap: 12px;
+  padding: 32px;
+  background: linear-gradient(120deg, #e0f2fe, #fff);
+  border-radius: 24px;
+}
+
+.hero-section .btn-primary {
+  background: #2563eb;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 999px;
+  text-decoration: none;
+}</code></pre>
+                  <pre class="tl-code-panel" data-tab-panel="js" hidden><code>const hero = document.querySelector(".hero-section");
+
+if (hero) {
+  hero.addEventListener("click", () => {
+    hero.classList.toggle("is-expanded");
+  });
+}</code></pre>
+                </div>
               </div>
             </div>
 

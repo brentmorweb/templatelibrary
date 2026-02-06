@@ -20,11 +20,38 @@
     });
   };
 
+  const bindTabGroups = () => {
+    document.querySelectorAll("[data-tab-group]").forEach((group) => {
+      const tabs = Array.from(group.querySelectorAll(".tl-tab"));
+      const panels = Array.from(group.querySelectorAll("[data-tab-panel]"));
+
+      if (!tabs.length || !panels.length) {
+        return;
+      }
+
+      const setActive = (tab) => {
+        const tabKey = tab.getAttribute("data-tab");
+
+        tabs.forEach((item) => item.classList.toggle("is-active", item === tab));
+        panels.forEach((panel) => {
+          const isMatch = panel.getAttribute("data-tab-panel") === tabKey;
+          panel.hidden = !isMatch;
+        });
+      };
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => setActive(tab));
+      });
+    });
+  };
+
   ready(() => {
     document.querySelectorAll("[data-nav-trigger]").forEach((trigger) => {
       const targetId = trigger.getAttribute("data-nav-trigger");
       const target = targetId ? document.getElementById(targetId) : null;
       toggleVisibility(trigger, target);
     });
+
+    bindTabGroups();
   });
 })();
