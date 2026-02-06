@@ -18,10 +18,10 @@ render_header('Template Versions');
       <div class="tl-brand">MW Template Library</div>
       <div class="tl-topbar__actions">
         <a class="tl-btn" href="template-edit.php">New Template</a>
-        <div class="tl-user">
+        <a class="tl-user" href="account.php#account" aria-label="View account details">
           <div class="tl-user__avatar">AU</div>
           Admin User ▾
-        </div>
+        </a>
       </div>
     </div>
   </header>
