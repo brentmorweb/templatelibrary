@@ -16,7 +16,6 @@ render_header('MW Template Library');
         <?php if (is_authenticated()) : ?>
           <a class="tl-btn" href="template-edit.php">New Template</a>
           <a class="tl-user" href="account.php#account" aria-label="View account details">
-            <div class="tl-user__avatar">AU</div>
             Admin User ▾
           </a>
         <?php else : ?>

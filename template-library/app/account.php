@@ -18,7 +18,6 @@ render_header('Template Library · Account');
         <?php if (is_authenticated()) : ?>
           <a class="tl-btn" href="template-edit.php">New Template</a>
           <a class="tl-user" href="account.php#account" aria-label="View account details">
-            <div class="tl-user__avatar">AU</div>
             Admin User ▾
           </a>
         <?php else : ?>
@@ -41,7 +40,6 @@ render_header('Template Library · Account');
     <section id="account" class="tl-card">
       <div class="tl-card__body" style="display: grid; gap: 18px;">
         <div style="display: flex; align-items: center; gap: 14px;">
-          <div class="tl-user__avatar">AU</div>
           <div>
             <div class="tl-muted" style="font-size: 0.85rem;">Signed in as</div>
             <strong style="font-size: 1.1rem;">Admin User</strong>
