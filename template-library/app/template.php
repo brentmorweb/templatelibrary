@@ -16,7 +16,7 @@ render_header($pageTitle);
 <div class="tl-app" data-page="template-details" data-template-id="<?php echo e($templateId); ?>" data-template-endpoint="/app/api/template-get.php">
   <header class="tl-topbar">
     <div class="tl-topbar__inner">
-      <div class="tl-brand">Template Library</div>
+      <div class="tl-brand">MW Template Library</div>
       <div class="tl-topbar__actions">
         <a class="tl-btn" href="template-edit.php?id=<?php echo e($templateId); ?>">New Template</a>
         <div class="tl-user">
@@ -31,7 +31,7 @@ render_header($pageTitle);
     <div class="tl-page-header">
       <div class="tl-breadcrumbs">
         <span>‹</span>
-        <a href="index.php">Template Library</a>
+        <a href="index.php">MW Template Library</a>
       </div>
       <h1 class="tl-title">Modern Hero Section</h1>
       <div class="tl-detail-meta">

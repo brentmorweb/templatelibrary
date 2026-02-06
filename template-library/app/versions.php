@@ -15,7 +15,7 @@ render_header('Template Versions');
 <div class="tl-app" data-page="versions" data-template-id="<?php echo e($templateId); ?>" data-template-endpoint="/app/api/template-get.php" data-download-endpoint="/app/api/template-download.php" data-restore-endpoint="/app/api/template-save.php">
   <header class="tl-topbar">
     <div class="tl-topbar__inner">
-      <div class="tl-brand">Template Library</div>
+      <div class="tl-brand">MW Template Library</div>
       <div class="tl-topbar__actions">
         <a class="tl-btn" href="template-edit.php">New Template</a>
         <div class="tl-user">

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/helpers.php';
 
-function render_header(string $pageTitle = 'Template Library'): void
+function render_header(string $pageTitle = 'MW Template Library'): void
 {
     ?>
     <!DOCTYPE html>
