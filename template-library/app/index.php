@@ -161,7 +161,7 @@ render_header('MW Template Library');
       </a>
     </section>
 
-    <div class="tl-pagination" data-library-pagination>
+    <div class="tl-pagination" data-library-pagination data-page-size="2">
       <button class="tl-page-btn" type="button">Previous</button>
       <button class="tl-page-btn is-active" type="button">1</button>
       <button class="tl-page-btn" type="button">2</button>
