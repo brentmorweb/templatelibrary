@@ -33,6 +33,11 @@ The UI is a mockup intended to illustrate typical template library roles:
 - Use search and filters to explore templates.
 - Open a template card to review details, versions, and edit options.
 
+### Demo credentials
+Use the seeded admin account for protected pages:
+- **Username:** `admin`
+- **Password:** `ChangeMe123!`
+
 ## File layout
 - `index.php`: Entry point that redirects to the default app UI.
 - `app/`: Application UI mockups and related assets.

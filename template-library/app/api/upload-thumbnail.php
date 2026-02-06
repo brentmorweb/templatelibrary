@@ -34,7 +34,8 @@ if (!move_uploaded_file($file['tmp_name'], $targetPath)) {
     api_error('Failed to move uploaded file.', 500);
 }
 
-$publicPath = '/app/uploads/thumbnails/' . $filename;
+$basePath = app_base_url();
+$publicPath = ($basePath !== '' ? $basePath : '') . '/uploads/thumbnails/' . $filename;
 
 api_send_json([
     'message' => 'Thumbnail uploaded.',

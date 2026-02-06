@@ -26,7 +26,7 @@ render_header('MW Template Library');
   </header>
 
   <main class="tl-container">
-    <form class="tl-filter-bar" method="get" action="/template-library/app/api/templates.php" data-library-filters>
+    <form class="tl-filter-bar" method="get" action="<?php echo e(api_url('templates.php')); ?>" data-library-filters>
       <label class="sr-only" for="tl-q">Search templates</label>
       <input
         id="tl-q"

@@ -116,9 +116,9 @@ render_header($pageTitle);
                   <div class="tl-tab" data-tab="css">CSS</div>
                   <div class="tl-tab" data-tab="js">JavaScript</div>
                 </div>
-                <pre class="tl-code-panel" data-tab-panel="php"><code><?php echo e($templateCodeHtml); ?></code></pre>
-                <pre class="tl-code-panel" data-tab-panel="css" hidden><code><?php echo e($templateCodeCss); ?></code></pre>
-                <pre class="tl-code-panel" data-tab-panel="js" hidden><code><?php echo e($templateCodeJs); ?></code></pre>
+                <textarea class="tl-code-panel" data-tab-panel="php" name="code_html"><?php echo e($templateCodeHtml); ?></textarea>
+                <textarea class="tl-code-panel" data-tab-panel="css" name="code_css" hidden><?php echo e($templateCodeCss); ?></textarea>
+                <textarea class="tl-code-panel" data-tab-panel="js" name="code_js" hidden><?php echo e($templateCodeJs); ?></textarea>
               </div>
             </div>
 
@@ -148,7 +148,7 @@ render_header($pageTitle);
           <?php endif; ?>
           <div class="tl-field">
             <label class="tl-label" for="status">Status</label>
-            <select class="tl-select" id="status" name="status">
+            <select class="tl-select" id="status" name="status" form="template-form">
               <option value="" <?php echo $isNewTemplate ? 'selected' : ''; ?>>Select status</option>
               <option value="draft" <?php echo $isNewTemplate ? '' : 'selected'; ?>>Draft</option>
               <option value="approved">Approved</option>
