@@ -2,8 +2,11 @@
 
 declare(strict_types=1);
 
+require_once __DIR__ . '/auth/guard.php';
 require_once __DIR__ . '/includes/header.php';
 require_once __DIR__ . '/includes/footer.php';
+
+require_auth();
 
 $templateId = $_GET['id'] ?? '';
 $pageTitle = $templateId ? 'Template Library · Edit Template' : 'Template Library · Create Template';
