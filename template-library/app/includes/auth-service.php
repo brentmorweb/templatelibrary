@@ -24,7 +24,7 @@ function is_authenticated(): bool
 function require_authentication(): void
 {
     if (!is_authenticated()) {
-        header('Location: /app/auth/login.php');
+        header('Location: auth/login.php');
         exit;
     }
 }
