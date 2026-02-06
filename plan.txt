@@ -1,0 +1,62 @@
+template-library/                 # <— this whole folder gets deployed anywhere
+├─ README.md
+├─ .htaccess                      # deny /data + (optional) clean URLs
+├─ index.php                      # entry/redirect to app (optional)
+│
+├─ app/
+│  ├─ index.php                   # Library listing + search UI (Mockup 1)
+│  ├─ template.php                # Template details page (Mockup 2)
+│  ├─ template-edit.php           # Create/Edit template (Mockup 3)
+│  ├─ versions.php                # Version history view (Mockup 4)
+│
+│  ├─ auth/
+│  │  ├─ login.php
+│  │  ├─ logout.php
+│  │  └─ guard.php
+│
+│  ├─ api/
+│  │  ├─ templates.php
+│  │  ├─ template-get.php
+│  │  ├─ template-save.php
+│  │  ├─ template-download.php
+│  │  ├─ template-delete.php
+│  │  ├─ upload-thumbnail.php
+│  │  └─ auth.php                 # optional (AJAX login)
+│
+│  ├─ includes/
+│  │  ├─ config.php               # uses relative paths based on __DIR__
+│  │  ├─ helpers.php
+│  │  ├─ json-store.php
+│  │  ├─ auth-service.php
+│  │  ├─ template-service.php
+│  │  ├─ header.php
+│  │  └─ footer.php
+│
+│  ├─ assets/
+│  │  ├─ css/
+│  │  │  ├─ app.css
+│  │  │  └─ code-editor.css       # optional
+│  │  ├─ js/
+│  │  │  ├─ app.js
+│  │  │  ├─ library.js
+│  │  │  ├─ details.js
+│  │  │  ├─ edit.js
+│  │  │  └─ versions.js
+│  │  └─ vendor/
+│  │     └─ jquery.min.js
+│
+│  └─ uploads/
+│     └─ thumbnails/
+│        └─ .gitkeep
+│
+├─ data/                          # JSON storage (must be protected)
+│  ├─ templates.json
+│  ├─ users.json
+│  ├─ versions/
+│  │  ├─ tpl_0001.json
+│  │  └─ ...
+│  └─ logs/
+│     └─ audit.json               # optional
+│
+└─ scripts/
+   └─ seed-admin.php
