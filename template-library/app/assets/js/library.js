@@ -1,7 +1,9 @@
 (() => {
-  const filterCards = (query, cards, onUpdate) => {
-    const normalizedQuery = query.trim().toLowerCase();
+  const filterCards = (filters, cards, onUpdate) => {
+    const normalizedQuery = filters.query.trim().toLowerCase();
     const hasQuery = normalizedQuery.length > 0;
+    const rangeValue = Number(filters.range);
+    const hasRange = Number.isFinite(rangeValue) && rangeValue > 0;
 
     cards.forEach((card) => {
       const searchable = card.getAttribute("data-search") || "";
@@ -12,7 +14,18 @@
         return;
       }
 
-      cardLink.dataset.filterHidden = String(hasQuery && !isMatch);
+      const author = cardLink.dataset.author || "";
+      const status = cardLink.dataset.status || "";
+      const updatedDays = Number(cardLink.dataset.updatedDays || "0");
+
+      const matchesQuery = !hasQuery || isMatch;
+      const matchesAuthor = !filters.author || filters.author === author;
+      const matchesStatus = !filters.status || filters.status === status;
+      const matchesRange = !hasRange || updatedDays <= rangeValue;
+
+      cardLink.dataset.filterHidden = String(
+        !(matchesQuery && matchesAuthor && matchesStatus && matchesRange)
+      );
     });
 
     onUpdate();
@@ -139,13 +152,45 @@
     };
   };
 
+  const sortCards = (cards, sort) => {
+    if (!sort || sort === "recent") {
+      return cards.sort((a, b) => {
+        const updatedA = Number(a.dataset.updatedDays || "0");
+        const updatedB = Number(b.dataset.updatedDays || "0");
+        return updatedA - updatedB;
+      });
+    }
+
+    if (sort === "popular") {
+      return cards.sort((a, b) => {
+        const usageA = Number(a.dataset.usage || "0");
+        const usageB = Number(b.dataset.usage || "0");
+        return usageB - usageA;
+      });
+    }
+
+    return cards;
+  };
+
+  const readFilters = (form) => {
+    const formData = new FormData(form);
+    return {
+      query: String(formData.get("q") || ""),
+      author: String(formData.get("author") || ""),
+      status: String(formData.get("status") || ""),
+      sort: String(formData.get("sort") || "recent"),
+      range: String(formData.get("range") || "all"),
+    };
+  };
+
   document.addEventListener("DOMContentLoaded", () => {
     const searchInput = document.querySelector("[data-library-search]");
     const pagination = document.querySelector("[data-library-pagination]");
     const list = document.querySelector("[data-template-list]");
     const cards = Array.from(document.querySelectorAll("[data-library-card]"));
+    const filterForm = document.querySelector("[data-library-filters]");
 
-    if (!searchInput || !pagination || !list) {
+    if (!searchInput || !pagination || !list || !filterForm) {
       return;
     }
 
@@ -156,9 +201,29 @@
     }
 
     const updatePagination = () => paginationApi.renderPage(1);
+    const cardLinks = Array.from(list.querySelectorAll(".tl-template-card-link"));
+    const renderSortedCards = (sortValue) => {
+      const sorted = sortCards([...cardLinks], sortValue);
+      sorted.forEach((link) => list.appendChild(link));
+    };
 
-    searchInput.addEventListener("input", (event) => {
-      filterCards(event.target.value, cards, updatePagination);
+    const handleFilterChange = () => {
+      const filters = readFilters(filterForm);
+      renderSortedCards(filters.sort);
+      filterCards(filters, cards, updatePagination);
+    };
+
+    filterForm.addEventListener("submit", (event) => {
+      event.preventDefault();
     });
+
+    filterForm.addEventListener("input", handleFilterChange);
+    filterForm.addEventListener("change", handleFilterChange);
+
+    searchInput.addEventListener("input", () => {
+      handleFilterChange();
+    });
+
+    handleFilterChange();
   });
 })();
