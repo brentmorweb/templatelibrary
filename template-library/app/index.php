@@ -42,7 +42,6 @@ render_header('MW Template Library');
         id="tl-sort"
         class="tl-select"
         name="sort"
-        onchange="this.form.submit()"
       >
         <option value="recent">Most recent</option>
         <option value="popular">Most used</option>
@@ -165,14 +164,7 @@ render_header('MW Template Library');
       </a>
     </section>
 
-    <div class="tl-pagination" data-library-pagination data-page-size="2">
-      <button class="tl-page-btn" type="button">Previous</button>
-      <button class="tl-page-btn is-active" type="button">1</button>
-      <button class="tl-page-btn" type="button">2</button>
-      <button class="tl-page-btn" type="button">3</button>
-      <button class="tl-page-btn" type="button">4</button>
-      <button class="tl-page-btn" type="button">Next ›</button>
-    </div>
+    <div class="tl-pagination" data-library-pagination data-page-size="2" aria-label="Templates pagination"></div>
   </main>
 </div>
 <script src="<?php echo e(asset_url('js/app.js')); ?>"></script>
