@@ -134,10 +134,22 @@
   };
 
   const readFilters = (form) => {
-    const formData = new FormData(form);
+    const searchField = form.elements.namedItem("q");
+    const sortField = form.elements.namedItem("sort");
+
+    const queryValue =
+      searchField instanceof HTMLInputElement || searchField instanceof HTMLTextAreaElement
+        ? searchField.value
+        : "";
+
+    const sortValue =
+      sortField instanceof HTMLSelectElement || sortField instanceof HTMLInputElement
+        ? sortField.value
+        : "name_asc";
+
     return {
-      query: String(formData.get("q") || "").trim().toLowerCase(),
-      sort: String(formData.get("sort") || "name_asc"),
+      query: String(queryValue || "").trim().toLowerCase(),
+      sort: String(sortValue || "name_asc"),
     };
   };
 
