@@ -25,7 +25,7 @@ render_header($pageTitle);
     <section class="tl-left-col">
       <div class="tl-template-title-block">
         <h2 class="tl-template-title" data-template-title>Template</h2>
-        <a class="tl-demo-link" href="#">View Demo</a>
+        <a class="tl-demo-link" href="#" data-template-demo-link hidden target="_blank" rel="noopener noreferrer">View Demo</a>
       </div>
 
       <article class="tl-code-card">

@@ -47,8 +47,11 @@ $templateCodeHtml = (string) ($templateCode['html'] ?? '');
 $templateCodeCss = (string) ($templateCode['css'] ?? '');
 $templateCodeJs = (string) ($templateCode['js'] ?? '');
 $templateTagList = $templateTagsArray;
-$templateAuthor = (string) ($template['author'] ?? $template['created_by'] ?? '');
+$currentUser = current_user();
+$currentUsername = is_array($currentUser) ? (string) ($currentUser['username'] ?? '') : '';
+$templateAuthor = (string) ($template['author'] ?? $template['created_by'] ?? $currentUsername);
 $templateStatus = (string) ($template['status'] ?? 'draft');
+$templateDemoLink = (string) ($template['demo_url'] ?? '');
 
 render_header($pageTitle);
 ?>
@@ -89,6 +92,17 @@ render_header($pageTitle);
               <label class="tl-label" for="title">Template Title</label>
               <input class="tl-input" id="title" name="title" type="text" value="<?php echo e($templateTitle); ?>" />
             </div>
+            <div class="tl-form-row">
+              <div class="tl-field">
+                <label class="tl-label" for="author">Author</label>
+                <input class="tl-input" id="author" name="author" type="text" value="<?php echo e($templateAuthor); ?>" readonly />
+              </div>
+              <div class="tl-field">
+                <label class="tl-label" for="demo_url">Demo Link</label>
+                <input class="tl-input" id="demo_url" name="demo_url" type="url" value="<?php echo e($templateDemoLink); ?>" placeholder="https://example.com/demo" />
+              </div>
+            </div>
+
             <div class="tl-form-row">
               <div class="tl-field">
                 <label class="tl-label" for="description">Description</label>

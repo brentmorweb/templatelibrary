@@ -58,6 +58,7 @@ $template = array_filter([
     'name' => trim((string) ($payload['name'] ?? '')),
     'title' => trim((string) ($payload['title'] ?? '')),
     'description' => trim((string) ($payload['description'] ?? '')),
+    'demo_url' => trim((string) ($payload['demo_url'] ?? '')),
     'status' => $payload['status'] ?? ($existing['status'] ?? 'draft'),
     'tags' => $tags,
     'author' => $payload['author'] ?? ($existing['author'] ?? $defaultUser),

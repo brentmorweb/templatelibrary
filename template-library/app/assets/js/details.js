@@ -41,6 +41,18 @@
       status.textContent = template.status || "draft";
     }
 
+    const demoLink = document.querySelector("[data-template-demo-link]");
+    if (demoLink) {
+      const demoUrl = typeof template.demo_url === "string" ? template.demo_url.trim() : "";
+      if (demoUrl) {
+        demoLink.href = demoUrl;
+        demoLink.hidden = false;
+      } else {
+        demoLink.href = "#";
+        demoLink.hidden = true;
+      }
+    }
+
     const thumbnail = document.querySelector("[data-template-thumbnail]");
     if (thumbnail) {
       const thumbnailUrl = template.thumbnail_url || "";
