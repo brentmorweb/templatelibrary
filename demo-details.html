@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modern Hero Section — Template Detail</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --teal: #2ab5a0;
+    --teal-dark: #229e8c;
+    --teal-light: rgba(42,181,160,0.1);
+    --bg: #f4f5f7;
+    --white: #ffffff;
+    --border: #e2e4e8;
+    --text: #1a1d23;
+    --muted: #6b7280;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
+    --radius: 12px;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .site-header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    min-width: 0;
+  }
+
+  .back-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 6px 10px;
+    border-radius: 8px;
+    transition: background 0.15s, color 0.15s;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .back-btn:hover { background: var(--bg); color: var(--text); }
+  .back-btn svg { flex-shrink: 0; }
+
+  .header-sep {
+    width: 1px; height: 20px;
+    background: var(--border);
+    flex-shrink: 0;
+  }
+
+  .header-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+  }
+
+  /* MAIN LAYOUT */
+  .page {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 28px 24px 60px;
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 24px;
+    align-items: start;
+  }
+
+  /* LEFT COLUMN */
+  .left-col { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+
+  /* THUMBNAIL */
+  .thumb-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+
+  .thumb-card-header {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .thumb-card-header-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .demo-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--teal);
+    text-decoration: none;
+    padding: 6px 12px;
+    border: 1.5px solid var(--teal);
+    border-radius: 7px;
+    transition: background 0.15s, color 0.15s;
+    white-space: nowrap;
+  }
+  .demo-link:hover { background: var(--teal); color: #fff; }
+
+  .thumb-preview {
+    width: 100%;
+    aspect-ratio: 640/348;
+    background: #e8eaed;
+    overflow: hidden;
+    display: block;
+    cursor: zoom-in;
+  }
+  .thumb-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+  .thumb-preview:hover img {
+    transform: scale(1.02);
+  }
+
+  /* TEMPLATE TITLE */
+  .template-title-block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 4px 0 0;
+    flex-wrap: wrap;
+  }
+  .template-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.3px;
+    line-height: 1.3;
+  }
+
+  /* CODE TABS */
+  .code-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    min-width: 0;
+  }
+
+  .code-tabs {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    padding: 0 8px;
+    background: #fafbfc;
+    gap: 2px;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+  }
+  .code-tabs::-webkit-scrollbar { display: none; }
+
+  .code-tab {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+    white-space: nowrap;
+    user-select: none;
+    margin-bottom: -1px;
+    flex-shrink: 0;
+  }
+  .code-tab:hover { color: var(--text); }
+  .code-tab.active { color: var(--teal); border-bottom-color: var(--teal); font-weight: 600; }
+
+  .tab-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+  .tab-dot-php  { background: #6366f1; }
+  .tab-dot-css  { background: #0ea5e9; }
+  .tab-dot-js   { background: #f59e0b; }
+
+  .copy-btn {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+    background: none;
+    border: 1.5px solid var(--border);
+    border-radius: 7px;
+    padding: 5px 12px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .copy-btn:hover { border-color: var(--teal); color: var(--teal); }
+  .copy-btn.copied { border-color: var(--teal); color: var(--teal); background: var(--teal-light); }
+
+  .code-pane {
+    display: none;
+    min-width: 0;
+    overflow: hidden;
+  }
+  .code-pane.active { display: block; }
+
+  pre {
+    margin: 0;
+    padding: 18px 20px;
+    font-family: 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+    font-size: 12px;
+    line-height: 1.7;
+    overflow-x: auto;
+    overflow-y: auto;
+    background: #1e2230;
+    color: #cdd6f4;
+    max-height: 680px;
+    min-height: 480px;
+    tab-size: 2;
+    white-space: pre;
+    word-break: normal;
+  }
+
+  /* Syntax highlight colours */
+  .kw  { color: #cba6f7; }
+  .fn  { color: #89b4fa; }
+  .str { color: #a6e3a1; }
+  .cm  { color: #6c7086; font-style: italic; }
+  .nm  { color: #fab387; }
+  .pu  { color: #89dceb; }
+  .nu  { color: #f38ba8; }
+
+  /* scrollbar */
+  pre::-webkit-scrollbar { width: 6px; height: 6px; }
+  pre::-webkit-scrollbar-track { background: #181825; }
+  pre::-webkit-scrollbar-thumb { background: #45475a; border-radius: 3px; }
+
+  /* RIGHT SIDEBAR */
+  .right-col { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+
+  .info-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+
+  .info-card-header {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .info-rows { padding: 4px 0; }
+
+  .info-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 9px 16px;
+    border-bottom: 1px solid #f3f4f6;
+  }
+  .info-row:last-child { border-bottom: none; }
+
+  .info-row-label {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 500;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .info-row-value {
+    font-size: 13px;
+    color: var(--text);
+    font-weight: 500;
+    text-align: right;
+    word-break: break-word;
+  }
+
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 20px;
+    background: #dcfce7;
+    color: #16a34a;
+  }
+  .status-dot { width: 6px; height: 6px; border-radius: 50%; background: #16a34a; }
+
+  /* Download button */
+  .download-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    background: var(--teal);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    padding: 13px 20px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+    box-shadow: 0 2px 8px rgba(42,181,160,0.3);
+    letter-spacing: 0.1px;
+  }
+  .download-btn:hover {
+    background: var(--teal-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(42,181,160,0.4);
+  }
+  .download-btn:active { transform: translateY(0); }
+
+  /* Tags */
+  .tags-wrap {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    padding: 12px 16px;
+  }
+  .tag {
+    font-size: 12px; font-weight: 500;
+    padding: 4px 10px; border-radius: 20px;
+    background: var(--bg); color: var(--muted);
+    border: 1px solid var(--border);
+  }
+
+  /* IMAGE MODAL */
+  .img-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+  .img-modal.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .img-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    cursor: pointer;
+  }
+
+  .img-modal-content {
+    position: relative;
+    z-index: 1;
+    max-width: 90vw;
+    max-height: 90vh;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+    transform: scale(0.96);
+    transition: transform 0.25s ease;
+    background: #000;
+  }
+  .img-modal.open .img-modal-content {
+    transform: scale(1);
+  }
+
+  .img-modal-content img {
+    display: block;
+    max-width: 90vw;
+    max-height: 88vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .img-modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    z-index: 2;
+    backdrop-filter: blur(4px);
+  }
+  .img-modal-close:hover { 
+    background: rgba(255,255,255,0.25);
+    transform: scale(1.1);
+  }
+
+  /* NOTES */
+  .notes-textarea {
+    width: 100%;
+    min-height: 90px;
+    font-family: inherit;
+    font-size: 13px;
+    color: var(--text);
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    resize: vertical;
+    outline: none;
+    line-height: 1.6;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    display: block;
+  }
+  .notes-textarea:focus {
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(42,181,160,0.12);
+  }
+
+  /* BREAKPOINTS */
+  @media (max-width: 1024px) {
+    .page { grid-template-columns: 1fr 260px; padding: 24px 20px 48px; }
+  }
+
+  @media (max-width: 768px) {
+    .page {
+      grid-template-columns: 1fr;
+      padding: 16px 16px 48px;
+      gap: 16px;
+    }
+    .right-col { order: -1; }
+    .site-header { padding: 0 16px; }
+    .back-btn span { display: none; }
+    pre { font-size: 11px; max-height: 300px; }
+    .img-modal-content img {
+      max-width: 95vw;
+      max-height: 85vh;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .page { padding: 12px 12px 40px; }
+    .code-tab { padding: 10px 10px; font-size: 12px; }
+    .copy-btn { padding: 5px 8px; font-size: 11px; }
+    .img-modal { padding: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- IMAGE MODAL -->
+<div class="img-modal" id="imgModal">
+  <div class="img-modal-backdrop" id="imgModalBackdrop"></div>
+  <div class="img-modal-content">
+    <button class="img-modal-close" id="imgModalClose" aria-label="Close modal">
+      <svg width="20" height="20" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+        <path d="M4 4l10 10M14 4L4 14"/>
+      </svg>
+    </button>
+    <img src="content_area.content_area.php.png" alt="Modern Hero Section preview" id="imgModalImg">
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <a href="template-library.html" class="back-btn">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M10 12L6 8l4-4"/>
+    </svg>
+    <span>Back to Library</span>
+  </a>
+  <div class="header-sep"></div>
+  <span class="header-title">Modern Hero Section</span>
+</header>
+
+<!-- PAGE -->
+<div class="page">
+
+  <!-- LEFT -->
+  <div class="left-col">
+
+    <!-- TITLE -->
+    <div class="template-title-block">
+      <h1 class="template-title">Modern Hero Section</h1>
+      <a href="#" class="demo-link">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 3H3a1 1 0 00-1 1v9a1 1 0 001 1h9a1 1 0 001-1v-3M10 2h4v4M14 2L8 8"/>
+        </svg>
+        View Demo
+      </a>
+    </div>
+
+    <!-- CODE TABS -->
+    <div class="code-card">
+      <div class="code-tabs">
+        <div class="code-tab active" data-tab="php">
+          <span class="tab-dot tab-dot-php"></span> PHP
+        </div>
+        <div class="code-tab" data-tab="css">
+          <span class="tab-dot tab-dot-css"></span> CSS
+        </div>
+        <div class="code-tab" data-tab="js">
+          <span class="tab-dot tab-dot-js"></span> JS
+        </div>
+        <button class="copy-btn" id="copyBtn">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="5" y="5" width="9" height="9" rx="1.5"/>
+            <path d="M11 5V3.5A1.5 1.5 0 009.5 2h-6A1.5 1.5 0 002 3.5v6A1.5 1.5 0 003.5 11H5"/>
+          </svg>
+          <span id="copyLabel">Copy</span>
+        </button>
+      </div>
+
+      <!-- PHP -->
+      <div class="code-pane active" data-pane="php">
+        <pre id="code-php"><span class="kw">&lt;tplOptions</span> <span class="nm">caption</span>=<span class="str">"Options"</span> <span class="nm">order</span>=<span class="str">"1"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;dl</span> <span class="nm">class</span>=<span class="str">"mwDialog _tpl-box"</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;dt</span> <span class="nm">class</span>=<span class="str">"formGroup"</span><span class="kw">&gt;</span>Spacing<span class="kw">&lt;/dt&gt;</span>
+    <span class="kw">&lt;dd&gt;</span>
+      <span class="kw">&lt;select</span> <span class="nm">name</span>=<span class="str">"custom_space"</span><span class="kw">&gt;</span>
+        <span class="kw">&lt;option</span> <span class="nm">value</span>=<span class="str">"is-sm"</span><span class="kw">&gt;</span>Small<span class="kw">&lt;/option&gt;</span>
+        <span class="kw">&lt;option</span> <span class="nm">value</span>=<span class="str">"is-md"</span><span class="kw">&gt;</span>Medium<span class="kw">&lt;/option&gt;</span>
+        <span class="kw">&lt;option</span> <span class="nm">value</span>=<span class="str">"is-lg"</span> <span class="nm">selected</span>=<span class="str">"selected"</span><span class="kw">&gt;</span>Large (default)<span class="kw">&lt;/option&gt;</span>
+        <span class="kw">&lt;option</span> <span class="nm">value</span>=<span class="str">"is-xl"</span><span class="kw">&gt;</span>Extra Large<span class="kw">&lt;/option&gt;</span>
+      <span class="kw">&lt;/select&gt;</span>
+    <span class="kw">&lt;/dd&gt;</span>
+  <span class="kw">&lt;/dl&gt;</span>
+  <span class="kw">&lt;dl</span> <span class="nm">class</span>=<span class="str">"mwDialog _tpl-box"</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;dt</span> <span class="nm">class</span>=<span class="str">"formGroup"</span><span class="kw">&gt;</span>Background<span class="kw">&lt;/dt&gt;</span>
+    <span class="kw">&lt;dt&gt;</span>Background Color:<span class="kw">&lt;/dt&gt;</span>
+    <span class="kw">&lt;dd&gt;&lt;input</span> <span class="nm">type</span>=<span class="str">"radio"</span> <span class="nm">class</span>=<span class="str">"cell-10 _tpl-checkbox-color-empty"</span>
+      <span class="nm">name</span>=<span class="str">"custom_bg_color"</span> <span class="nm">value</span>=<span class="str">""</span> <span class="nm">cap</span>=<span class="str">"None"</span> <span class="nm">checked</span>=<span class="str">"checked"</span><span class="kw">/&gt;&lt;/dd&gt;</span>
+    <span class="kw">&lt;dd&gt;</span>
+      <span class="kw">&lt;input</span> <span class="nm">type</span>=<span class="str">"radio"</span> <span class="nm">class</span>=<span class="str">"cell-10 _tpl-checkbox-color _bg-white"</span>    <span class="nm">name</span>=<span class="str">"custom_bg_color"</span> <span class="nm">value</span>=<span class="str">"_bg-white"</span>     <span class="nm">cap</span>=<span class="str">"White"</span><span class="kw">/&gt;</span>
+      <span class="kw">&lt;input</span> <span class="nm">type</span>=<span class="str">"radio"</span> <span class="nm">class</span>=<span class="str">"cell-10 _tpl-checkbox-color _bg-light"</span>    <span class="nm">name</span>=<span class="str">"custom_bg_color"</span> <span class="nm">value</span>=<span class="str">"_bg-light"</span>     <span class="nm">cap</span>=<span class="str">"Light"</span><span class="kw">/&gt;</span>
+      <span class="kw">&lt;input</span> <span class="nm">type</span>=<span class="str">"radio"</span> <span class="nm">class</span>=<span class="str">"cell-10 _tpl-checkbox-color _bg-gray"</span>     <span class="nm">name</span>=<span class="str">"custom_bg_color"</span> <span class="nm">value</span>=<span class="str">"_bg-gray"</span>      <span class="nm">cap</span>=<span class="str">"Gray"</span><span class="kw">/&gt;</span>
+      <span class="kw">&lt;input</span> <span class="nm">type</span>=<span class="str">"radio"</span> <span class="nm">class</span>=<span class="str">"cell-10 _tpl-checkbox-color _bg-dark"</span>     <span class="nm">name</span>=<span class="str">"custom_bg_color"</span> <span class="nm">value</span>=<span class="str">"_bg-dark"</span>      <span class="nm">cap</span>=<span class="str">"Dark"</span><span class="kw">/&gt;</span>
+      <span class="kw">&lt;input</span> <span class="nm">type</span>=<span class="str">"radio"</span> <span class="nm">class</span>=<span class="str">"cell-10 _tpl-checkbox-color _bg-primary"</span>  <span class="nm">name</span>=<span class="str">"custom_bg_color"</span> <span class="nm">value</span>=<span class="str">"_bg-primary"</span>   <span class="nm">cap</span>=<span class="str">"Primary"</span><span class="kw">/&gt;</span>
+      <span class="kw">&lt;input</span> <span class="nm">type</span>=<span class="str">"radio"</span> <span class="nm">class</span>=<span class="str">"cell-10 _tpl-checkbox-color _bg-secondary"</span><span class="nm">name</span>=<span class="str">"custom_bg_color"</span> <span class="nm">value</span>=<span class="str">"_bg-secondary"</span> <span class="nm">cap</span>=<span class="str">"Secondary"</span><span class="kw">/&gt;</span>
+      <span class="kw">&lt;input</span> <span class="nm">type</span>=<span class="str">"radio"</span> <span class="nm">class</span>=<span class="str">"cell-10 _tpl-checkbox-color _bg-third"</span>    <span class="nm">name</span>=<span class="str">"custom_bg_color"</span> <span class="nm">value</span>=<span class="str">"_bg-third"</span>     <span class="nm">cap</span>=<span class="str">"Third"</span><span class="kw">/&gt;</span>
+      <span class="kw">&lt;input</span> <span class="nm">type</span>=<span class="str">"radio"</span> <span class="nm">class</span>=<span class="str">"cell-10 _tpl-checkbox-color _bg-fourth"</span>   <span class="nm">name</span>=<span class="str">"custom_bg_color"</span> <span class="nm">value</span>=<span class="str">"_bg-fourth"</span>    <span class="nm">cap</span>=<span class="str">"Fourth"</span><span class="kw">/&gt;</span>
+    <span class="kw">&lt;/dd&gt;</span>
+    <span class="kw">&lt;dd&gt;</span>
+      <span class="kw">&lt;input</span> <span class="nm">type</span>=<span class="str">"radio"</span> <span class="nm">class</span>=<span class="str">"cell-10 _tpl-checkbox-color _bg-primary-light"</span>   <span class="nm">name</span>=<span class="str">"custom_bg_color"</span> <span class="nm">value</span>=<span class="str">"_bg-primary-light"</span>   <span class="nm">cap</span>=<span class="str">"Primary Light"</span><span class="kw">/&gt;</span>
+      <span class="kw">&lt;input</span> <span class="nm">type</span>=<span class="str">"radio"</span> <span class="nm">class</span>=<span class="str">"cell-10 _tpl-checkbox-color _bg-secondary-light"</span> <span class="nm">name</span>=<span class="str">"custom_bg_color"</span> <span class="nm">value</span>=<span class="str">"_bg-secondary-light"</span> <span class="nm">cap</span>=<span class="str">"Secondary Light"</span><span class="kw">/&gt;</span>
+      <span class="kw">&lt;input</span> <span class="nm">type</span>=<span class="str">"radio"</span> <span class="nm">class</span>=<span class="str">"cell-10 _tpl-checkbox-color _bg-third-light"</span>     <span class="nm">name</span>=<span class="str">"custom_bg_color"</span> <span class="nm">value</span>=<span class="str">"_bg-third-light"</span>     <span class="nm">cap</span>=<span class="str">"Third Light"</span><span class="kw">/&gt;</span>
+      <span class="kw">&lt;input</span> <span class="nm">type</span>=<span class="str">"radio"</span> <span class="nm">class</span>=<span class="str">"cell-10 _tpl-checkbox-color _bg-fourth-light"</span>    <span class="nm">name</span>=<span class="str">"custom_bg_color"</span> <span class="nm">value</span>=<span class="str">"_bg-fourth-light"</span>    <span class="nm">cap</span>=<span class="str">"Fourth Light"</span><span class="kw">/&gt;</span>
+      <span class="kw">&lt;input</span> <span class="nm">type</span>=<span class="str">"radio"</span> <span class="nm">class</span>=<span class="str">"cell-10 _tpl-checkbox-color _bg-primary-dark"</span>    <span class="nm">name</span>=<span class="str">"custom_bg_color"</span> <span class="nm">value</span>=<span class="str">"_bg-primary-dark"</span>    <span class="nm">cap</span>=<span class="str">"Primary Dark"</span><span class="kw">/&gt;</span>
+      <span class="kw">&lt;input</span> <span class="nm">type</span>=<span class="str">"radio"</span> <span class="nm">class</span>=<span class="str">"cell-10 _tpl-checkbox-color _bg-secondary-dark"</span>  <span class="nm">name</span>=<span class="str">"custom_bg_color"</span> <span class="nm">value</span>=<span class="str">"_bg-secondary-dark"</span>  <span class="nm">cap</span>=<span class="str">"Secondary Dark"</span><span class="kw">/&gt;</span>
+      <span class="kw">&lt;input</span> <span class="nm">type</span>=<span class="str">"radio"</span> <span class="nm">class</span>=<span class="str">"cell-10 _tpl-checkbox-color _bg-third-dark"</span>      <span class="nm">name</span>=<span class="str">"custom_bg_color"</span> <span class="nm">value</span>=<span class="str">"_bg-third-dark"</span>      <span class="nm">cap</span>=<span class="str">"Third Dark"</span><span class="kw">/&gt;</span>
+      <span class="kw">&lt;input</span> <span class="nm">type</span>=<span class="str">"radio"</span> <span class="nm">class</span>=<span class="str">"cell-10 _tpl-checkbox-color _bg-fourth-dark"</span>     <span class="nm">name</span>=<span class="str">"custom_bg_color"</span> <span class="nm">value</span>=<span class="str">"_bg-fourth-dark"</span>     <span class="nm">cap</span>=<span class="str">"Fourth Dark"</span><span class="kw">/&gt;</span>
+    <span class="kw">&lt;/dd&gt;</span>
+  <span class="kw">&lt;/dl&gt;</span>
+<span class="kw">&lt;/tplOptions&gt;</span>
+
+<span class="kw">&lt;tplOptions</span> <span class="nm">caption</span>=<span class="str">"Advanced"</span> <span class="nm">order</span>=<span class="str">"2"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;dl</span> <span class="nm">class</span>=<span class="str">"mwDialog _tpl-box"</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;dt</span> <span class="nm">class</span>=<span class="str">"formGroup"</span><span class="kw">&gt;</span>Anchor ID<span class="kw">&lt;/dt&gt;</span>
+    <span class="kw">&lt;dd&gt;&lt;input</span> <span class="nm">type</span>=<span class="str">"text"</span> <span class="nm">name</span>=<span class="str">"custom_id"</span><span class="kw">/&gt;&lt;/dd&gt;</span>
+    <span class="kw">&lt;dd</span> <span class="nm">class</span>=<span class="str">"_tpl-info"</span><span class="kw">&gt;</span>Example: <span class="kw">&lt;strong&gt;</span>anchor-id<span class="kw">&lt;/strong&gt;</span> (no space, no # hash, no uppercase)<span class="kw">&lt;/dd&gt;</span>
+  <span class="kw">&lt;/dl&gt;</span>
+  <span class="kw">&lt;dl</span> <span class="nm">class</span>=<span class="str">"mwDialog _tpl-box"</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;dt</span> <span class="nm">class</span>=<span class="str">"formGroup"</span><span class="kw">&gt;</span>Border<span class="kw">&lt;/dt&gt;</span>
+    <span class="kw">&lt;dd&gt;</span>
+      <span class="kw">&lt;select</span> <span class="nm">name</span>=<span class="str">"custom_border"</span><span class="kw">&gt;</span>
+        <span class="kw">&lt;option</span> <span class="nm">value</span>=<span class="str">""</span> <span class="nm">selected</span>=<span class="str">"selected"</span><span class="kw">&gt;</span>None (default)<span class="kw">&lt;/option&gt;</span>
+        <span class="kw">&lt;option</span> <span class="nm">value</span>=<span class="str">"_border-top"</span><span class="kw">&gt;</span>Add a border at top<span class="kw">&lt;/option&gt;</span>
+        <span class="kw">&lt;option</span> <span class="nm">value</span>=<span class="str">"_border-bottom"</span><span class="kw">&gt;</span>Add a border at bottom<span class="kw">&lt;/option&gt;</span>
+        <span class="kw">&lt;option</span> <span class="nm">value</span>=<span class="str">"_border-top _border-bottom"</span><span class="kw">&gt;</span>Add borders at top and bottom<span class="kw">&lt;/option&gt;</span>
+      <span class="kw">&lt;/select&gt;</span>
+    <span class="kw">&lt;/dd&gt;</span>
+  <span class="kw">&lt;/dl&gt;</span>
+  <span class="kw">&lt;dl</span> <span class="nm">class</span>=<span class="str">"mwDialog _tpl-box"</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;dt</span> <span class="nm">class</span>=<span class="str">"formGroup"</span><span class="kw">&gt;</span>Custom Spacing<span class="kw">&lt;/dt&gt;</span>
+    <span class="kw">&lt;dt&gt;</span>Remove Padding:<span class="kw">&lt;/dt&gt;</span>
+    <span class="kw">&lt;dd&gt;</span>
+      <span class="kw">&lt;select</span> <span class="nm">name</span>=<span class="str">"custom_remove_padding"</span><span class="kw">&gt;</span>
+        <span class="kw">&lt;option</span> <span class="nm">value</span>=<span class="str">""</span> <span class="nm">selected</span>=<span class="str">"selected"</span><span class="kw">&gt;</span>Disable (default)<span class="kw">&lt;/option&gt;</span>
+        <span class="kw">&lt;option</span> <span class="nm">value</span>=<span class="str">"_pt-0"</span><span class="kw">&gt;</span>Remove Top Padding<span class="kw">&lt;/option&gt;</span>
+        <span class="kw">&lt;option</span> <span class="nm">value</span>=<span class="str">"_pb-0"</span><span class="kw">&gt;</span>Remove Bottom Padding<span class="kw">&lt;/option&gt;</span>
+        <span class="kw">&lt;option</span> <span class="nm">value</span>=<span class="str">"_pt-0 _pb-0"</span><span class="kw">&gt;</span>Remove Top &amp; Bottom Padding<span class="kw">&lt;/option&gt;</span>
+      <span class="kw">&lt;/select&gt;</span>
+    <span class="kw">&lt;/dd&gt;</span>
+    <span class="kw">&lt;dt&gt;</span>Fullwidth:<span class="kw">&lt;/dt&gt;</span>
+    <span class="kw">&lt;dd&gt;</span>
+      <span class="kw">&lt;select</span> <span class="nm">name</span>=<span class="str">"custom_fullwidth"</span><span class="kw">&gt;</span>
+        <span class="kw">&lt;option</span> <span class="nm">value</span>=<span class="str">""</span> <span class="nm">selected</span><span class="kw">&gt;</span>Disable (default)<span class="kw">&lt;/option&gt;</span>
+        <span class="kw">&lt;option</span> <span class="nm">value</span>=<span class="str">"is-fullwidth"</span><span class="kw">&gt;</span>Enable Fullwidth<span class="kw">&lt;/option&gt;</span>
+      <span class="kw">&lt;/select&gt;</span>
+    <span class="kw">&lt;/dd&gt;</span>
+  <span class="kw">&lt;/dl&gt;</span>
+  <span class="kw">&lt;dl</span> <span class="nm">class</span>=<span class="str">"mwDialog _tpl-box"</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;dt</span> <span class="nm">class</span>=<span class="str">"formGroup"</span><span class="kw">&gt;</span>Offset<span class="kw">&lt;/dt&gt;</span>
+    <span class="kw">&lt;dt&gt;</span>Offset Top:<span class="kw">&lt;/dt&gt;</span>
+    <span class="kw">&lt;dd&gt;</span>
+      <span class="kw">&lt;select</span> <span class="nm">name</span>=<span class="str">"custom_offset_top"</span><span class="kw">&gt;</span>
+        <span class="kw">&lt;option</span> <span class="nm">value</span>=<span class="str">""</span> <span class="nm">selected</span>=<span class="str">"selected"</span><span class="kw">&gt;</span>Disable (default)<span class="kw">&lt;/option&gt;</span>
+        <span class="kw">&lt;option</span> <span class="nm">value</span>=<span class="str">"is-offset-top-sm"</span><span class="kw">&gt;</span>Small (30px)<span class="kw">&lt;/option&gt;</span>
+        <span class="kw">&lt;option</span> <span class="nm">value</span>=<span class="str">"is-offset-top-md"</span><span class="kw">&gt;</span>Medium (60px)<span class="kw">&lt;/option&gt;</span>
+        <span class="kw">&lt;option</span> <span class="nm">value</span>=<span class="str">"is-offset-top-lg"</span><span class="kw">&gt;</span>Large (90px)<span class="kw">&lt;/option&gt;</span>
+      <span class="kw">&lt;/select&gt;</span>
+    <span class="kw">&lt;/dd&gt;</span>
+  <span class="kw">&lt;/dl&gt;</span>
+<span class="kw">&lt;/tplOptions&gt;</span>
+
+<span class="kw">&lt;tplOptions</span> <span class="nm">caption</span>=<span class="str">"How to Use"</span> <span class="nm">order</span>=<span class="str">"3"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;dl</span> <span class="nm">class</span>=<span class="str">"mwDialog _tpl-box"</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;dt</span> <span class="nm">class</span>=<span class="str">"formGroup"</span><span class="kw">&gt;</span>How to Use<span class="kw">&lt;/dt&gt;</span>
+    <span class="kw">&lt;dd</span> <span class="nm">class</span>=<span class="str">"_tpl-info"</span><span class="kw">&gt;</span>Insert the template into your page where a flexible content area is needed.<span class="kw">&lt;/dd&gt;</span>
+    <span class="kw">&lt;dd</span> <span class="nm">class</span>=<span class="str">"_tpl-info"</span><span class="kw">&gt;</span>Choose your spacing and background color to match your layout.<span class="kw">&lt;/dd&gt;</span>
+    <span class="kw">&lt;dd</span> <span class="nm">class</span>=<span class="str">"_tpl-info"</span><span class="kw">&gt;</span>Optionally set an Anchor ID for direct links (<span class="kw">&lt;code&gt;</span>custom_id<span class="kw">&lt;/code&gt;</span>).<span class="kw">&lt;/dd&gt;</span>
+    <span class="kw">&lt;dd</span> <span class="nm">class</span>=<span class="str">"_tpl-info"</span><span class="kw">&gt;</span>Add top/bottom borders or custom padding removal as desired.<span class="kw">&lt;/dd&gt;</span>
+    <span class="kw">&lt;dd</span> <span class="nm">class</span>=<span class="str">"_tpl-info"</span><span class="kw">&gt;</span>Enable full‑width or offset top spacing for advanced layout control.<span class="kw">&lt;/dd&gt;</span>
+  <span class="kw">&lt;/dl&gt;</span>
+<span class="kw">&lt;/tplOptions&gt;</span>
+
+<span class="pu">&lt;?php</span> <span class="nm">$tpl_id</span> = <span class="fn">newSN</span>(<span class="str">'tpl-'</span>, <span class="nu">10</span>); <span class="pu">?&gt;</span>
+
+<span class="kw">&lt;div</span> <span class="nm">id</span>=<span class="str">"&lt;?= $tpl_id ?&gt;"</span>
+     <span class="nm">class</span>=<span class="str">"content-area _content-style {custom_space} {custom_bg_color} {custom_border} {custom_offset_top} {custom_fullwidth}"</span>
+     <span class="nm">data-tpl-tooltip</span>=<span class="str">"Content Area"</span><span class="kw">&gt;</span>
+  <span class="kw">&lt;div</span> <span class="nm">id</span>=<span class="str">"{custom_id}"</span> <span class="nm">class</span>=<span class="str">"content-area-wrap {custom_remove_padding}"</span><span class="kw">&gt;</span>
+    <span class="kw">&lt;div</span> <span class="nm">class</span>=<span class="str">"container"</span><span class="kw">&gt;</span>
+      <span class="kw">&lt;mwPageArea</span> <span class="nm">rel</span>=<span class="str">"mainContent"</span> <span class="nm">info</span>=<span class="str">"Content Area"</span> <span class="nm">sortable</span>=<span class="str">"page"</span><span class="kw">&gt;&lt;/mwPageArea&gt;</span>
+    <span class="kw">&lt;/div&gt;</span>
+  <span class="kw">&lt;/div&gt;</span>
+<span class="kw">&lt;/div&gt;</span></pre>
+      </div>
+
+      <!-- CSS -->
+      <div class="code-pane" data-pane="css">
+        <pre id="code-css"><span class="cm">/* ============================
+   Modern Hero Section
+   hero-section.css
+   ============================ */</span>
+
+<span class="nu">.hero-section</span> {
+  <span class="nm">width</span>: <span class="str">100%</span>;
+  <span class="nm">background</span>: <span class="str">var(--hero-bg, #f0f6f8)</span>;
+  <span class="nm">overflow</span>: <span class="str">hidden</span>;
+}
+
+<span class="nu">.hero-inner</span> {
+  <span class="nm">display</span>: <span class="str">flex</span>;
+  <span class="nm">align-items</span>: <span class="str">center</span>;
+  <span class="nm">max-width</span>: <span class="str">1200px</span>;
+  <span class="nm">margin</span>: <span class="str">0 auto</span>;
+  <span class="nm">padding</span>: <span class="str">60px 40px</span>;
+  <span class="nm">gap</span>: <span class="str">40px</span>;
+  <span class="nm">min-height</span>: <span class="str">420px</span>;
+}
+
+<span class="nu">.hero-content</span> {
+  <span class="nm">flex</span>: <span class="str">1</span>;
+  <span class="nm">max-width</span>: <span class="str">520px</span>;
+}
+
+<span class="nu">.hero-title</span> {
+  <span class="nm">font-size</span>: <span class="str">clamp(28px, 4vw, 48px)</span>;
+  <span class="nm">font-weight</span>: <span class="str">700</span>;
+  <span class="nm">line-height</span>: <span class="str">1.15</span>;
+  <span class="nm">color</span>: <span class="str">var(--heading-color, #1a2a3a)</span>;
+  <span class="nm">margin-bottom</span>: <span class="str">16px</span>;
+}
+
+<span class="nu">.hero-subtitle</span> {
+  <span class="nm">font-size</span>: <span class="str">16px</span>;
+  <span class="nm">line-height</span>: <span class="str">1.65</span>;
+  <span class="nm">color</span>: <span class="str">var(--body-color, #4a6a7a)</span>;
+  <span class="nm">margin-bottom</span>: <span class="str">28px</span>;
+}
+
+<span class="nu">.hero-btn</span> {
+  <span class="nm">display</span>: <span class="str">inline-flex</span>;
+  <span class="nm">align-items</span>: <span class="str">center</span>;
+  <span class="nm">background</span>: <span class="str">var(--btn-bg, #2563eb)</span>;
+  <span class="nm">color</span>: <span class="str">#fff</span>;
+  <span class="nm">font-weight</span>: <span class="str">600</span>;
+  <span class="nm">font-size</span>: <span class="str">15px</span>;
+  <span class="nm">padding</span>: <span class="str">12px 28px</span>;
+  <span class="nm">border-radius</span>: <span class="str">6px</span>;
+  <span class="nm">text-decoration</span>: <span class="str">none</span>;
+  <span class="nm">transition</span>: <span class="str">background 0.2s, transform 0.15s</span>;
+}
+<span class="nu">.hero-btn:hover</span> {
+  <span class="nm">background</span>: <span class="str">var(--btn-bg-hover, #1d4ed8)</span>;
+  <span class="nm">transform</span>: <span class="str">translateY(-2px)</span>;
+}
+
+<span class="nu">.hero-image</span> {
+  <span class="nm">flex</span>: <span class="str">1</span>;
+  <span class="nm">display</span>: <span class="str">flex</span>;
+  <span class="nm">justify-content</span>: <span class="str">center</span>;
+}
+<span class="nu">.hero-image img</span> {
+  <span class="nm">max-width</span>: <span class="str">100%</span>;
+  <span class="nm">border-radius</span>: <span class="str">12px</span>;
+  <span class="nm">object-fit</span>: <span class="str">cover</span>;
+}
+
+<span class="nu">.hero-features</span> {
+  <span class="nm">display</span>: <span class="str">grid</span>;
+  <span class="nm">grid-template-columns</span>: <span class="str">repeat(3, 1fr)</span>;
+  <span class="nm">border-top</span>: <span class="str">1px solid var(--border-color, #d8e4e8)</span>;
+  <span class="nm">background</span>: <span class="str">var(--features-bg, #f8fafc)</span>;
+}
+
+<span class="nu">.hero-feature-item</span> {
+  <span class="nm">padding</span>: <span class="str">24px 32px</span>;
+  <span class="nm">border-right</span>: <span class="str">1px solid var(--border-color, #d8e4e8)</span>;
+}
+<span class="nu">.hero-feature-item:last-child</span> { <span class="nm">border-right</span>: <span class="str">none</span>; }
+<span class="nu">.hero-feature-item h3</span> { <span class="nm">font-size</span>: <span class="str">15px</span>; <span class="nm">font-weight</span>: <span class="str">600</span>; <span class="nm">margin-bottom</span>: <span class="str">6px</span>; }
+<span class="nu">.hero-feature-item p</span>  { <span class="nm">font-size</span>: <span class="str">13px</span>; <span class="nm">color</span>: <span class="str">var(--body-color)</span>; <span class="nm">line-height</span>: <span class="str">1.5</span>; }
+
+<span class="nu">@media (max-width: 768px)</span> {
+  <span class="nu">.hero-inner</span>    { <span class="nm">flex-direction</span>: <span class="str">column</span>; <span class="nm">padding</span>: <span class="str">40px 20px</span>; }
+  <span class="nu">.hero-features</span> { <span class="nm">grid-template-columns</span>: <span class="str">1fr</span>; }
+  <span class="nu">.hero-feature-item</span> { <span class="nm">border-right</span>: <span class="str">none</span>; <span class="nm">border-bottom</span>: <span class="str">1px solid var(--border-color)</span>; }
+}</pre>
+      </div>
+
+      <!-- JS -->
+      <div class="code-pane" data-pane="js">
+        <pre id="code-js"><span class="cm">/**
+ * Modern Hero Section — JS
+ * hero-section.js
+ */</span>
+
+(<span class="kw">function</span>() {
+  <span class="str">'use strict'</span>;
+
+  <span class="kw">const</span> <span class="nm">hero</span> = <span class="fn">document</span>.<span class="fn">querySelector</span>(<span class="str">'.hero-section'</span>);
+  <span class="kw">if</span> (!<span class="nm">hero</span>) <span class="kw">return</span>;
+
+  <span class="cm">// Animate hero content on load</span>
+  <span class="kw">const</span> <span class="nm">content</span> = <span class="nm">hero</span>.<span class="fn">querySelector</span>(<span class="str">'.hero-content'</span>);
+  <span class="kw">const</span> <span class="nm">image</span> = <span class="nm">hero</span>.<span class="fn">querySelector</span>(<span class="str">'.hero-image'</span>);
+  <span class="kw">const</span> <span class="nm">features</span> = <span class="nm">hero</span>.<span class="fn">querySelectorAll</span>(<span class="str">'.hero-feature-item'</span>);
+
+  <span class="kw">function</span> <span class="fn">animateIn</span>(<span class="nm">el</span>, <span class="nm">delay</span> = <span class="nu">0</span>) {
+    <span class="nm">el</span>.<span class="fn">style</span>.<span class="nm">cssText</span> += <span class="str">`
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease ${delay}ms,
+                  transform 0.5s ease ${delay}ms;
+    `</span>;
+    <span class="fn">requestAnimationFrame</span>(() => {
+      <span class="fn">requestAnimationFrame</span>(() => {
+        <span class="nm">el</span>.<span class="fn">style</span>.<span class="nm">opacity</span> = <span class="str">'1'</span>;
+        <span class="nm">el</span>.<span class="fn">style</span>.<span class="nm">transform</span> = <span class="str">'translateY(0)'</span>;
+      });
+    });
+  }
+
+  <span class="kw">if</span> (<span class="nm">content</span>) <span class="fn">animateIn</span>(<span class="nm">content</span>, <span class="nu">0</span>);
+  <span class="kw">if</span> (<span class="nm">image</span>)   <span class="fn">animateIn</span>(<span class="nm">image</span>,   <span class="nu">100</span>);
+
+  <span class="nm">features</span>.<span class="fn">forEach</span>((<span class="nm">el</span>, <span class="nm">i</span>) => {
+    <span class="fn">animateIn</span>(<span class="nm">el</span>, <span class="nu">200</span> + <span class="nm">i</span> * <span class="nu">80</span>);
+  });
+
+  <span class="cm">// Parallax effect on scroll</span>
+  <span class="kw">const</span> <span class="nm">heroImg</span> = <span class="nm">hero</span>.<span class="fn">querySelector</span>(<span class="str">'.hero-image img'</span>);
+  <span class="kw">if</span> (<span class="nm">heroImg</span>) {
+    <span class="fn">window</span>.<span class="fn">addEventListener</span>(<span class="str">'scroll'</span>, () => {
+      <span class="kw">const</span> <span class="nm">rect</span> = <span class="nm">hero</span>.<span class="fn">getBoundingClientRect</span>();
+      <span class="kw">const</span> <span class="nm">offset</span> = (<span class="nm">rect</span>.<span class="nm">top</span> / <span class="fn">window</span>.<span class="nm">innerHeight</span>) * <span class="nu">20</span>;
+      <span class="nm">heroImg</span>.<span class="fn">style</span>.<span class="nm">transform</span> = <span class="str">`translateY(${offset}px)`</span>;
+    }, { <span class="nm">passive</span>: <span class="kw">true</span> });
+  }
+
+})();</pre>
+      </div>
+    </div>
+
+  </div><!-- /left -->
+
+  <!-- RIGHT SIDEBAR -->
+  <div class="right-col">
+
+    <!-- THUMBNAIL -->
+    <div class="thumb-card">
+      <div class="thumb-card-header">
+        <span class="thumb-card-header-label">Preview</span>
+      </div>
+      <div class="thumb-preview" id="thumbPreview" title="Click to enlarge">
+        <img src="content_area.content_area.php.png" alt="Modern Hero Section preview">
+      </div>
+    </div>
+
+    <!-- Download -->
+    <button class="download-btn" id="downloadBtn">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M8 2v8M5 7l3 3 3-3M2 12v1a1 1 0 001 1h10a1 1 0 001-1v-1"/>
+      </svg>
+      Download All (.zip)
+    </button>
+
+    <!-- Details -->
+    <div class="info-card">
+      <div class="info-card-header">Details</div>
+      <div class="info-rows">
+        <div class="info-row">
+          <span class="info-row-label">Status</span>
+          <span class="info-row-value">
+            <span class="status-badge"><span class="status-dot"></span> Published</span>
+          </span>
+        </div>
+        <div class="info-row">
+          <span class="info-row-label">Last edited</span>
+          <span class="info-row-value">Feb 17, 2026</span>
+        </div>
+        <div class="info-row">
+          <span class="info-row-label">Edited by</span>
+          <span class="info-row-value">Brent</span>
+        </div>
+        <div class="info-row">
+          <span class="info-row-label">Created</span>
+          <span class="info-row-value">Jan 4, 2026</span>
+        </div>
+        <div class="info-row">
+          <span class="info-row-label">Created by</span>
+          <span class="info-row-value">Brent</span>
+        </div>
+        <div class="info-row">
+          <span class="info-row-label">Version</span>
+          <span class="info-row-value">1.3.0</span>
+        </div>
+        <div class="info-row" style="flex-direction:column; gap:8px;">
+          <span class="info-row-label">Notes</span>
+          <textarea id="notesField" class="notes-textarea" placeholder="Add notes about this template...">Requires hero image to be at least 800×600px. Button colour can be overridden via --btn-bg CSS variable.</textarea>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /right -->
+
+</div><!-- /page -->
+
+<script>
+  // Tab switching
+  const tabs  = document.querySelectorAll('.code-tab');
+  const panes = document.querySelectorAll('.code-pane');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      panes.forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.querySelector(`.code-pane[data-pane="${tab.dataset.tab}"]`).classList.add('active');
+      // reset copy button
+      document.getElementById('copyLabel').textContent = 'Copy';
+      document.getElementById('copyBtn').classList.remove('copied');
+    });
+  });
+
+  // Copy code
+  document.getElementById('copyBtn').addEventListener('click', () => {
+    const activePane = document.querySelector('.code-pane.active pre');
+    const text = activePane.innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById('copyBtn');
+      const label = document.getElementById('copyLabel');
+      label.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        label.textContent = 'Copy';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  });
+
+  document.getElementById('downloadBtn').addEventListener('click', function() {
+    const orig = this.innerHTML;
+    this.innerHTML = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8a6 6 0 1012 0A6 6 0 002 8z" opacity=".3"/><path d="M8 2a6 6 0 016 6"/></svg> Preparing...`;
+    this.style.opacity = '0.8';
+    setTimeout(() => {
+      this.innerHTML = orig;
+      this.style.opacity = '1';
+    }, 1800);
+  });
+
+  // Image modal functionality
+  const modal = document.getElementById('imgModal');
+  const modalBackdrop = document.getElementById('imgModalBackdrop');
+  const modalClose = document.getElementById('imgModalClose');
+  const thumbPreview = document.getElementById('thumbPreview');
+  const modalImg = document.getElementById('imgModalImg');
+  const thumbImg = thumbPreview.querySelector('img');
+
+  function openModal() {
+    // Sync the modal image source with the thumbnail source
+    modalImg.src = thumbImg.src;
+    modalImg.alt = thumbImg.alt;
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Event listeners
+  thumbPreview.addEventListener('click', openModal);
+  modalBackdrop.addEventListener('click', closeModal);
+  modalClose.addEventListener('click', closeModal);
+  
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('open')) {
+      closeModal();
+    }
+  });
+</script>
+
+</body>
+</html>
