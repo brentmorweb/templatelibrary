@@ -90,12 +90,13 @@ function resolve_public_asset_url(string $path): string
 
     $decodedPath = rawurldecode($trimmed);
     if (str_starts_with($decodedPath, '/sample tempaltes/')) {
-        $libraryBase = rtrim(dirname($appBase), '/');
-        if ($libraryBase === '.' || $libraryBase === '/') {
-            $libraryBase = '';
-        }
+        $relativePath = ltrim($decodedPath, '/');
+        return ($appBase !== '' ? $appBase : '') . '/api/image.php?path=' . rawurlencode($relativePath);
+    }
 
-        return $libraryBase . $trimmed;
+    if (str_starts_with($decodedPath, '/data-images/')) {
+        $relativePath = ltrim(substr($decodedPath, strlen('/data-images/')), '/');
+        return ($appBase !== '' ? $appBase : '') . '/api/image.php?path=' . rawurlencode($relativePath);
     }
 
     return $trimmed;
