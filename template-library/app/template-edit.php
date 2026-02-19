@@ -94,10 +94,12 @@ render_header($pageTitle);
                 <label class="tl-label" for="description">Description</label>
                 <input class="tl-input" id="description" name="description" type="text" value="<?php echo e($templateDescription); ?>" />
               </div>
-              <div class="tl-field">
-                <label class="tl-label" for="tags">Tags</label>
-                <input class="tl-input" id="tags" name="tags" type="text" value="<?php echo e($templateTags); ?>" />
-              </div>
+              <?php if (!$isNewTemplate) : ?>
+                <div class="tl-field">
+                  <label class="tl-label" for="tags">Tags</label>
+                  <input class="tl-input" id="tags" name="tags" type="text" value="<?php echo e($templateTags); ?>" />
+                </div>
+              <?php endif; ?>
             </div>
 
             <div class="tl-field">
