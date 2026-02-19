@@ -9,7 +9,7 @@ api_require_methods(['GET']);
 $templates = list_templates();
 $filtered = api_filter_templates($templates, $_GET);
 
-$sort = (string) ($_GET['sort'] ?? 'updated');
+$sort = (string) ($_GET['sort'] ?? 'name_asc');
 $direction = (string) ($_GET['direction'] ?? 'desc');
 $sorted = api_sort_templates($filtered, $sort, $direction);
 

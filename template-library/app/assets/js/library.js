@@ -140,7 +140,7 @@
     const formData = new FormData(form);
     return {
       query: String(formData.get("q") || "").trim().toLowerCase(),
-      sort: String(formData.get("sort") || "recent"),
+      sort: String(formData.get("sort") || "name_asc"),
     };
   };
 
@@ -155,7 +155,7 @@
   };
 
   const sortList = (list, cardLinks, sortKey) => {
-    const sorter = sorterMap[sortKey] || sorterMap.recent;
+    const sorter = sorterMap[sortKey] || sorterMap.name_asc;
     [...cardLinks].sort(sorter).forEach((link) => list.appendChild(link));
   };
 

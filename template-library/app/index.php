@@ -72,10 +72,9 @@ render_header('MW Template Library');
 
         <label class="sr-only" for="tl-sort">Sort templates</label>
         <select id="tl-sort" class="tl-sort-select" name="sort">
+          <option value="name_asc" selected>Name (A–Z)</option>
           <option value="recent">Most recent</option>
-          <option value="popular">Most used</option>
           <option value="updated">Recently updated</option>
-          <option value="name_asc">Name (A–Z)</option>
           <option value="name_desc">Name (Z–A)</option>
           <option value="created_desc">Newest created</option>
           <option value="created_asc">Oldest created</option>
