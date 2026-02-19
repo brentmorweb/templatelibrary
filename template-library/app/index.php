@@ -8,7 +8,7 @@ require_once __DIR__ . '/includes/footer.php';
 
 render_header('MW Template Library');
 ?>
-<div class="tl-app" data-page="library" data-api-endpoint="<?php echo e(api_url('templates.php')); ?>">
+<div class="tl-app" data-page="library" data-api-endpoint="<?php echo e(api_url('templates.php')); ?>" data-delete-endpoint="<?php echo e(api_url('template-delete.php')); ?>" data-authenticated="<?php echo is_authenticated() ? 'true' : 'false'; ?>">
   <header class="tl-site-header">
     <div class="tl-header-shell">
       <div class="tl-header-top">

@@ -193,6 +193,25 @@ main {
   color: var(--white);
 }
 
+
+.tl-btn--sm {
+  padding: 6px 12px;
+  font-size: 0.82rem;
+  border-radius: 8px;
+}
+
+.tl-template-card__actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding-top: 4px;
+  position: relative;
+  z-index: 2;
+}
+
+.tl-template-card__actions .tl-btn {
+  text-decoration: none;
+}
 .tl-pill {
   padding: 4px 10px;
   border-radius: 999px;
