@@ -889,6 +889,24 @@
 </main>
 
 <script>
+  // Search filter
+  const searchInput = document.getElementById('searchInput');
+  const templateCards = Array.from(document.querySelectorAll('.template-grid .template-card'));
+
+  function applySearchFilter() {
+    const query = (searchInput?.value || '').trim().toLowerCase();
+
+    templateCards.forEach((card) => {
+      const title = card.querySelector('.card-title')?.textContent?.toLowerCase() || '';
+      const meta = card.querySelector('.card-meta')?.textContent?.toLowerCase() || '';
+      const matches = query === '' || title.includes(query) || meta.includes(query);
+      card.style.display = matches ? '' : 'none';
+    });
+  }
+
+  searchInput?.addEventListener('input', applySearchFilter);
+  searchInput?.addEventListener('search', applySearchFilter);
+
   // Pagination
   document.querySelectorAll('.pg-btn').forEach(btn => {
     btn.addEventListener('click', function() {
