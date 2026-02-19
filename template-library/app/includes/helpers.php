@@ -67,3 +67,36 @@ function app_base_url(): string
 
     return rtrim($scriptDir, '/');
 }
+
+function resolve_public_asset_url(string $path): string
+{
+    $trimmed = trim($path);
+    if ($trimmed === '') {
+        return '';
+    }
+
+    if (preg_match('#^(?:https?:)?//#', $trimmed) === 1 || str_starts_with($trimmed, 'data:')) {
+        return $trimmed;
+    }
+
+    if (!str_starts_with($trimmed, '/')) {
+        return $trimmed;
+    }
+
+    $appBase = app_base_url();
+    if (str_starts_with($trimmed, '/uploads/')) {
+        return ($appBase !== '' ? $appBase : '') . $trimmed;
+    }
+
+    $decodedPath = rawurldecode($trimmed);
+    if (str_starts_with($decodedPath, '/sample tempaltes/')) {
+        $libraryBase = rtrim(dirname($appBase), '/');
+        if ($libraryBase === '.' || $libraryBase === '/') {
+            $libraryBase = '';
+        }
+
+        return $libraryBase . $trimmed;
+    }
+
+    return $trimmed;
+}
