@@ -41,7 +41,7 @@
       const actions = document.createElement("div");
       actions.className = "tl-template-card__actions";
       actions.innerHTML = `
-        <a class="tl-btn tl-btn--ghost tl-btn--sm" href="template-edit.php?id=${escapeAttr(templateId)}" data-library-action="edit">Edit</a>
+        <button class="tl-btn tl-btn--ghost tl-btn--sm" type="button" data-library-action="edit" data-href="template-edit.php?id=${escapeAttr(templateId)}">Edit</button>
         ${
           isAuthenticated
             ? `<button class="tl-btn tl-btn--danger tl-btn--sm" type="button" data-library-action="delete" data-template-id="${escapeAttr(templateId)}">Delete</button>`
@@ -60,11 +60,19 @@
         return;
       }
 
+      event.preventDefault();
       event.stopPropagation();
 
       if (action.tagName === "A") {
-        event.preventDefault();
         const href = action.getAttribute("href");
+        if (href) {
+          window.location.href = href;
+        }
+        return;
+      }
+
+      if (action.tagName === "BUTTON") {
+        const href = action.getAttribute("data-href");
         if (href) {
           window.location.href = href;
         }
