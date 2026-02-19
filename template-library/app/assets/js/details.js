@@ -6,11 +6,11 @@
       return;
     }
 
+    const copyLabel = copyButton.querySelector("[data-copy-label]");
+
     copyButton.addEventListener("click", async () => {
-      const container = copyButton.closest(".tl-card") || document;
       const templateBlock =
-        container.querySelector(".tl-code-panel:not([hidden])") ||
-        container.querySelector("[data-template-output]");
+        document.querySelector(".tl-code-panel:not([hidden])") || document.querySelector("[data-template-output]");
 
       if (!templateBlock) {
         return;
@@ -19,10 +19,18 @@
       try {
         await navigator.clipboard.writeText(templateBlock.textContent || "");
         copyButton.setAttribute("data-copied", "true");
-        copyButton.textContent = "Copied";
+        if (copyLabel) {
+          copyLabel.textContent = "Copied";
+          window.setTimeout(() => {
+            copyButton.removeAttribute("data-copied");
+            copyLabel.textContent = "Copy";
+          }, 1600);
+        }
       } catch (error) {
         copyButton.setAttribute("data-copied", "false");
-        copyButton.textContent = "Copy failed";
+        if (copyLabel) {
+          copyLabel.textContent = "Copy failed";
+        }
       }
     });
   };
