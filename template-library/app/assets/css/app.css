@@ -522,3 +522,127 @@ main {
     align-items: flex-start;
   }
 }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* Demo-index inspired layout */
+.tl-site-header {
+  background: var(--white);
+  border-bottom: 1px solid #e2e4e8;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.tl-header-shell {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px 14px;
+}
+
+.tl-header-top {
+  min-height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.tl-topbar-title { font-size: 18px; font-weight: 600; }
+
+.tl-filterbar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.tl-search-wrap {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  gap: 10px;
+  background: #f4f5f7;
+  border: 1.5px solid #e2e4e8;
+  border-radius: 10px;
+  padding: 10px 16px;
+}
+
+.tl-search-wrap:focus-within { border-color: #2ab5a0; box-shadow: 0 0 0 3px rgba(42,181,160,0.1); }
+.tl-search-wrap input { border: 0; background: transparent; width: 100%; font: inherit; outline: none; }
+.tl-search-icon { color: #9ca3af; }
+
+.tl-sort-select {
+  min-width: 180px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1.5px solid #e2e4e8;
+  background: #f4f5f7;
+  font: inherit;
+}
+
+[data-page="library"] .tl-container { max-width: 1280px; padding-top: 24px; }
+[data-page="library"] .tl-template-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
+[data-page="library"] .tl-template-card { border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+[data-page="library"] .tl-template-thumb { height: 152px; }
+
+/* Demo-details inspired layout */
+.tl-detail-header {
+  background: var(--white);
+  border-bottom: 1px solid #e2e4e8;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 24px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.tl-back-btn { color: #6b7280; font-weight: 500; font-size: 14px; padding: 6px 10px; border-radius: 8px; }
+.tl-back-btn:hover { background: #f4f5f7; }
+.tl-header-sep { width: 1px; height: 20px; background: #e2e4e8; }
+.tl-detail-header-title { font-size: 15px; margin: 0; }
+
+.tl-detail-page {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 28px 24px 60px;
+  display: grid;
+  grid-template-columns: minmax(0,1fr) 280px;
+  gap: 24px;
+}
+
+.tl-left-col { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+.tl-thumb-card,.tl-code-card,.tl-side-card { background: var(--white); border: 1px solid #e2e4e8; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+.tl-thumb-card-header { display:flex; justify-content:space-between; align-items:center; padding: 12px 16px; border-bottom:1px solid #e2e4e8; font-size:12px; text-transform:uppercase; color:#6b7280; font-weight:600; }
+.tl-demo-link { color:#2ab5a0; font-size:13px; font-weight:600; text-transform:none; }
+.tl-template-thumb--detail { height: 280px; }
+
+.tl-template-title-row { display: flex; flex-direction: column; gap: 6px; }
+.tl-template-title { margin: 0; font-size: 22px; }
+
+.tl-code-tabs { display:flex; align-items:center; gap: 2px; border-bottom: 1px solid #e2e4e8; background:#fafbfc; padding: 0 8px; }
+.tl-tab { border-bottom: 2px solid transparent; border-radius: 0; padding: 12px 14px; margin-bottom: -1px; }
+.tl-tab.is-active { border: 0; border-bottom: 2px solid #2ab5a0; color: #2ab5a0; background: transparent; }
+.tl-copy-btn { margin-left: auto; border:1.5px solid #e2e4e8; border-radius:7px; background: #fff; padding: 5px 12px; font-weight:600; color:#6b7280; }
+.tl-copy-btn:hover { border-color: #2ab5a0; color: #2ab5a0; }
+.tl-code-panel { margin: 0; border-radius: 0 0 12px 12px; min-height: 480px; max-height: 680px; overflow: auto; }
+
+.tl-side-panel { align-self: start; }
+.tl-side-card { padding: 16px; display: grid; gap: 12px; }
+.tl-side-card h3 { margin: 0 0 4px; font-size: 14px; }
+
+@media (max-width: 900px) {
+  .tl-detail-page { grid-template-columns: 1fr; }
+  .tl-filterbar { flex-direction: column; align-items: stretch; }
+}
