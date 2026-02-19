@@ -24,7 +24,7 @@ if (!in_array($extension, $allowed, true)) {
 }
 
 $config = require __DIR__ . '/../includes/config.php';
-$uploadsDir = $config['uploads_path'] . '/thumbnails';
+$uploadsDir = $config['images_path'] . '/thumbnails';
 ensure_dir($uploadsDir);
 
 $filename = uniqid('thumb_', true) . '.' . $extension;
@@ -34,8 +34,7 @@ if (!move_uploaded_file($file['tmp_name'], $targetPath)) {
     api_error('Failed to move uploaded file.', 500);
 }
 
-$basePath = app_base_url();
-$publicPath = ($basePath !== '' ? $basePath : '') . '/uploads/thumbnails/' . $filename;
+$publicPath = '/data-images/thumbnails/' . rawurlencode($filename);
 
 api_send_json([
     'message' => 'Thumbnail uploaded.',

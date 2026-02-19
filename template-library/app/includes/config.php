@@ -9,6 +9,7 @@ return [
     'base_path' => $baseDir,
     'data_path' => $baseDir . '/../data',
     'uploads_path' => $baseDir . '/uploads',
+    'images_path' => $baseDir . '/../data/images',
     'templates_store' => $baseDir . '/../data/templates.json',
     'versions_path' => $baseDir . '/../data/versions',
 ];
