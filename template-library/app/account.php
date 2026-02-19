@@ -61,6 +61,7 @@ render_header('Template Library · Account');
         <div style="display: flex; gap: 12px; flex-wrap: wrap;">
           <button class="tl-btn" type="button">Update Profile</button>
           <button class="tl-btn tl-btn--ghost" type="button">Change Password</button>
+          <a class="tl-btn tl-btn--danger" href="auth/logout.php">Log Out</a>
           <a class="tl-btn tl-btn--ghost" href="index.php">Back to Library</a>
         </div>
       </div>
