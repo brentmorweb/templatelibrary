@@ -5,45 +5,50 @@ declare(strict_types=1);
 require_once __DIR__ . '/auth/guard.php';
 require_once __DIR__ . '/includes/header.php';
 require_once __DIR__ . '/includes/footer.php';
+require_once __DIR__ . '/includes/template-service.php';
 
 require_auth();
 
 $templateId = $_GET['id'] ?? '';
 $isNewTemplate = $templateId === '';
-$pageTitle = $templateId ? 'MW Template Library · Edit Template' : 'MW Template Library · Create Template';
-$templateTitle = $isNewTemplate ? '' : 'Testimonial Section';
-$templateDescription = $isNewTemplate ? '' : 'A testimonial section with customer quotes and photos.';
-$templateTags = $isNewTemplate ? '' : 'testimonial, landing page';
-$templateCodeHtml = $isNewTemplate ? '' : '<div class="testimonial-section">
-  <h2>What our customers say</h2>
-  <div class="testimonial">
-    <p>“The team was incredible to work with.”</p>
-    <span>Alex Morgan, Director</span>
-  </div>
-</div>';
-$templateCodeCss = $isNewTemplate ? '' : '.testimonial-section {
-  background: #fff;
-  border-radius: 16px;
-  padding: 24px;
-  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+$template = $isNewTemplate ? null : get_template($templateId);
+
+if (!$isNewTemplate && $template === null) {
+  http_response_code(404);
+  render_header('Template not found');
+?>
+  <main class="tl-container">
+    <section class="tl-card" style="margin-top: 32px;">
+      <div class="tl-card__body">
+        <h1 style="margin-top: 0;">Template not found</h1>
+        <p>The requested template could not be found.</p>
+        <a class="tl-btn" href="index.php">Back to Library</a>
+      </div>
+    </section>
+  </main>
+<?php
+  render_footer();
+  exit;
 }
 
-.testimonial-section h2 {
-  margin-bottom: 16px;
-  font-size: 1.5rem;
-}';
-$templateCodeJs = $isNewTemplate ? '' : 'const quotes = document.querySelectorAll(".testimonial");
-
-quotes.forEach((quote) => {
-  quote.addEventListener("mouseenter", () => {
-    quote.classList.add("is-highlighted");
-  });
-  quote.addEventListener("mouseleave", () => {
-    quote.classList.remove("is-highlighted");
-  });
-});';
-$templateTagList = $isNewTemplate ? [] : ['testimonial', 'landing page'];
-$templateAuthor = $isNewTemplate ? '' : 'Admin User';
+$pageTitle = $templateId ? 'MW Template Library · Edit Template' : 'MW Template Library · Create Template';
+$templateTitle = (string) ($template['title'] ?? $template['name'] ?? '');
+$templateDescription = (string) ($template['description'] ?? '');
+$templateTagsArray = $template['tags'] ?? [];
+if (!is_array($templateTagsArray)) {
+  $templateTagsArray = [];
+}
+$templateTags = implode(', ', $templateTagsArray);
+$templateCode = $template['code'] ?? [];
+if (!is_array($templateCode)) {
+  $templateCode = [];
+}
+$templateCodeHtml = (string) ($templateCode['html'] ?? '');
+$templateCodeCss = (string) ($templateCode['css'] ?? '');
+$templateCodeJs = (string) ($templateCode['js'] ?? '');
+$templateTagList = $templateTagsArray;
+$templateAuthor = (string) ($template['author'] ?? $template['created_by'] ?? '');
+$templateStatus = (string) ($template['status'] ?? 'draft');
 
 render_header($pageTitle);
 ?>
@@ -149,9 +154,9 @@ render_header($pageTitle);
           <div class="tl-field">
             <label class="tl-label" for="status">Status</label>
             <select class="tl-select" id="status" name="status" form="template-form">
-              <option value="" <?php echo $isNewTemplate ? 'selected' : ''; ?>>Select status</option>
-              <option value="draft" <?php echo $isNewTemplate ? '' : 'selected'; ?>>Draft</option>
-              <option value="approved">Approved</option>
+              <option value="" <?php echo $templateStatus === '' ? 'selected' : ''; ?>>Select status</option>
+              <option value="draft" <?php echo $templateStatus === 'draft' ? 'selected' : ''; ?>>Draft</option>
+              <option value="approved" <?php echo $templateStatus === 'approved' ? 'selected' : ''; ?>>Approved</option>
             </select>
           </div>
           <div class="tl-info-row">
