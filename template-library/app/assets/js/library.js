@@ -42,14 +42,17 @@
       const templateId = link.dataset.templateId || "";
       const actions = document.createElement("div");
       actions.className = "tl-template-card__actions";
-      actions.innerHTML = `
-        <button class="tl-btn tl-btn--ghost tl-btn--sm" type="button" data-library-action="edit" data-href="template-edit.php?id=${escapeAttr(templateId)}">Edit</button>
-        ${
-          isAuthenticated
-            ? `<button class="tl-btn tl-btn--danger tl-btn--sm" type="button" data-library-action="delete" data-template-id="${escapeAttr(templateId)}">Delete</button>`
-            : ""
-        }
-      `;
+
+      if (isAuthenticated) {
+        actions.innerHTML = `
+          <button class="tl-btn tl-btn--ghost tl-btn--sm" type="button" data-library-action="edit" data-href="template-edit.php?id=${escapeAttr(templateId)}">Edit</button>
+          <button class="tl-btn tl-btn--danger tl-btn--sm" type="button" data-library-action="delete" data-template-id="${escapeAttr(templateId)}">Delete</button>
+        `;
+      }
+
+      if (!actions.innerHTML.trim()) {
+        return;
+      }
 
       body.appendChild(actions);
     });
