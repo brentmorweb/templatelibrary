@@ -1,4 +1,95 @@
 (() => {
+  const formatDate = (value) => {
+    if (!value) {
+      return "—";
+    }
+
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) {
+      return "—";
+    }
+
+    return date.toLocaleDateString(undefined, {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+  };
+
+  const populateTemplate = (template) => {
+    const title = template.title || template.name || "Untitled Template";
+    document.querySelectorAll("[data-template-title]").forEach((el) => {
+      el.textContent = title;
+    });
+
+    const code = template.code || {};
+    const codeMap = {
+      html: code.html || "",
+      css: code.css || "",
+      js: code.js || "",
+    };
+
+    Object.entries(codeMap).forEach(([key, value]) => {
+      const target = document.querySelector(`[data-template-code=\"${key}\"]`);
+      if (target) {
+        target.textContent = value;
+      }
+    });
+
+    const status = document.querySelector("[data-template-status]");
+    if (status) {
+      status.textContent = template.status || "draft";
+    }
+
+    const updated = document.querySelector("[data-template-updated]");
+    if (updated) {
+      updated.textContent = formatDate(template.updated_at || template.created_at || null);
+    }
+
+    const updatedBy = document.querySelector("[data-template-updated-by]");
+    if (updatedBy) {
+      updatedBy.textContent = template.updated_by || template.author || template.created_by || "—";
+    }
+
+    const created = document.querySelector("[data-template-created]");
+    if (created) {
+      created.textContent = formatDate(template.created_at || null);
+    }
+
+    const createdBy = document.querySelector("[data-template-created-by]");
+    if (createdBy) {
+      createdBy.textContent = template.created_by || template.author || "—";
+    }
+  };
+
+  const fetchTemplate = async () => {
+    const app = document.querySelector(".tl-app[data-page='template-details']");
+    if (!app) {
+      return;
+    }
+
+    const endpoint = app.dataset.templateEndpoint;
+    const templateId = app.dataset.templateId;
+
+    if (!endpoint || !templateId) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`${endpoint}?id=${encodeURIComponent(templateId)}`, {
+        credentials: "same-origin",
+      });
+      const payload = await response.json();
+      if (!response.ok || !payload.template) {
+        throw new Error("Unable to load template.");
+      }
+
+      populateTemplate(payload.template);
+    } catch (error) {
+      // leave existing UI fallback content
+    }
+  };
+
   const bindCopyButton = () => {
     const copyButton = document.querySelector("[data-copy-template]");
 
@@ -35,5 +126,8 @@
     });
   };
 
-  document.addEventListener("DOMContentLoaded", bindCopyButton);
+  document.addEventListener("DOMContentLoaded", () => {
+    bindCopyButton();
+    fetchTemplate();
+  });
 })();

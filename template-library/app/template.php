@@ -18,13 +18,13 @@ render_header($pageTitle);
       <span>Back to Library</span>
     </a>
     <span class="tl-header-sep" aria-hidden="true"></span>
-    <h1 class="tl-detail-header-title">Modern Hero Section</h1>
+    <h1 class="tl-detail-header-title" data-template-title>Template Details</h1>
   </header>
 
   <main class="tl-detail-page">
     <section class="tl-left-col">
       <div class="tl-template-title-block">
-        <h2 class="tl-template-title">Modern Hero Section</h2>
+        <h2 class="tl-template-title" data-template-title>Template</h2>
         <a class="tl-demo-link" href="#">View Demo</a>
       </div>
 
@@ -36,36 +36,9 @@ render_header($pageTitle);
             <div class="tl-tab" data-tab="js"><span class="tl-tab-dot tl-tab-dot-js"></span>JS</div>
             <button class="tl-copy-btn" type="button" data-copy-template><span data-copy-label>Copy</span></button>
           </div>
-          <pre class="tl-code-panel" data-tab-panel="php" data-template-output><code>&lt;?php if ($hero_title) { ?&gt;
-  &lt;h1&gt;&lt;?php echo $hero_title; ?&gt;&lt;/h1&gt;
-&lt;?php } ?&gt;
-
-&lt;div class="hero-section"&gt;
-  &lt;p&gt;&lt;?php echo $hero_description; ?&gt;&lt;/p&gt;
-  &lt;a class="btn btn-primary" href="#"&gt;Learn More&lt;/a&gt;
-&lt;/div&gt;</code></pre>
-          <pre class="tl-code-panel" data-tab-panel="css" hidden><code>.hero-section {
-  display: grid;
-  gap: 12px;
-  padding: 32px;
-  background: linear-gradient(120deg, #e0f2fe, #fff);
-  border-radius: 24px;
-}
-
-.hero-section .btn-primary {
-  background: #2563eb;
-  color: #fff;
-  padding: 12px 20px;
-  border-radius: 999px;
-  text-decoration: none;
-}</code></pre>
-          <pre class="tl-code-panel" data-tab-panel="js" hidden><code>const hero = document.querySelector(".hero-section");
-
-if (hero) {
-  hero.addEventListener("click", () =&gt; {
-    hero.classList.toggle("is-expanded");
-  });
-}</code></pre>
+          <pre class="tl-code-panel" data-tab-panel="php" data-template-output><code data-template-code="html"></code></pre>
+          <pre class="tl-code-panel" data-tab-panel="css" hidden><code data-template-code="css"></code></pre>
+          <pre class="tl-code-panel" data-tab-panel="js" hidden><code data-template-code="js"></code></pre>
         </div>
       </article>
     </section>
@@ -80,11 +53,11 @@ if (hero) {
 
       <div class="tl-side-card">
         <h3>Details</h3>
-        <div class="tl-info-row"><span>Status</span><span class="tl-pill"><span class="tl-pill-dot"></span>Published</span></div>
-        <div class="tl-info-row"><span>Last edited</span><strong>Feb 17, 2026</strong></div>
-        <div class="tl-info-row"><span>Edited by</span><strong>Brent</strong></div>
-        <div class="tl-info-row"><span>Created</span><strong>Jan 4, 2026</strong></div>
-        <div class="tl-info-row"><span>Created by</span><strong>Brent</strong></div>
+        <div class="tl-info-row"><span>Status</span><span class="tl-pill"><span class="tl-pill-dot"></span><span data-template-status>Unknown</span></span></div>
+        <div class="tl-info-row"><span>Last edited</span><strong data-template-updated>—</strong></div>
+        <div class="tl-info-row"><span>Edited by</span><strong data-template-updated-by>—</strong></div>
+        <div class="tl-info-row"><span>Created</span><strong data-template-created>—</strong></div>
+        <div class="tl-info-row"><span>Created by</span><strong data-template-created-by>—</strong></div>
         <div class="tl-info-row"><span>Version</span><strong>1.3.0</strong></div>
         <?php if (is_authenticated()) : ?>
           <a class="tl-btn tl-btn--ghost" href="template-edit.php?id=<?php echo e($templateId); ?>">Edit Template</a>
