@@ -46,10 +46,10 @@
       const demoUrl = typeof template.demo_url === "string" ? template.demo_url.trim() : "";
       if (demoUrl) {
         demoLink.href = demoUrl;
-        demoLink.hidden = false;
+        demoLink.removeAttribute("aria-disabled");
       } else {
         demoLink.href = "#";
-        demoLink.hidden = true;
+        demoLink.setAttribute("aria-disabled", "true");
       }
     }
 

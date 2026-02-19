@@ -699,15 +699,23 @@ main {
 .tl-template-title { margin: 0; font-size: 22px; letter-spacing: -.3px; line-height: 1.3; }
 
 .tl-demo-link {
+  display: flex;
+  justify-content: center;
+  width: 100%;
   color: #2ab5a0;
   border: 1.5px solid #2ab5a0;
-  border-radius: 7px;
-  padding: 6px 12px;
-  font-size: 13px;
+  border-radius: 12px;
+  padding: 11px 16px;
+  font-size: 14px;
   font-weight: 600;
   text-transform: none;
 }
 .tl-demo-link:hover { background: #2ab5a0; color: #fff; }
+
+.tl-demo-link[aria-disabled="true"] {
+  opacity: .55;
+  cursor: not-allowed;
+}
 
 .tl-code-tabs { display:flex; align-items:center; gap:2px; border-bottom:1px solid #e2e4e8; background:#fafbfc; padding:0 8px; overflow-x:auto; }
 .tl-tab {
