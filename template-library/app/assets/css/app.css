@@ -642,7 +642,8 @@ main {
 .tl-detail-header-title { font-size: 15px; margin: 0; }
 
 .tl-detail-page {
-  max-width: 1440px;
+  width: 100%;
+  max-width: none;
   margin: 0 auto;
   padding: 28px 24px 60px;
   display: grid;
