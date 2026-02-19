@@ -46,7 +46,7 @@ render_header($pageTitle);
     <aside class="tl-side-panel">
       <article class="tl-thumb-card">
         <div class="tl-thumb-card-header"><span class="tl-thumb-card-header-label">Preview</span></div>
-        <div class="tl-template-thumb tl-template-thumb--detail">Preview</div>
+        <div class="tl-template-thumb tl-template-thumb--detail" data-template-thumbnail>Preview</div>
       </article>
 
       <a class="tl-download-btn" href="<?php echo e(api_url('template-download.php')); ?>?id=<?php echo e($templateId); ?>">Download All (.zip)</a>

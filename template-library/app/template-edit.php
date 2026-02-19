@@ -84,6 +84,7 @@ render_header($pageTitle);
         <div class="tl-card__body">
           <form id="template-form" class="tl-form-grid" method="post" action="<?php echo e(api_url('template-save.php')); ?>" enctype="multipart/form-data" data-template-form>
             <input type="hidden" name="id" value="<?php echo e($templateId); ?>">
+            <input type="hidden" name="thumbnail_url" value="<?php echo e((string) ($template['thumbnail_url'] ?? '')); ?>" data-editor-thumbnail-url>
             <div class="tl-field">
               <label class="tl-label" for="title">Template Title</label>
               <input class="tl-input" id="title" name="title" type="text" value="<?php echo e($templateTitle); ?>" />

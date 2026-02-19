@@ -101,10 +101,17 @@ render_header('MW Template Library');
         $createdDays = template_days_since((string) ($template['created_at'] ?? ''));
         $usage = (int) ($template['metadata']['usage_count'] ?? 0);
         $searchText = trim(implode(' ', [$title, $author, $template['description'] ?? '']));
+        $thumbnailUrl = trim((string) ($template['thumbnail_url'] ?? ''));
         ?>
         <a class="tl-template-card-link" href="template.php?id=<?php echo urlencode($templateId); ?>" aria-label="View <?php echo e($title); ?> template details" data-template-id="<?php echo e($templateId); ?>" data-author="<?php echo e($author); ?>" data-status="<?php echo e((string) ($template['status'] ?? 'draft')); ?>" data-updated-days="<?php echo e((string) $updatedDays); ?>" data-created-days="<?php echo e((string) $createdDays); ?>" data-usage="<?php echo e((string) $usage); ?>">
           <article class="tl-template-card" data-library-card data-search="<?php echo e($searchText); ?>">
-            <div class="tl-template-thumb"><?php echo e($title); ?></div>
+            <div class="tl-template-thumb">
+              <?php if ($thumbnailUrl !== '') : ?>
+                <img src="<?php echo e($thumbnailUrl); ?>" alt="<?php echo e($title); ?> thumbnail" loading="lazy">
+              <?php else : ?>
+                <?php echo e($title); ?>
+              <?php endif; ?>
+            </div>
             <div class="tl-template-card__body">
               <strong><?php echo e($title); ?></strong>
               <div class="tl-template-meta"><span>By <?php echo e($author); ?></span><span>• Updated <?php echo e($updatedLabel); ?></span></div>
