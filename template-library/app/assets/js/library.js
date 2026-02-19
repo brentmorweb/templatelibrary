@@ -1,10 +1,12 @@
 (() => {
   const selectors = {
+    app: ".tl-app[data-page=\"library\"]",
     filtersForm: "[data-library-filters]",
     searchInput: "[data-library-search]",
     list: "[data-template-list]",
     pagination: "[data-library-pagination]",
     cardLinks: ".tl-template-card-link",
+    rowAction: "[data-library-action]",
   };
 
   const sorterMap = {
@@ -19,6 +21,107 @@
 
   const getCardName = (cardLink) =>
     (cardLink.querySelector(".tl-template-card strong")?.textContent || "").trim().toLowerCase();
+
+
+  const escapeAttr = (value) => String(value || "").replace(/"/g, "&quot;");
+
+  const addCardActions = (cardLinks, isAuthenticated) => {
+    cardLinks.forEach((link) => {
+      if (link.querySelector(".tl-template-card__actions")) {
+        return;
+      }
+
+      const card = link.querySelector(".tl-template-card");
+      const body = card?.querySelector(".tl-template-card__body");
+      if (!card || !body) {
+        return;
+      }
+
+      const templateId = link.dataset.templateId || "";
+      const actions = document.createElement("div");
+      actions.className = "tl-template-card__actions";
+      actions.innerHTML = `
+        <a class="tl-btn tl-btn--ghost tl-btn--sm" href="template-edit.php?id=${escapeAttr(templateId)}" data-library-action="edit">Edit</a>
+        ${
+          isAuthenticated
+            ? `<button class="tl-btn tl-btn--danger tl-btn--sm" type="button" data-library-action="delete" data-template-id="${escapeAttr(templateId)}">Delete</button>`
+            : ""
+        }
+      `;
+
+      body.appendChild(actions);
+    });
+  };
+
+  const bindActionInterception = (list) => {
+    list.addEventListener("click", (event) => {
+      const action = event.target.closest(selectors.rowAction);
+      if (!action) {
+        return;
+      }
+
+      event.stopPropagation();
+
+      if (action.tagName === "A") {
+        event.preventDefault();
+        const href = action.getAttribute("href");
+        if (href) {
+          window.location.href = href;
+        }
+      }
+    });
+  };
+
+  const bindDeleteActions = (list, { isAuthenticated, deleteEndpoint, onAfterDelete }) => {
+    if (!isAuthenticated || !deleteEndpoint) {
+      return;
+    }
+
+    list.addEventListener("click", async (event) => {
+      const button = event.target.closest('button[data-library-action="delete"]');
+      if (!button) {
+        return;
+      }
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      const templateId = button.dataset.templateId || "";
+      if (!templateId) {
+        return;
+      }
+
+      const confirmed = window.confirm("Delete this template?");
+      if (!confirmed) {
+        return;
+      }
+
+      button.disabled = true;
+      const originalLabel = button.textContent;
+      button.textContent = "Deleting...";
+
+      try {
+        const response = await fetch(deleteEndpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "same-origin",
+          body: JSON.stringify({ id: templateId, action: "delete" }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Delete failed (${response.status})`);
+        }
+
+        const cardLink = button.closest(selectors.cardLinks);
+        cardLink?.remove();
+        onAfterDelete();
+      } catch (error) {
+        window.alert("Unable to delete template right now.");
+        button.disabled = false;
+        button.textContent = originalLabel || "Delete";
+      }
+    });
+  };
 
   const readFilters = (form) => {
     const formData = new FormData(form);
@@ -57,17 +160,17 @@
     return button;
   };
 
-  const initPagination = (pagination, allCardLinks, pageSize) => {
+  const initPagination = (pagination, getAllCardLinks, pageSize) => {
     const state = { page: 1 };
 
-    const getVisibleLinks = () => allCardLinks.filter((link) => link.dataset.filterHidden !== "true");
+    const getVisibleLinks = () => getAllCardLinks().filter((link) => link.dataset.filterHidden !== "true");
 
     const render = (targetPage = state.page) => {
       const visibleLinks = getVisibleLinks();
       const totalPages = Math.max(1, Math.ceil(visibleLinks.length / pageSize));
       state.page = Math.min(Math.max(1, targetPage), totalPages);
 
-      allCardLinks.forEach((link) => {
+      getAllCardLinks().forEach((link) => {
         link.hidden = link.dataset.filterHidden === "true";
       });
 
@@ -126,20 +229,27 @@
   };
 
   document.addEventListener("DOMContentLoaded", () => {
+    const app = document.querySelector(selectors.app);
     const filterForm = document.querySelector(selectors.filtersForm);
     const list = document.querySelector(selectors.list);
     const pagination = document.querySelector(selectors.pagination);
 
-    if (!filterForm || !list || !pagination) {
+    if (!app || !filterForm || !list || !pagination) {
       return;
     }
 
-    const cardLinks = Array.from(list.querySelectorAll(selectors.cardLinks));
+    const isAuthenticated = app.dataset.authenticated === "true";
+    const deleteEndpoint = app.dataset.deleteEndpoint || "";
+
+    const getCardLinks = () => Array.from(list.querySelectorAll(selectors.cardLinks));
+    addCardActions(getCardLinks(), isAuthenticated);
+
     const pageSize = Math.max(1, Number(pagination.dataset.pageSize) || 2);
-    const paginationApi = initPagination(pagination, cardLinks, pageSize);
+    const paginationApi = initPagination(pagination, getCardLinks, pageSize);
 
     const syncView = () => {
       const filters = readFilters(filterForm);
+      const cardLinks = getCardLinks();
       sortList(list, cardLinks, filters.sort);
       updateSearchVisibility(cardLinks, filters.query);
       paginationApi.render(1);
@@ -148,6 +258,14 @@
     filterForm.addEventListener("submit", (event) => event.preventDefault());
     filterForm.addEventListener("input", syncView);
     filterForm.addEventListener("change", syncView);
+
+    bindActionInterception(list);
+
+    bindDeleteActions(list, {
+      isAuthenticated,
+      deleteEndpoint,
+      onAfterDelete: syncView,
+    });
 
     syncView();
   });
