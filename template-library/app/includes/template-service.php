@@ -20,7 +20,19 @@ function list_templates(): array
 {
     $paths = template_store_paths();
 
-    return read_json_store($paths['templates']);
+    $templates = read_json_store($paths['templates']);
+
+    return array_map('template_with_resolved_thumbnail_url', $templates);
+}
+
+function template_with_resolved_thumbnail_url(array $template): array
+{
+    $thumbnail = (string) ($template['thumbnail_url'] ?? '');
+    if ($thumbnail !== '') {
+        $template['thumbnail_url'] = resolve_public_asset_url($thumbnail);
+    }
+
+    return $template;
 }
 
 function get_template(string $templateId): ?array
@@ -28,7 +40,7 @@ function get_template(string $templateId): ?array
     $templates = list_templates();
     foreach ($templates as $template) {
         if (($template['id'] ?? '') === $templateId) {
-            return $template;
+            return template_with_resolved_thumbnail_url($template);
         }
     }
 
