@@ -141,9 +141,18 @@
     };
   };
 
+  const getSearchableText = (cardLink) => {
+    const explicitSearch = cardLink.querySelector("[data-library-card]")?.dataset.search;
+    if (explicitSearch && explicitSearch.trim().length > 0) {
+      return explicitSearch.toLowerCase();
+    }
+
+    return (cardLink.textContent || "").trim().toLowerCase();
+  };
+
   const updateSearchVisibility = (cardLinks, query) => {
     cardLinks.forEach((link) => {
-      const searchable = (link.querySelector("[data-library-card]")?.dataset.search || "").toLowerCase();
+      const searchable = getSearchableText(link);
       const matches = query.length === 0 || searchable.includes(query);
       link.dataset.filterHidden = String(!matches);
     });
@@ -154,7 +163,7 @@
     [...cardLinks].sort(sorter).forEach((link) => list.appendChild(link));
   };
 
-  document.addEventListener("DOMContentLoaded", () => {
+  const init = () => {
     const app = document.querySelector(selectors.app);
     const filterForm = document.querySelector(selectors.filtersForm);
     const searchInput = filterForm?.querySelector(selectors.searchInput);
@@ -198,5 +207,11 @@
     });
 
     syncView();
-  });
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
 })();
