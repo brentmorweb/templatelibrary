@@ -25,7 +25,6 @@ render_header($pageTitle);
     <section class="tl-left-col">
       <div class="tl-template-title-block">
         <h2 class="tl-template-title" data-template-title>Template</h2>
-        <a class="tl-demo-link" href="#" data-template-demo-link hidden target="_blank" rel="noopener noreferrer">View Demo</a>
       </div>
 
       <article class="tl-code-card">
@@ -50,6 +49,8 @@ render_header($pageTitle);
       </article>
 
       <a class="tl-download-btn" href="<?php echo e(api_url('template-download.php')); ?>?id=<?php echo e($templateId); ?>">Download All (.zip)</a>
+
+      <a class="tl-demo-link" href="#" data-template-demo-link target="_blank" rel="noopener noreferrer">View Demo</a>
 
       <div class="tl-side-card">
         <h3>Details</h3>
