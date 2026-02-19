@@ -9,6 +9,8 @@
     rowAction: "[data-library-action]",
   };
 
+  const MIN_SEARCH_CHARACTERS = 3;
+
   const sorterMap = {
     recent: (a, b) => Number(a.dataset.updatedDays || 0) - Number(b.dataset.updatedDays || 0),
     updated: (a, b) => Number(a.dataset.updatedDays || 0) - Number(b.dataset.updatedDays || 0),
@@ -140,7 +142,7 @@
   };
 
   const updateSearchVisibility = (cardLinks, query) => {
-    const hasQuery = query.length > 0;
+    const hasQuery = query.length >= MIN_SEARCH_CHARACTERS;
 
     cardLinks.forEach((link) => {
       const searchable = (link.querySelector("[data-library-card]")?.dataset.search || "").toLowerCase();
