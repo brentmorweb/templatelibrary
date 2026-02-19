@@ -157,6 +157,7 @@
   document.addEventListener("DOMContentLoaded", () => {
     const app = document.querySelector(selectors.app);
     const filterForm = document.querySelector(selectors.filtersForm);
+    const searchInput = filterForm?.querySelector(selectors.searchInput);
     const list = document.querySelector(selectors.list);
     if (!app || !filterForm || !list) {
       return;
@@ -179,7 +180,13 @@
     };
 
     filterForm.addEventListener("submit", (event) => event.preventDefault());
-    filterForm.addEventListener("input", syncView);
+
+    if (searchInput) {
+      searchInput.addEventListener("input", syncView);
+      searchInput.addEventListener("search", syncView);
+      searchInput.addEventListener("keyup", syncView);
+    }
+
     filterForm.addEventListener("change", syncView);
 
     bindActionInterception(list);
