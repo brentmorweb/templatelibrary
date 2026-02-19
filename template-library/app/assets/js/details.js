@@ -41,6 +41,21 @@
       status.textContent = template.status || "draft";
     }
 
+    const thumbnail = document.querySelector("[data-template-thumbnail]");
+    if (thumbnail) {
+      const thumbnailUrl = template.thumbnail_url || "";
+      if (thumbnailUrl) {
+        thumbnail.innerHTML = "";
+        const image = document.createElement("img");
+        image.src = thumbnailUrl;
+        image.alt = `${title} thumbnail`;
+        image.loading = "lazy";
+        thumbnail.appendChild(image);
+      } else {
+        thumbnail.textContent = "Preview";
+      }
+    }
+
     const updated = document.querySelector("[data-template-updated]");
     if (updated) {
       updated.textContent = formatDate(template.updated_at || template.created_at || null);
