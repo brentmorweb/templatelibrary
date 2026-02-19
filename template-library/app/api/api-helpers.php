@@ -134,6 +134,7 @@ function api_filter_templates(array $templates, array $filters): array
         $haystack = strtolower(implode(' ', [
             (string) ($template['name'] ?? ''),
             (string) ($template['title'] ?? ''),
+            (string) ($template['author'] ?? $template['created_by'] ?? ''),
             (string) ($template['description'] ?? ''),
             is_array($template['tags'] ?? null) ? implode(' ', $template['tags']) : '',
         ]));
