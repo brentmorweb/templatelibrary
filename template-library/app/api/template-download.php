@@ -4,6 +4,31 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/api-helpers.php';
 
+function template_export_filename(array $template, string $templateId): string
+{
+    $sourceFile = trim((string) ($template['metadata']['source_file'] ?? ''));
+    if ($sourceFile !== '') {
+        return basename($sourceFile);
+    }
+
+    $safeId = preg_replace('/[^a-zA-Z0-9._-]+/', '-', $templateId);
+    if (!is_string($safeId) || $safeId === '') {
+        $safeId = 'template';
+    }
+
+    return $safeId . '.php';
+}
+
+function template_thumbnail_export_name(string $templateFilename, string $thumbnailPath): string
+{
+    $extension = pathinfo($thumbnailPath, PATHINFO_EXTENSION);
+    if (!is_string($extension) || $extension === '') {
+        return $templateFilename . '.png';
+    }
+
+    return $templateFilename . '.' . strtolower($extension);
+}
+
 api_require_methods(['GET']);
 
 $templateId = (string) ($_GET['id'] ?? '');
@@ -18,6 +43,7 @@ if ($template === null || api_template_is_deleted($template)) {
 
 $safeId = preg_replace('/[^a-zA-Z0-9_-]+/', '-', $templateId);
 $filename = sprintf('template-%s.zip', $safeId);
+$templateFilename = template_export_filename($template, $templateId);
 $exportPayload = [
     'template' => $template,
     'exported_at' => date(DATE_ATOM),
@@ -45,13 +71,13 @@ if (class_exists('ZipArchive')) {
     $code = $template['code'] ?? [];
     if (is_array($code)) {
         if (!empty($code['html'])) {
-            $zip->addFromString('template.php', (string) $code['html']);
+            $zip->addFromString($templateFilename, (string) $code['html']);
         }
         if (!empty($code['css'])) {
-            $zip->addFromString('template.css', (string) $code['css']);
+            $zip->addFromString(pathinfo($templateFilename, PATHINFO_FILENAME) . '.css', (string) $code['css']);
         }
         if (!empty($code['js'])) {
-            $zip->addFromString('template.js', (string) $code['js']);
+            $zip->addFromString(pathinfo($templateFilename, PATHINFO_FILENAME) . '.js', (string) $code['js']);
         }
     }
 
@@ -86,7 +112,8 @@ if (class_exists('ZipArchive')) {
         $basename = basename($thumbnail);
         $thumbnailPath = $uploadsDir . '/' . $basename;
         if (is_readable($thumbnailPath)) {
-            $zip->addFile($thumbnailPath, 'assets/' . $basename);
+            $thumbnailName = template_thumbnail_export_name($templateFilename, $basename);
+            $zip->addFile($thumbnailPath, 'assets/' . $thumbnailName);
         }
     }
 
