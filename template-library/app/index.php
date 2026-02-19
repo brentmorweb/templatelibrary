@@ -120,7 +120,6 @@ render_header('MW Template Library');
       <?php endforeach; ?>
     </section>
 
-    <div class="tl-pagination" data-library-pagination data-page-size="6" aria-label="Templates pagination"></div>
   </main>
 </div>
 <script src="<?php echo e(asset_url('js/app.js')); ?>"></script>
