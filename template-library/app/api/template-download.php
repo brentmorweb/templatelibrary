@@ -62,12 +62,6 @@ if (class_exists('ZipArchive')) {
         api_error('Failed to create export package.', 500);
     }
 
-    $jsonPayload = json_encode($exportPayload, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-    if ($jsonPayload === false) {
-        $jsonPayload = json_encode(['error' => 'Failed to encode template.']);
-    }
-    $zip->addFromString('template.json', $jsonPayload);
-
     $code = $template['code'] ?? [];
     if (is_array($code)) {
         if (!empty($code['html'])) {
@@ -108,7 +102,7 @@ if (class_exists('ZipArchive')) {
     $thumbnail = (string) ($template['thumbnail_url'] ?? '');
     if ($thumbnail !== '') {
         $config = require __DIR__ . '/../includes/config.php';
-        $uploadsDir = $config['uploads_path'] . '/thumbnails';
+        $uploadsDir = $config['images_path'] . '/thumbnails';
         $basename = basename($thumbnail);
         $thumbnailPath = $uploadsDir . '/' . $basename;
         if (is_readable($thumbnailPath)) {
