@@ -319,6 +319,7 @@ main {
   background: linear-gradient(135deg, var(--gray-2), var(--seventh-2));
   display: grid;
   place-items: center;
+  overflow: hidden;
   font-weight: 600;
   color: var(--gray-7);
   font-size: 0.9rem;
