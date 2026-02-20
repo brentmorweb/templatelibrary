@@ -29,6 +29,54 @@ function template_thumbnail_export_name(string $templateFilename, string $thumbn
     return $templateFilename . '.' . strtolower($extension);
 }
 
+function template_thumbnail_source_path(string $thumbnailUrl): ?string
+{
+    $thumbnailUrl = trim($thumbnailUrl);
+    if ($thumbnailUrl === '') {
+        return null;
+    }
+
+    $config = require __DIR__ . '/../includes/config.php';
+    $imagesBaseDir = rtrim((string) ($config['images_path'] ?? ''), '/');
+    if ($imagesBaseDir === '') {
+        return null;
+    }
+
+    $parsedPath = parse_url($thumbnailUrl, PHP_URL_PATH);
+    $relativePath = '';
+    if (is_string($parsedPath) && $parsedPath !== '') {
+        $relativePath = ltrim(rawurldecode($parsedPath), '/');
+    }
+
+    $query = parse_url($thumbnailUrl, PHP_URL_QUERY);
+    if (is_string($query) && $query !== '') {
+        parse_str($query, $queryParams);
+        if (isset($queryParams['path'])) {
+            $relativePath = ltrim((string) rawurldecode((string) $queryParams['path']), '/');
+        }
+    }
+
+    if ($relativePath === '') {
+        return null;
+    }
+
+    if (str_starts_with($relativePath, 'data-images/')) {
+        $relativePath = substr($relativePath, strlen('data-images/'));
+    }
+
+    $normalizedPath = str_replace('\\', '/', $relativePath);
+    if (str_contains($normalizedPath, '../')) {
+        return null;
+    }
+
+    $candidatePath = $imagesBaseDir . '/' . $normalizedPath;
+    if (!is_readable($candidatePath) || !is_file($candidatePath)) {
+        return null;
+    }
+
+    return $candidatePath;
+}
+
 api_require_methods(['GET']);
 
 $templateId = (string) ($_GET['id'] ?? '');
@@ -101,12 +149,9 @@ if (class_exists('ZipArchive')) {
 
     $thumbnail = (string) ($template['thumbnail_url'] ?? '');
     if ($thumbnail !== '') {
-        $config = require __DIR__ . '/../includes/config.php';
-        $uploadsDir = $config['images_path'] . '/thumbnails';
-        $basename = basename($thumbnail);
-        $thumbnailPath = $uploadsDir . '/' . $basename;
-        if (is_readable($thumbnailPath)) {
-            $thumbnailName = template_thumbnail_export_name($templateFilename, $basename);
+        $thumbnailPath = template_thumbnail_source_path($thumbnail);
+        if ($thumbnailPath !== null) {
+            $thumbnailName = template_thumbnail_export_name($templateFilename, basename($thumbnailPath));
             $zip->addFile($thumbnailPath, 'assets/' . $thumbnailName);
         }
     }
