@@ -34,11 +34,6 @@ if (!$isNewTemplate && $template === null) {
 $pageTitle = $templateId ? 'MW Template Library · Edit Template' : 'MW Template Library · Create Template';
 $templateTitle = (string) ($template['title'] ?? $template['name'] ?? '');
 $templateDescription = (string) ($template['description'] ?? '');
-$templateTagsArray = $template['tags'] ?? [];
-if (!is_array($templateTagsArray)) {
-  $templateTagsArray = [];
-}
-$templateTags = implode(', ', $templateTagsArray);
 $templateCode = $template['code'] ?? [];
 if (!is_array($templateCode)) {
   $templateCode = [];
@@ -46,7 +41,6 @@ if (!is_array($templateCode)) {
 $templateCodeHtml = (string) ($templateCode['html'] ?? '');
 $templateCodeCss = (string) ($templateCode['css'] ?? '');
 $templateCodeJs = (string) ($templateCode['js'] ?? '');
-$templateTagList = $templateTagsArray;
 $currentUser = auth_user();
 $currentUsername = is_array($currentUser) ? (string) ($currentUser['username'] ?? '') : '';
 $templateAuthor = (string) ($template['author'] ?? $template['created_by'] ?? $currentUsername);
@@ -108,12 +102,6 @@ render_header($pageTitle);
                 <label class="tl-label" for="description">Description</label>
                 <input class="tl-input" id="description" name="description" type="text" value="<?php echo e($templateDescription); ?>" />
               </div>
-              <?php if (!$isNewTemplate) : ?>
-                <div class="tl-field">
-                  <label class="tl-label" for="tags">Tags</label>
-                  <input class="tl-input" id="tags" name="tags" type="text" value="<?php echo e($templateTags); ?>" />
-                </div>
-              <?php endif; ?>
             </div>
 
             <div class="tl-field">
@@ -161,13 +149,6 @@ render_header($pageTitle);
               <strong><?php echo $templateAuthor !== '' ? e($templateAuthor) : '—'; ?></strong>
             </div>
           </div>
-          <?php if (!empty($templateTagList)) : ?>
-            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;">
-              <?php foreach ($templateTagList as $tag) : ?>
-                <span class="tl-tag"><?php echo e($tag); ?></span>
-              <?php endforeach; ?>
-            </div>
-          <?php endif; ?>
           <div class="tl-field">
             <label class="tl-label" for="status">Status</label>
             <select class="tl-select" id="status" name="status" form="template-form">

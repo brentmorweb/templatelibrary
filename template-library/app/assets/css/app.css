@@ -222,22 +222,6 @@ main {
   color: var(--gray-7);
 }
 
-.tl-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 10px;
-  border-radius: 999px;
-  background: var(--gray-2);
-  color: var(--gray-7);
-  font-size: 0.8rem;
-  font-weight: 600;
-}
-
-.tl-tag--filled {
-  background: var(--info-1);
-  color: var(--primary-6);
-}
 
 .tl-divider {
   border: 0;
