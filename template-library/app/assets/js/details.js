@@ -93,6 +93,43 @@
       js: code.js || "",
     };
 
+    const tabGroup = document.querySelector("[data-tab-group='template-details-code']");
+    if (tabGroup) {
+      const isPublished = String(template.status || "").toLowerCase() === "published";
+      const codeByTab = {
+        php: codeMap.html,
+        css: codeMap.css,
+        js: codeMap.js,
+      };
+
+      const tabs = Array.from(tabGroup.querySelectorAll(".tl-tab[data-tab]"));
+      const panels = Array.from(tabGroup.querySelectorAll("[data-tab-panel]"));
+
+      tabs.forEach((tab) => {
+        const key = tab.getAttribute("data-tab") || "";
+        const isEmpty = (codeByTab[key] || "").trim() === "";
+        tab.hidden = isPublished && isEmpty;
+      });
+
+      panels.forEach((panel) => {
+        const key = panel.getAttribute("data-tab-panel") || "";
+        const isEmpty = (codeByTab[key] || "").trim() === "";
+        panel.hidden = isPublished && isEmpty;
+      });
+
+      const visibleTabs = tabs.filter((tab) => !tab.hidden);
+      const activeTab = tabs.find((tab) => tab.classList.contains("is-active") && !tab.hidden);
+      const nextTab = activeTab || visibleTabs[0] || null;
+
+      tabs.forEach((tab) => tab.classList.toggle("is-active", tab === nextTab));
+      panels.forEach((panel) => {
+        const isActivePanel = nextTab
+          ? panel.getAttribute("data-tab-panel") === nextTab.getAttribute("data-tab")
+          : false;
+        panel.hidden = !isActivePanel;
+      });
+    }
+
     Object.entries(codeMap).forEach(([key, value]) => {
       const target = document.querySelector(`[data-template-code=\"${key}\"]`);
       if (target) {
