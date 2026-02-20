@@ -717,7 +717,7 @@ main {
   cursor: not-allowed;
 }
 
-.tl-code-tabs { display:flex; align-items:center; gap:2px; border-bottom:1px solid #e2e4e8; background:#fafbfc; padding:0 8px; overflow-x:auto; }
+.tl-code-tabs { display:flex; align-items:center; gap:2px; border-bottom:1px solid #e2e4e8; background:#fafbfc; padding:0 8px; }
 .tl-tab {
   display: flex;
   align-items: center;
