@@ -273,6 +273,8 @@ main {
   text-decoration: none;
   color: inherit;
   display: block;
+  width: min(100%, 260px);
+  justify-self: start;
 }
 
 .tl-template-card-link:focus-visible {
