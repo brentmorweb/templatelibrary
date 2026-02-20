@@ -29,15 +29,15 @@ render_header($pageTitle);
 
       <article class="tl-code-card">
         <div class="tl-tab-group" data-tab-group="template-details-code">
-          <div class="tl-code-tabs">
-            <div class="tl-tab is-active" data-tab="php"><span class="tl-tab-dot tl-tab-dot-php"></span>PHP</div>
-            <div class="tl-tab" data-tab="css"><span class="tl-tab-dot tl-tab-dot-css"></span>CSS</div>
-            <div class="tl-tab" data-tab="js"><span class="tl-tab-dot tl-tab-dot-js"></span>JS</div>
+          <div class="tl-code-tabs" role="tablist" aria-label="Template code tabs">
+            <button class="tl-tab is-active" type="button" data-tab="php" role="tab" aria-selected="true"><span class="tl-tab-dot tl-tab-dot-php"></span>PHP</button>
+            <button class="tl-tab" type="button" data-tab="css" role="tab" aria-selected="false" tabindex="-1"><span class="tl-tab-dot tl-tab-dot-css"></span>CSS</button>
+            <button class="tl-tab" type="button" data-tab="js" role="tab" aria-selected="false" tabindex="-1"><span class="tl-tab-dot tl-tab-dot-js"></span>JS</button>
             <button class="tl-copy-btn" type="button" data-copy-template><span data-copy-label>Copy</span></button>
           </div>
-          <pre class="tl-code-panel" data-tab-panel="php" data-template-output><code data-template-code="html"></code></pre>
-          <pre class="tl-code-panel" data-tab-panel="css" hidden><code data-template-code="css"></code></pre>
-          <pre class="tl-code-panel" data-tab-panel="js" hidden><code data-template-code="js"></code></pre>
+          <pre class="tl-code-panel" id="tab-panel-php" data-tab-panel="php" role="tabpanel" data-template-output><code data-template-code="html"></code></pre>
+          <pre class="tl-code-panel" id="tab-panel-css" data-tab-panel="css" role="tabpanel" hidden><code data-template-code="css"></code></pre>
+          <pre class="tl-code-panel" id="tab-panel-js" data-tab-panel="js" role="tabpanel" hidden><code data-template-code="js"></code></pre>
         </div>
       </article>
     </section>

@@ -121,14 +121,14 @@ render_header($pageTitle);
 
             <div class="tl-field">
               <div class="tl-tab-group" data-tab-group="template-edit-code">
-                <div class="tl-tabbar">
-                  <div class="tl-tab is-active" data-tab="php">PHP/HTML</div>
-                  <div class="tl-tab" data-tab="css">CSS</div>
-                  <div class="tl-tab" data-tab="js">JavaScript</div>
+                <div class="tl-tabbar" role="tablist" aria-label="Template editor code tabs">
+                  <button class="tl-tab is-active" type="button" data-tab="php" role="tab" aria-selected="true">PHP/HTML</button>
+                  <button class="tl-tab" type="button" data-tab="css" role="tab" aria-selected="false" tabindex="-1">CSS</button>
+                  <button class="tl-tab" type="button" data-tab="js" role="tab" aria-selected="false" tabindex="-1">JavaScript</button>
                 </div>
-                <textarea class="tl-code-panel" data-tab-panel="php" name="code_html"><?php echo e($templateCodeHtml); ?></textarea>
-                <textarea class="tl-code-panel" data-tab-panel="css" name="code_css" hidden><?php echo e($templateCodeCss); ?></textarea>
-                <textarea class="tl-code-panel" data-tab-panel="js" name="code_js" hidden><?php echo e($templateCodeJs); ?></textarea>
+                <textarea class="tl-code-panel" id="tab-panel-php" data-tab-panel="php" role="tabpanel" name="code_html"><?php echo e($templateCodeHtml); ?></textarea>
+                <textarea class="tl-code-panel" id="tab-panel-css" data-tab-panel="css" role="tabpanel" name="code_css" hidden><?php echo e($templateCodeCss); ?></textarea>
+                <textarea class="tl-code-panel" id="tab-panel-js" data-tab-panel="js" role="tabpanel" name="code_js" hidden><?php echo e($templateCodeJs); ?></textarea>
               </div>
             </div>
 
