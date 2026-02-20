@@ -72,7 +72,7 @@ render_header('Template Versions');
       <div class="tl-card">
         <div class="tl-card__body">
           <div class="tl-muted" style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em;">Last Edited By</div>
-          <strong>Kayla Nguyen</strong>
+          <strong></strong>
         </div>
       </div>
       <div class="tl-card">

@@ -181,12 +181,12 @@
 
     const updated = document.querySelector("[data-template-updated]");
     if (updated) {
-      updated.textContent = formatDate(template.updated_at || template.created_at || null);
+      updated.textContent = "";
     }
 
     const updatedBy = document.querySelector("[data-template-updated-by]");
     if (updatedBy) {
-      updatedBy.textContent = template.updated_by || template.author || template.created_by || "—";
+      updatedBy.textContent = "";
     }
 
     const created = document.querySelector("[data-template-created]");
