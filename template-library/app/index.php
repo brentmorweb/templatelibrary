@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 require_once __DIR__ . '/auth/guard.php';
@@ -9,80 +8,28 @@ require_once __DIR__ . '/includes/template-service.php';
 
 function template_days_since(?string $date): int
 {
-  if ($date === null || $date === '') {
-    return 0;
-  }
-
+  if (!$date) return 0;
   $timestamp = strtotime($date);
-  if ($timestamp === false) {
-    return 0;
-  }
-
+  if ($timestamp === false) return 0;
   return max(0, (int) floor((time() - $timestamp) / 86400));
 }
 
 function template_relative_date(?string $date): string
 {
   $days = template_days_since($date);
-  if ($days === 0) {
-    return 'today';
-  }
-
-  if ($days === 1) {
-    return '1 day ago';
-  }
-
-  if ($days < 7) {
-    return sprintf('%d days ago', $days);
-  }
-
+  if ($days === 0) return 'today';
+  if ($days === 1) return '1 day ago';
+  if ($days < 7) return "$days days ago";
   $weeks = (int) floor($days / 7);
-  if ($weeks === 1) {
-    return '1 week ago';
-  }
-
-  return sprintf('%d weeks ago', $weeks);
+  return $weeks === 1 ? '1 week ago' : "$weeks weeks ago";
 }
 
 $templates = list_templates();
 
-$searchQuery = trim((string) ($_GET['q'] ?? ''));
-$sortOption = trim((string) ($_GET['sort'] ?? 'name_asc'));
-
-if ($searchQuery !== '') {
-  $needle = strtolower($searchQuery);
-  $templates = array_values(array_filter($templates, static function (array $template) use ($needle): bool {
-    $haystack = strtolower(trim(implode(' ', [
-      (string) ($template['title'] ?? $template['name'] ?? ''),
-      (string) ($template['author'] ?? $template['created_by'] ?? ''),
-      (string) ($template['description'] ?? ''),
-      (string) ($template['id'] ?? ''),
-    ])));
-
-    return $haystack !== '' && str_contains($haystack, $needle);
-  }));
-}
-
-usort($templates, static function (array $a, array $b) use ($sortOption): int {
-  $nameA = strtolower(trim((string) ($a['title'] ?? $a['name'] ?? '')));
-  $nameB = strtolower(trim((string) ($b['title'] ?? $b['name'] ?? '')));
-  $updatedA = template_days_since((string) ($a['updated_at'] ?? $a['created_at'] ?? ''));
-  $updatedB = template_days_since((string) ($b['updated_at'] ?? $b['created_at'] ?? ''));
-  $createdA = template_days_since((string) ($a['created_at'] ?? ''));
-  $createdB = template_days_since((string) ($b['created_at'] ?? ''));
-
-  return match ($sortOption) {
-    'name_desc' => $nameB <=> $nameA,
-    'recent', 'updated' => $updatedA <=> $updatedB,
-    'created_desc' => $createdA <=> $createdB,
-    'created_asc' => $createdB <=> $createdA,
-    default => $nameA <=> $nameB,
-  };
-});
-
 render_header('MW Template Library');
 ?>
-<div class="tl-app" data-page="library" data-api-endpoint="<?php echo e(api_url('templates.php')); ?>" data-delete-endpoint="<?php echo e(api_url('template-delete.php')); ?>" data-authenticated="<?php echo is_authenticated() ? 'true' : 'false'; ?>">
+
+<div class="tl-app">
   <header class="tl-site-header">
     <div class="tl-header-shell">
       <div class="tl-header-top">
@@ -90,74 +37,127 @@ render_header('MW Template Library');
         <div class="tl-topbar__actions">
           <?php if (is_authenticated()) : ?>
             <a class="tl-btn" href="template-edit.php">New Template</a>
-            <a class="tl-user" href="account.php#account" aria-label="View account details">Admin User ▾</a>
+            <a class="tl-user" href="account.php#account">Admin User ▾</a>
           <?php else : ?>
             <a class="tl-btn" href="auth/login.php">Login</a>
           <?php endif; ?>
         </div>
       </div>
 
-      <form class="tl-filterbar" method="get" action="" data-library-filters>
-        <label class="sr-only" for="tl-q">Search templates</label>
+      <div class="tl-filterbar">
         <div class="tl-search-wrap">
-          <span class="tl-search-icon" aria-hidden="true">⌕</span>
-          <input id="tl-q" type="search" name="q" placeholder="Search templates..." value="<?php echo e($searchQuery); ?>" data-library-search>
+          <span class="tl-search-icon">⌕</span>
+          <input id="tl-q" type="search" placeholder="Search templates..." data-library-search>
         </div>
 
-        <label class="sr-only" for="tl-sort">Sort templates</label>
-        <select id="tl-sort" class="tl-sort-select" name="sort">
-          <option value="name_asc" <?php echo $sortOption === 'name_asc' ? 'selected' : ''; ?>>Name (A–Z)</option>
-          <option value="recent" <?php echo $sortOption === 'recent' ? 'selected' : ''; ?>>Most recent</option>
-          <option value="updated" <?php echo $sortOption === 'updated' ? 'selected' : ''; ?>>Recently updated</option>
-          <option value="name_desc" <?php echo $sortOption === 'name_desc' ? 'selected' : ''; ?>>Name (Z–A)</option>
-          <option value="created_desc" <?php echo $sortOption === 'created_desc' ? 'selected' : ''; ?>>Newest created</option>
-          <option value="created_asc" <?php echo $sortOption === 'created_asc' ? 'selected' : ''; ?>>Oldest created</option>
+        <select id="tl-sort" class="tl-sort-select" data-library-sort>
+          <option value="name_asc">Name (A–Z)</option>
+          <option value="name_desc">Name (Z–A)</option>
+          <option value="recent">Most recent</option>
+          <option value="created_desc">Newest created</option>
+          <option value="created_asc">Oldest created</option>
         </select>
-      </form>
+      </div>
     </div>
   </header>
 
   <main class="tl-container">
     <section class="tl-template-grid" data-template-list>
-      <?php foreach ($templates as $template) : ?>
-        <?php
+
+      <?php foreach ($templates as $template) :
         $templateId = (string) ($template['id'] ?? '');
-        if ($templateId === '') {
-          continue;
-        }
+        if ($templateId === '') continue;
 
         $title = trim((string) ($template['title'] ?? $template['name'] ?? 'Untitled Template'));
         $author = trim((string) ($template['author'] ?? $template['created_by'] ?? 'Unknown'));
         $updatedAt = (string) ($template['updated_at'] ?? $template['created_at'] ?? '');
-        $updatedLabel = template_relative_date($updatedAt);
         $updatedDays = template_days_since($updatedAt);
         $createdDays = template_days_since((string) ($template['created_at'] ?? ''));
         $usage = (int) ($template['metadata']['usage_count'] ?? 0);
-        $searchText = trim(implode(' ', [$title, $author, $template['description'] ?? '']));
+        $searchText = strtolower(trim(implode(' ', [$title, $author, $template['description'] ?? ''])));
         $thumbnailUrl = trim((string) ($template['thumbnail_url'] ?? ''));
-        ?>
-        <a class="tl-template-card-link" href="template.php?id=<?php echo urlencode($templateId); ?>" aria-label="View <?php echo e($title); ?> template details" data-template-id="<?php echo e($templateId); ?>" data-author="<?php echo e($author); ?>" data-status="<?php echo e((string) ($template['status'] ?? 'draft')); ?>" data-updated-days="<?php echo e((string) $updatedDays); ?>" data-created-days="<?php echo e((string) $createdDays); ?>" data-usage="<?php echo e((string) $usage); ?>">
-          <article class="tl-template-card" data-library-card data-search="<?php echo e($searchText); ?>">
+      ?>
+
+        <a class="tl-template-card-link"
+           href="template.php?id=<?php echo urlencode($templateId); ?>"
+           data-search="<?php echo e($searchText); ?>"
+           data-title="<?php echo e(strtolower($title)); ?>"
+           data-updated="<?php echo e((string)$updatedDays); ?>"
+           data-created="<?php echo e((string)$createdDays); ?>"
+           data-usage="<?php echo e((string)$usage); ?>">
+
+          <article class="tl-template-card">
             <div class="tl-template-thumb">
               <?php if ($thumbnailUrl !== '') : ?>
-                <img src="<?php echo e($thumbnailUrl); ?>" alt="<?php echo e($title); ?> thumbnail" loading="lazy">
+                <img src="<?php echo e($thumbnailUrl); ?>" alt="<?php echo e($title); ?>" loading="lazy">
               <?php else : ?>
                 <?php echo e($title); ?>
               <?php endif; ?>
             </div>
             <div class="tl-template-card__body">
               <strong><?php echo e($title); ?></strong>
-              <div class="tl-template-meta"><span>By <?php echo e($author); ?></span><span>• Updated <?php echo e($updatedLabel); ?></span></div>
+              <div class="tl-template-meta">
+                <span>By <?php echo e($author); ?></span>
+                <span>• Updated <?php echo e(template_relative_date($updatedAt)); ?></span>
+              </div>
             </div>
           </article>
-        </a>
-      <?php endforeach; ?>
-    </section>
 
+        </a>
+
+      <?php endforeach; ?>
+
+    </section>
   </main>
 </div>
-<script src="<?php echo e(asset_url('js/app.js')); ?>"></script>
-<script src="<?php echo e(asset_url('js/library.js')); ?>"></script>
-<?php
-render_footer();
-?>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+  const searchInput = document.querySelector('[data-library-search]');
+  const sortSelect = document.querySelector('[data-library-sort]');
+  const grid = document.querySelector('[data-template-list]');
+
+  const cards = Array.from(grid.querySelectorAll('.tl-template-card-link'));
+
+  function applyFilters() {
+    const query = searchInput.value.trim().toLowerCase();
+
+    cards.forEach(card => {
+      const text = card.dataset.search || '';
+      card.style.display = text.includes(query) ? '' : 'none';
+    });
+  }
+
+  function applySort() {
+    const sort = sortSelect.value;
+
+    const sorted = cards.slice().sort((a, b) => {
+      switch (sort) {
+        case 'name_desc':
+          return b.dataset.title.localeCompare(a.dataset.title);
+
+        case 'recent':
+          return Number(a.dataset.updated) - Number(b.dataset.updated);
+
+        case 'created_desc':
+          return Number(a.dataset.created) - Number(b.dataset.created);
+
+        case 'created_asc':
+          return Number(b.dataset.created) - Number(a.dataset.created);
+
+        default:
+          return a.dataset.title.localeCompare(b.dataset.title);
+      }
+    });
+
+    sorted.forEach(card => grid.appendChild(card));
+  }
+
+  searchInput.addEventListener('input', applyFilters);
+  sortSelect.addEventListener('change', applySort);
+
+});
+</script>
+
+<?php render_footer(); ?>
