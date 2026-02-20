@@ -68,7 +68,6 @@ function api_filter_templates(array $templates, array $filters): array
 {
     $query = strtolower(trim((string) ($filters['q'] ?? '')));
     $status = trim((string) ($filters['status'] ?? ''));
-    $tag = trim((string) ($filters['tag'] ?? ''));
     $author = trim((string) ($filters['author'] ?? ''));
     $createdFrom = api_parse_date($filters['created_from'] ?? null);
     $createdTo = api_parse_date($filters['created_to'] ?? null);
@@ -79,7 +78,6 @@ function api_filter_templates(array $templates, array $filters): array
     $filtered = array_filter($templates, function (array $template) use (
         $query,
         $status,
-        $tag,
         $author,
         $createdFrom,
         $createdTo,
@@ -102,12 +100,6 @@ function api_filter_templates(array $templates, array $filters): array
             }
         }
 
-        if ($tag !== '') {
-            $tags = $template['tags'] ?? [];
-            if (!is_array($tags) || !in_array($tag, $tags, true)) {
-                return false;
-            }
-        }
 
         $createdAt = api_parse_date($template['created_at'] ?? null);
         if ($createdFrom !== null && ($createdAt === null || $createdAt < $createdFrom)) {
@@ -136,7 +128,6 @@ function api_filter_templates(array $templates, array $filters): array
             (string) ($template['title'] ?? ''),
             (string) ($template['author'] ?? $template['created_by'] ?? ''),
             (string) ($template['description'] ?? ''),
-            is_array($template['tags'] ?? null) ? implode(' ', $template['tags']) : '',
         ]));
 
         return str_contains($haystack, $query);

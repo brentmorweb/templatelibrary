@@ -23,10 +23,6 @@ $currentUser = current_user();
 $currentUsername = is_array($currentUser) ? (string) ($currentUser['username'] ?? '') : '';
 $defaultUser = $currentUsername !== '' ? $currentUsername : null;
 
-$tags = $payload['tags'] ?? [];
-if (is_string($tags)) {
-    $tags = array_filter(array_map('trim', explode(',', $tags)));
-}
 
 $metadata = $payload['metadata'] ?? ($existing['metadata'] ?? []);
 if (!is_array($metadata)) {
@@ -60,7 +56,6 @@ $template = array_filter([
     'description' => trim((string) ($payload['description'] ?? '')),
     'demo_url' => trim((string) ($payload['demo_url'] ?? '')),
     'status' => $payload['status'] ?? ($existing['status'] ?? 'draft'),
-    'tags' => $tags,
     'author' => $payload['author'] ?? ($existing['author'] ?? $defaultUser),
     'created_by' => $payload['created_by'] ?? ($existing['created_by'] ?? $defaultUser),
     'updated_by' => $payload['updated_by'] ?? $defaultUser ?? ($existing['updated_by'] ?? null),

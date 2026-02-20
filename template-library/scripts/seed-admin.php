@@ -90,7 +90,6 @@ $templates = [
         'title' => 'Event Landing Page',
         'description' => 'A flexible landing page template with hero, schedule blocks, and CTA rows.',
         'status' => 'approved',
-        'tags' => ['marketing', 'homepage', 'cta'],
         'thumbnail_url' => null,
         'metadata' => [
             'author' => 'Alex Nguyen',
@@ -108,7 +107,6 @@ $templates = [
         'title' => 'Donation Appeal Panel',
         'description' => 'Compact donor appeal panel with progress bar and CTA button.',
         'status' => 'draft',
-        'tags' => ['fundraising', 'component'],
         'thumbnail_url' => null,
         'metadata' => [
             'author' => 'Priya Shah',
@@ -126,7 +124,6 @@ $templates = [
         'title' => 'Volunteer Signup Hero',
         'description' => 'Hero layout with quick volunteer form and impact stats.',
         'status' => 'in_review',
-        'tags' => ['volunteer', 'form'],
         'thumbnail_url' => null,
         'metadata' => [
             'author' => 'Jamie Lee',
@@ -148,7 +145,6 @@ foreach ($templates as $template) {
         'data' => [
             'title' => $template['title'],
             'status' => $template['status'],
-            'tags' => $template['tags'],
             'metadata' => $template['metadata'],
         ],
     ];
