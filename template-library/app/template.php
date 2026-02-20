@@ -54,6 +54,7 @@ render_header($pageTitle);
 
       <div class="tl-side-card">
         <h3>Details</h3>
+        <div class="tl-info-row tl-info-row--description"><span>Description</span><strong data-template-description>—</strong></div>
         <div class="tl-info-row"><span>Status</span><span class="tl-pill"><span class="tl-pill-dot"></span><span data-template-status>Unknown</span></span></div>
         <div class="tl-info-row"><span>Last edited</span><strong data-template-updated>—</strong></div>
         <div class="tl-info-row"><span>Edited by</span><strong data-template-updated-by>—</strong></div>
