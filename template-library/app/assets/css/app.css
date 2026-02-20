@@ -200,6 +200,13 @@ main {
   border-color: var(--tl-border);
 }
 
+.tl-btn--ghost:hover,
+.tl-btn--ghost:focus-visible {
+  background: var(--gray-1);
+  color: var(--gray-7);
+  border-color: var(--gray-3);
+}
+
 .tl-btn--light {
   background: var(--info-1);
   color: var(--tl-primary);
