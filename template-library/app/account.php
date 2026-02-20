@@ -9,11 +9,13 @@ require_once __DIR__ . '/includes/config.php';
 require_once __DIR__ . '/includes/json-store.php';
 
 require_auth();
-require_role('admin');
 
 $config = require __DIR__ . '/includes/config.php';
 $usersPath = $config['data_path'] . '/users.json';
 $users = read_json_store($usersPath);
+$authUser = auth_user();
+$currentUsername = (string) ($authUser['username'] ?? '');
+$isAdmin = has_role('admin');
 
 $errors = [];
 $successMessage = null;
@@ -21,7 +23,51 @@ $successMessage = null;
 if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
     $action = (string) ($_POST['action'] ?? '');
 
-    if ($action === 'add-user') {
+    if ($action === 'change-password') {
+        $currentPassword = (string) ($_POST['current_password'] ?? '');
+        $newPassword = (string) ($_POST['new_password'] ?? '');
+        $confirmPassword = (string) ($_POST['confirm_password'] ?? '');
+
+        if ($currentPassword === '' || $newPassword === '' || $confirmPassword === '') {
+            $errors[] = 'Current password, new password, and confirmation are required.';
+        }
+
+        if (strlen($newPassword) < 8) {
+            $errors[] = 'New password must be at least 8 characters long.';
+        }
+
+        if (!hash_equals($newPassword, $confirmPassword)) {
+            $errors[] = 'New password and confirmation do not match.';
+        }
+
+        $currentUserRecord = null;
+        $currentUserIndex = null;
+        foreach ($users as $index => $user) {
+            if (!is_array($user)) {
+                continue;
+            }
+
+            if (strcasecmp((string) ($user['username'] ?? ''), $currentUsername) === 0) {
+                $currentUserRecord = $user;
+                $currentUserIndex = $index;
+                break;
+            }
+        }
+
+        if ($currentUserRecord === null || $currentUserIndex === null) {
+            $errors[] = 'Could not locate your user record. Please contact an administrator.';
+        } elseif (!isset($currentUserRecord['password_hash']) || !password_verify($currentPassword, (string) $currentUserRecord['password_hash'])) {
+            $errors[] = 'Current password is incorrect.';
+        }
+
+        if (!$errors && $currentUserIndex !== null) {
+            $users[$currentUserIndex]['password_hash'] = password_hash($newPassword, PASSWORD_DEFAULT);
+            write_json_store($usersPath, $users);
+            $successMessage = 'Your password was updated successfully.';
+        }
+    }
+
+    if ($action === 'add-user' && $isAdmin) {
         $username = trim((string) ($_POST['username'] ?? ''));
         $name = trim((string) ($_POST['name'] ?? ''));
         $role = strtolower(trim((string) ($_POST['role'] ?? 'user')));
@@ -70,9 +116,8 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
         }
     }
 
-    if ($action === 'remove-user') {
+    if ($action === 'remove-user' && $isAdmin) {
         $usernameToRemove = trim((string) ($_POST['username'] ?? ''));
-        $currentUsername = (string) (auth_user()['username'] ?? '');
 
         if ($usernameToRemove === '') {
             $errors[] = 'A username is required to remove a user.';
@@ -117,7 +162,7 @@ render_header('Template Library · Account');
         <?php if (is_authenticated()) : ?>
           <a class="tl-btn" href="template-edit.php">New Template</a>
           <a class="tl-user" href="account.php#account" aria-label="View account details">
-            Admin User ▾
+            <?php echo e($currentUsername !== '' ? $currentUsername : 'Account'); ?> ▾
           </a>
         <?php else : ?>
           <a class="tl-btn" href="auth/login.php">Login</a>
@@ -141,31 +186,38 @@ render_header('Template Library · Account');
         <div style="display: flex; align-items: center; gap: 14px;">
           <div>
             <div class="tl-muted" style="font-size: 0.85rem;">Signed in as</div>
-            <strong style="font-size: 1.1rem;">Admin User</strong>
-            <div class="tl-muted" style="font-size: 0.85rem;">admin@templatelibrary.com</div>
+            <strong style="font-size: 1.1rem;"><?php echo e($currentUsername); ?></strong>
           </div>
         </div>
         <div class="tl-info-row">
           <span>Role</span>
-          <strong>Administrator</strong>
-        </div>
-        <div class="tl-info-row">
-          <span>Team</span>
-          <strong>Template Operations</strong>
-        </div>
-        <div class="tl-info-row">
-          <span>Last Login</span>
-          <strong>Today at 9:12 AM</strong>
+          <strong><?php echo e((string) ($authUser['role'] ?? 'user')); ?></strong>
         </div>
         <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-          <button class="tl-btn" type="button">Update Profile</button>
-          <button class="tl-btn tl-btn--ghost" type="button">Change Password</button>
           <a class="tl-btn tl-btn--danger" href="auth/logout.php">Log Out</a>
           <a class="tl-btn tl-btn--ghost" href="index.php">Back to Library</a>
         </div>
+
+        <form method="post" style="display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); align-items: end;">
+          <input type="hidden" name="action" value="change-password">
+          <label style="display: grid; gap: 6px;">
+            <span class="tl-muted">Current password</span>
+            <input name="current_password" required class="tl-input" type="password" autocomplete="current-password">
+          </label>
+          <label style="display: grid; gap: 6px;">
+            <span class="tl-muted">New password</span>
+            <input name="new_password" required class="tl-input" type="password" minlength="8" autocomplete="new-password">
+          </label>
+          <label style="display: grid; gap: 6px;">
+            <span class="tl-muted">Confirm new password</span>
+            <input name="confirm_password" required class="tl-input" type="password" minlength="8" autocomplete="new-password">
+          </label>
+          <button class="tl-btn tl-btn--ghost" type="submit">Update Password</button>
+        </form>
       </div>
     </section>
 
+    <?php if ($isAdmin) : ?>
     <section class="tl-card" style="margin-top: 20px;">
       <div class="tl-card__header">
         <h2>User Management</h2>
@@ -250,6 +302,7 @@ render_header('Template Library · Account');
         </div>
       </div>
     </section>
+    <?php endif; ?>
   </main>
 </div>
 <?php
