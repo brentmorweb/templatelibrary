@@ -59,7 +59,6 @@ render_header($pageTitle);
         <div class="tl-info-row"><span>Edited by</span><strong data-template-updated-by>—</strong></div>
         <div class="tl-info-row"><span>Created</span><strong data-template-created>—</strong></div>
         <div class="tl-info-row"><span>Created by</span><strong data-template-created-by>—</strong></div>
-        <div class="tl-info-row"><span>Version</span><strong>1.3.0</strong></div>
         <?php if (is_authenticated()) : ?>
           <a class="tl-btn tl-btn--ghost" href="template-edit.php?id=<?php echo e($templateId); ?>">Edit Template</a>
         <?php endif; ?>
