@@ -687,7 +687,61 @@ main {
   text-transform: uppercase;
   letter-spacing: .5px;
 }
-.tl-template-thumb--detail { height: 220px; }
+
+.tl-template-thumb--detail { height: 220px; cursor: zoom-in; }
+.tl-template-thumb--detail:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--tl-primary) 50%, transparent);
+  outline-offset: 3px;
+}
+
+.tl-image-modal {
+  border: 0;
+  padding: 0;
+  max-width: min(96vw, 1200px);
+  max-height: 92vh;
+  background: transparent;
+}
+
+.tl-image-modal::backdrop {
+  background: rgba(15, 23, 42, 0.72);
+}
+
+.tl-image-modal__scrim {
+  position: fixed;
+  inset: 0;
+}
+
+.tl-image-modal__content {
+  position: relative;
+  z-index: 1;
+}
+
+.tl-image-modal__content img {
+  display: block;
+  max-width: min(96vw, 1200px);
+  max-height: 92vh;
+  width: auto;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.tl-image-modal__close {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.95);
+  color: #111827;
+  font-size: 28px;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+}
+
 
 .tl-template-title-block {
   display: flex;

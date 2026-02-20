@@ -1,4 +1,68 @@
 (() => {
+  const THUMBNAIL_MODAL_ID = "template-thumbnail-modal";
+
+  const ensureThumbnailModal = () => {
+    let modal = document.getElementById(THUMBNAIL_MODAL_ID);
+    if (modal) {
+      return modal;
+    }
+
+    modal = document.createElement("dialog");
+    modal.id = THUMBNAIL_MODAL_ID;
+    modal.className = "tl-image-modal";
+    modal.setAttribute("aria-label", "Full-size template preview");
+    modal.innerHTML = `
+      <form method="dialog" class="tl-image-modal__scrim" data-modal-close>
+        <button type="submit" class="tl-image-modal__close" aria-label="Close full-size preview">×</button>
+      </form>
+      <div class="tl-image-modal__content" role="document">
+        <img src="" alt="" data-modal-image>
+      </div>
+    `;
+
+    modal.addEventListener("click", (event) => {
+      if (event.target === modal || event.target.closest("[data-modal-close]")) {
+        modal.close();
+      }
+    });
+
+    document.body.appendChild(modal);
+    return modal;
+  };
+
+  const bindThumbnailModal = (thumbnail, image, title) => {
+    if (!thumbnail || !image?.src) {
+      return;
+    }
+
+    thumbnail.setAttribute("role", "button");
+    thumbnail.tabIndex = 0;
+    thumbnail.setAttribute("aria-label", `Open full-size preview for ${title}`);
+
+    const openModal = () => {
+      const modal = ensureThumbnailModal();
+      const modalImage = modal.querySelector("[data-modal-image]");
+      if (!modalImage) {
+        return;
+      }
+
+      modalImage.src = image.src;
+      modalImage.alt = `${title} full-size preview`;
+
+      if (typeof modal.showModal === "function") {
+        modal.showModal();
+      }
+    };
+
+    thumbnail.addEventListener("click", openModal);
+    thumbnail.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openModal();
+      }
+    });
+  };
+
   const formatDate = (value) => {
     if (!value) {
       return "—";
@@ -63,8 +127,12 @@
         image.alt = `${title} thumbnail`;
         image.loading = "lazy";
         thumbnail.appendChild(image);
+        bindThumbnailModal(thumbnail, image, title);
       } else {
         thumbnail.textContent = "Preview";
+        thumbnail.removeAttribute("role");
+        thumbnail.removeAttribute("tabindex");
+        thumbnail.removeAttribute("aria-label");
       }
     }
 
