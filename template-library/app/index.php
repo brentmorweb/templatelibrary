@@ -46,6 +46,40 @@ function template_relative_date(?string $date): string
 
 $templates = list_templates();
 
+$searchQuery = trim((string) ($_GET['q'] ?? ''));
+$sortOption = trim((string) ($_GET['sort'] ?? 'name_asc'));
+
+if ($searchQuery !== '') {
+  $needle = strtolower($searchQuery);
+  $templates = array_values(array_filter($templates, static function (array $template) use ($needle): bool {
+    $haystack = strtolower(trim(implode(' ', [
+      (string) ($template['title'] ?? $template['name'] ?? ''),
+      (string) ($template['author'] ?? $template['created_by'] ?? ''),
+      (string) ($template['description'] ?? ''),
+      (string) ($template['id'] ?? ''),
+    ])));
+
+    return $haystack !== '' && str_contains($haystack, $needle);
+  }));
+}
+
+usort($templates, static function (array $a, array $b) use ($sortOption): int {
+  $nameA = strtolower(trim((string) ($a['title'] ?? $a['name'] ?? '')));
+  $nameB = strtolower(trim((string) ($b['title'] ?? $b['name'] ?? '')));
+  $updatedA = template_days_since((string) ($a['updated_at'] ?? $a['created_at'] ?? ''));
+  $updatedB = template_days_since((string) ($b['updated_at'] ?? $b['created_at'] ?? ''));
+  $createdA = template_days_since((string) ($a['created_at'] ?? ''));
+  $createdB = template_days_since((string) ($b['created_at'] ?? ''));
+
+  return match ($sortOption) {
+    'name_desc' => $nameB <=> $nameA,
+    'recent', 'updated' => $updatedA <=> $updatedB,
+    'created_desc' => $createdA <=> $createdB,
+    'created_asc' => $createdB <=> $createdA,
+    default => $nameA <=> $nameB,
+  };
+});
+
 render_header('MW Template Library');
 ?>
 <div class="tl-app" data-page="library" data-api-endpoint="<?php echo e(api_url('templates.php')); ?>" data-delete-endpoint="<?php echo e(api_url('template-delete.php')); ?>" data-authenticated="<?php echo is_authenticated() ? 'true' : 'false'; ?>">
@@ -63,21 +97,21 @@ render_header('MW Template Library');
         </div>
       </div>
 
-      <form class="tl-filterbar" method="get" action="<?php echo e(api_url('templates.php')); ?>" data-library-filters>
+      <form class="tl-filterbar" method="get" action="" data-library-filters>
         <label class="sr-only" for="tl-q">Search templates</label>
         <div class="tl-search-wrap">
           <span class="tl-search-icon" aria-hidden="true">⌕</span>
-          <input id="tl-q" type="search" name="q" placeholder="Search templates..." data-library-search>
+          <input id="tl-q" type="search" name="q" placeholder="Search templates..." value="<?php echo e($searchQuery); ?>" data-library-search>
         </div>
 
         <label class="sr-only" for="tl-sort">Sort templates</label>
         <select id="tl-sort" class="tl-sort-select" name="sort">
-          <option value="name_asc" selected>Name (A–Z)</option>
-          <option value="recent">Most recent</option>
-          <option value="updated">Recently updated</option>
-          <option value="name_desc">Name (Z–A)</option>
-          <option value="created_desc">Newest created</option>
-          <option value="created_asc">Oldest created</option>
+          <option value="name_asc" <?php echo $sortOption === 'name_asc' ? 'selected' : ''; ?>>Name (A–Z)</option>
+          <option value="recent" <?php echo $sortOption === 'recent' ? 'selected' : ''; ?>>Most recent</option>
+          <option value="updated" <?php echo $sortOption === 'updated' ? 'selected' : ''; ?>>Recently updated</option>
+          <option value="name_desc" <?php echo $sortOption === 'name_desc' ? 'selected' : ''; ?>>Name (Z–A)</option>
+          <option value="created_desc" <?php echo $sortOption === 'created_desc' ? 'selected' : ''; ?>>Newest created</option>
+          <option value="created_asc" <?php echo $sortOption === 'created_asc' ? 'selected' : ''; ?>>Oldest created</option>
         </select>
       </form>
     </div>
