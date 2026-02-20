@@ -63,7 +63,7 @@ render_header('MW Template Library');
         </div>
       </div>
 
-      <form class="tl-filterbar" method="get" action="<?php echo e(api_url('templates.php')); ?>" data-library-filters>
+      <form class="tl-filterbar" method="get" action="" data-library-filters>
         <label class="sr-only" for="tl-q">Search templates</label>
         <div class="tl-search-wrap">
           <span class="tl-search-icon" aria-hidden="true">⌕</span>
