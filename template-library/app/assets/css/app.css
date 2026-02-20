@@ -798,6 +798,16 @@ main {
 .tl-side-card h3 { margin: 0; font-size: 12px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: .5px; padding: 12px 16px; border-bottom: 1px solid #e2e4e8; }
 .tl-info-row { padding: 9px 16px; border-bottom: 1px solid #f3f4f6; }
 .tl-info-row:last-of-type { border-bottom: 1px solid #f3f4f6; }
+
+.tl-info-row--description {
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.tl-info-row--description strong {
+  text-align: right;
+  overflow-wrap: anywhere;
+}
 .tl-pill { background: #dcfce7; color: #16a34a; }
 .tl-pill-dot { width: 6px; height: 6px; border-radius: 50%; background: #16a34a; display: inline-block; }
 .tl-side-card .tl-btn { margin: 12px 16px 16px; }

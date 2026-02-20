@@ -100,6 +100,12 @@
       }
     });
 
+    const description = document.querySelector("[data-template-description]");
+    if (description) {
+      const text = typeof template.description === "string" ? template.description.trim() : "";
+      description.textContent = text || "—";
+    }
+
     const status = document.querySelector("[data-template-status]");
     if (status) {
       status.textContent = template.status || "draft";
