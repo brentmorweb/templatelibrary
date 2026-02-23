@@ -9,6 +9,8 @@ require_once __DIR__ . '/includes/footer.php';
 require_auth();
 
 $templateId = $_GET['id'] ?? 'promo-221';
+$currentUser = auth_user();
+$currentUsername = is_array($currentUser) ? (string) ($currentUser['username'] ?? '') : '';
 
 render_header('Template Versions');
 ?>
@@ -20,7 +22,7 @@ render_header('Template Versions');
         <?php if (is_authenticated()) : ?>
           <a class="tl-btn" href="template-edit.php">New Template</a>
           <a class="tl-user" href="account.php#account" aria-label="View account details">
-            Admin User ▾
+            <?php echo e($currentUsername !== '' ? $currentUsername : 'Account'); ?> ▾
           </a>
         <?php else : ?>
           <a class="tl-btn" href="auth/login.php">Login</a>
@@ -32,7 +34,7 @@ render_header('Template Versions');
   <main class="tl-container">
     <div class="tl-page-header">
       <div class="tl-breadcrumbs">
-        <span>‹</span>
+        <a href="template.php?id=<?php echo e($templateId); ?>" aria-label="Back to Template Details">‹</a>
         <a href="template.php?id=<?php echo e($templateId); ?>">Template Details</a>
       </div>
       <h1 class="tl-title">Version History</h1>
