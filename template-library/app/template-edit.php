@@ -57,7 +57,7 @@ render_header($pageTitle);
         <?php if (is_authenticated()) : ?>
           <a class="tl-btn" href="template-edit.php">New Template</a>
           <a class="tl-user" href="account.php#account" aria-label="View account details">
-            Admin User ▾
+            <?php echo e($currentUsername !== '' ? $currentUsername : 'Account'); ?> ▾
           </a>
         <?php else : ?>
           <a class="tl-btn" href="auth/login.php">Login</a>
@@ -69,7 +69,7 @@ render_header($pageTitle);
   <main class="tl-container">
     <div class="tl-page-header">
       <div class="tl-breadcrumbs">
-        <span>‹</span>
+        <a href="index.php" aria-label="Back to MW Template Library">‹</a>
         <a href="index.php">MW Template Library</a>
       </div>
       <h1 class="tl-title"><?php echo $templateId ? 'Edit Template' : 'Create Template'; ?></h1>
@@ -114,7 +114,7 @@ render_header($pageTitle);
                 </div>
                 <label class="tl-btn tl-btn--ghost" style="margin-left: auto;">
                   Browse...
-                  <input id="thumbnail" type="file" name="thumbnail" data-editor-upload hidden>
+                  <input id="thumbnail" type="file" name="thumbnail" accept="image/jpeg,image/png,image/gif,image/webp" data-editor-upload hidden>
                 </label>
               </div>
             </div>

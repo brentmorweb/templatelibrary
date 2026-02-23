@@ -13,8 +13,12 @@ function render_footer(): void
                 © <?php echo e(date('Y')); ?> Template Library. All rights reserved.
             </div>
             <div class="tl-site-footer__links">
-                <a class="tl-site-footer__link" href="auth/login.php">Login</a>
-                <a class="tl-site-footer__link" href="auth/logout.php">Logout</a>
+                <?php if (!is_authenticated()) : ?>
+                    <a class="tl-site-footer__link" href="auth/login.php">Login</a>
+                <?php endif; ?>
+                <?php if (is_authenticated()) : ?>
+                    <a class="tl-site-footer__link" href="auth/logout.php">Logout</a>
+                <?php endif; ?>
             </div>
         </div>
     </footer>

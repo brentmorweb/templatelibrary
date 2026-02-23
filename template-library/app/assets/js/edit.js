@@ -62,6 +62,20 @@
           return;
         }
 
+        const acceptedMimeTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
+        const acceptedExtensions = [".jpg", ".jpeg", ".png", ".gif", ".webp"];
+        const lowerName = file.name.toLowerCase();
+        const extensionAccepted = acceptedExtensions.some((extension) => lowerName.endsWith(extension));
+        const mimeAccepted = acceptedMimeTypes.includes(file.type);
+
+        if (!extensionAccepted && file.type !== "" && !mimeAccepted) {
+          if (status) {
+            status.textContent = "Thumbnail must be a JPG, PNG, GIF, or WEBP image.";
+          }
+          event.target.value = "";
+          return;
+        }
+
         if (status) {
           status.textContent = `Uploading ${file.name}…`;
         }

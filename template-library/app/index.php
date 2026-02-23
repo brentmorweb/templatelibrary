@@ -25,6 +25,8 @@ function template_relative_date(?string $date): string
 }
 
 $templates = list_templates();
+$currentUser = auth_user();
+$currentUsername = is_array($currentUser) ? (string) ($currentUser['username'] ?? '') : '';
 
 render_header('MW Template Library');
 ?>
@@ -37,7 +39,7 @@ render_header('MW Template Library');
         <div class="tl-topbar__actions">
           <?php if (is_authenticated()) : ?>
             <a class="tl-btn" href="template-edit.php">New Template</a>
-            <a class="tl-user" href="account.php#account">Admin User ▾</a>
+            <a class="tl-user" href="account.php#account"><?php echo e($currentUsername !== '' ? $currentUsername : 'Account'); ?> ▾</a>
           <?php else : ?>
             <a class="tl-btn" href="auth/login.php">Login</a>
           <?php endif; ?>
@@ -53,7 +55,7 @@ render_header('MW Template Library');
         <select id="tl-sort" class="tl-sort-select" data-library-sort>
           <option value="name_asc">Name (A–Z)</option>
           <option value="name_desc">Name (Z–A)</option>
-          <option value="recent">Most recent</option>
+          <option value="recent">Recently updated</option>
           <option value="created_desc">Newest created</option>
           <option value="created_asc">Oldest created</option>
         </select>

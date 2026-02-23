@@ -20,7 +20,7 @@ $extension = strtolower(pathinfo($originalName, PATHINFO_EXTENSION));
 $allowed = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
 
 if (!in_array($extension, $allowed, true)) {
-    api_error('Unsupported file type.', 415);
+    api_error('Thumbnail must be a JPG, PNG, GIF, or WEBP image.', 415);
 }
 
 $config = require __DIR__ . '/../includes/config.php';

@@ -174,7 +174,7 @@ render_header('Template Library · Account');
   <main class="tl-container">
     <div class="tl-page-header">
       <div class="tl-breadcrumbs">
-        <span>‹</span>
+        <a href="index.php" aria-label="Back to Template Library">‹</a>
         <a href="index.php">Template Library</a>
       </div>
       <h1 class="tl-title">Account</h1>
